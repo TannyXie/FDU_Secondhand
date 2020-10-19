@@ -12,7 +12,8 @@
     "pages/openapi/callback/callback",
     "pages/openapi/cloudid/cloudid",
     "pages/im/im",
-    "pages/im/room/room"
+    "pages/im/room/room",
+    "pages/message/index"
   ],
   "tabBar": {
     "list": [{
@@ -26,7 +27,7 @@
       "iconPath": "images/add.png",
       "selectedIconPath": "images/add_selected.png"
     }, {
-      "pagePath": "pages/index/index",
+      "pagePath": "pages/message/index",
       "text": "消息",
       "iconPath": "images/message.png",
       "selectedIconPath": "images/message_selected.png"

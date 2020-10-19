@@ -1,0 +1,24 @@
+<!--index.wxml-->
+<!--搜索-->
+<msearch></msearch>
+
+<view class="text-title">
+    <block>
+        <text>你的消息</text>
+    </block>
+</view>
+<!--消息列表-->
+<view class="mess">
+  <view class="mess-box">
+    <view class="mess-box-item" bindtap="gotoDialogue" data-coverImg="{{item.profile}}" data-title="{{item.name}}" data-summery="{{item.message}}" wx:for="{{messageList}}" wx:key="{{index}}">
+      <view>
+        <!--图片-->
+        <image class="mess-box-img" src="{{item.profile}}" ></image>
+        <!--名字-->
+        <view class="mess-name">{{item.name}}</view>
+        <view class="mess-cont">{{item.message}}</view>
+      </view>
+      <!--消息-->
+    </view>
+  </view>
+</view>
