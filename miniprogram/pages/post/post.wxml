@@ -1,0 +1,36 @@
+<!--post.wxml-->
+<!-- 头部 -->
+<view class="text-title">
+  <block>
+    <text>出售你不需要的物品</text>
+  </block>
+</view>
+
+<button class="left-button" style="width:24vw" bindtap="doUpLoad">拍照</button>
+
+
+<view class="text-subtitle">
+  <block>
+    <text>写下简介</text>
+  </block>
+</view>
+
+<textarea style="height: 5em" placeholder="写下该物品的简介，建议不超过500字"  />
+
+<view class="text-subtitle">
+  <block>
+    <text>选择种类</text>
+  </block>
+</view>
+
+<textarea style="height: 2em" placeholder="输入种类"  />
+
+<view class="text-subtitle">
+  <block>
+    <text>定价</text>
+  </block>
+</view>
+
+<textarea style="height: 1em" placeholder="输入你认为合适的定价，单位：人民币"  />
+
+<button class="center-button" style="width:24vw" bindtap="doUpLoad">发布</button>
