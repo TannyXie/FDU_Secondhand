@@ -109,7 +109,10 @@ Page({
     var url = e.currentTarget.dataset.coverimg;
     var title = e.currentTarget.dataset.title;
     wx.navigateTo({
-      url: '/pages/details/details?url=' + url + '&title=' + title,
+      url: '/pages/details/index',
     })
+    //wx.navigateTo({
+    //  url: '/pages/details/details?url=' + url + '&title=' + title,
+    //})
   }
 })
