@@ -15,6 +15,8 @@
     "pages/im/im",
     "pages/im/room/room",
     "pages/message/index",
+    "pages/details/index",
+    "pages/post/index",
     "pages/my/my",
     "pages/my/myPost/myPost",
     "pages/my/browseHistory/browseHistory",
@@ -31,7 +33,7 @@
       "iconPath": "images/home.png",
       "selectedIconPath": "images/home_selected.png"
     }, {
-      "pagePath": "pages/index/index",
+      "pagePath": "pages/post/index",
       "text": "发布",
       "iconPath": "images/add.png",
       "selectedIconPath": "images/add_selected.png"
@@ -51,7 +53,7 @@
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "云开发 QuickStart",
+    "navigationBarTitleText": "豆芽菜",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",
