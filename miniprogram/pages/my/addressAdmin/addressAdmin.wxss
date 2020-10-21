@@ -1,0 +1,20 @@
+/* miniprogram/pages/addressAdmin/addressAdmin.wxss */
+.form-box{
+  padding-left: 30rpx;
+}
+.form-box input{
+  height: 90rpx;
+  border-bottom: 1rpx solid #ededed;
+  color: #999;
+}
+.form-box .input-placeholder{
+  color: #aaa;
+}
+.form-box button{
+  margin:20rpx 20rpx 0 0;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 33rpx;
+  color: #62b900;
+  position:center;
+}

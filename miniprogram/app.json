@@ -1,3 +1,4 @@
+
 {
   "pages": [
     "pages/index/index",
@@ -15,7 +16,15 @@
     "pages/im/room/room",
     "pages/message/index",
     "pages/details/index",
-    "pages/post/index"
+    "pages/post/index",
+    "pages/my/my",
+    "pages/my/myPost/myPost",
+    "pages/my/browseHistory/browseHistory",
+    "pages/my/myFavourite/myFavourite",
+    "pages/my/myOrder/myOrder",
+    "pages/my/addressAdmin/addressAdmin",
+    "pages/my/myCart/myCart",
+    "pages/my/payment/payment"
   ],
   "tabBar": {
     "list": [{
@@ -50,3 +59,4 @@
   "sitemapLocation": "sitemap.json",
   "style": "v2"
 }
+
