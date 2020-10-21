@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "msearch":"/components/msearch/msearch"
+  }
+}
