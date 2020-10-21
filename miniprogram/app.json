@@ -20,7 +20,7 @@
     "pages/my/myOrder/myOrder",
     "pages/my/addressAdmin/addressAdmin",
     "pages/my/myCart/myCart",
-    "pages/my/mySetting/mySetting"
+    "pages/my/payment/payment"
   ],
   "tabBar": {
     "list": [

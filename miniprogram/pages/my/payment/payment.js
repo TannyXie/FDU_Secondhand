@@ -1,4 +1,4 @@
-// miniprogram/pages/my/mySetting/mySetting.js
+// miniprogram/pages/my/payment/payment.js
 Page({
 
   /**
