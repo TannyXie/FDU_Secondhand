@@ -43,7 +43,7 @@
       "iconPath": "images/message.png",
       "selectedIconPath": "images/message_selected.png"
     }, {
-      "pagePath": "pages/index/index",
+      "pagePath": "pages/my/my",
       "text": "我的",
       "iconPath": "images/user.png",
       "selectedIconPath": "images/user_selected.png"
