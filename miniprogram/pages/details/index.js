@@ -5,60 +5,8 @@ var utils = require('../../utils/util.js');
 
 Page({
   data: {
-    navList: [{
-        icon: '/images/nav-icon/书.png',
-        events: 'goToFenlei',
-        text: '二手书籍'
-      },
-      {
-        icon: '/images/nav-icon/数码家电.png',
-        events: 'goToFenlei',
-        text: '数码家电'
-      },
-      {
-        icon: '/images/nav-icon/生活用品.png',
-        events: 'goToFenlei',
-        text: '生活用品'
-      },
-      {
-        icon: '/images/nav-icon/护肤美妆.png',
-        events: 'goToFenlei',
-        text: '护肤美妆'
-      },
-      {
-        icon: '/images/nav-icon/更多.png',
-        events: 'goToFenlei',
-        text: '更多'
-      },
-    ],
     goodsList: [{
-      coverMiddle: '/images/goods/01.jpg',
-      events: 'goToBangDan',
-      intro: '数字设计',
-      price: '￥15',
-      nums: '3',
-      seller: '草莓屁屁',
-      tag: '二手书籍'
-    },
-    {
-      coverMiddle: '/images/goods/02.jpg',
-      events: 'goToBangDan',
-      intro: '蓝牙耳机',
-      price: '￥360',
-      nums: '8',
-      seller: '奈寒',
-      tag: '数码产品'
-    },
-    {
-      coverMiddle: '/images/goods/03.jpg',
-      events: 'goToBangDan',
-      intro: '美宝莲卸妆水',
-      price: '￥69',
-      nums: '1',
-      seller: '豆',
-      tag: '护肤化妆'
-    },
-    {
+      userImg: '/pages/details/user-unlogin.png',
       coverMiddle: '/images/goods/04.jpg',
       events: 'goToBangDan',
       intro: '美宝莲口红',
@@ -66,8 +14,7 @@ Page({
       nums: '4',
       seller: '茜茜子',
       tag: '护肤美妆'
-    },
-  ],
+    }],
     swiperCurrent: 0,
   },
 
