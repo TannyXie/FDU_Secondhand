@@ -1,0 +1,228 @@
+/* pages/details/index.wxss */
+
+.text-title{
+  width: 90%;
+  height: 70rpx;
+  margin: 0rpx auto;
+  margin-top: 25rpx;
+  font-size: 38rpx;
+  font-weight: bolder;
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+
+.text-title2{
+  width: 90%;
+  height: 70rpx;
+  margin: 0rpx auto;
+  font-size: 38rpx;
+  font-weight: bolder;
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+
+
+/* 二手上新 */
+.text-title-1{
+  width: 90%;
+  height: 70rpx;
+  margin: 0rpx auto;
+  margin-top: 35rpx;
+  font-size: 38rpx;
+  font-weight: bolder;
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+
+/* 二手上新 */
+.goods-recom{
+  width: 90%;
+  margin: 0rpx auto;
+  margin-top: 10rpx;
+}
+
+.recom-box{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.recom-box-item{
+  width: 500rpx;
+  overflow: hidden;
+  background: #fff;
+  color: #333;
+  margin: 0rpx 10rpx;
+  margin-bottom: 30rpx;
+  margin-top: 30rpx;
+  border-radius: 30rpx;
+  box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
+}
+
+.des-box-item{
+  width: 800rpx;
+  height: auto;
+  overflow: hidden;
+  background: #fff;
+  color: #333;
+  margin: 0rpx 10rpx;
+  margin-bottom: 30rpx;
+  border-radius: 30rpx;
+  box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
+}
+
+.recom-box-img{
+  width: 500rpx;
+  height: 500rpx;
+  overflow: hidden;
+  border-top-left-radius: 30rpx;
+  border-top-right-radius: 30rpx;
+  position: relative;
+}
+
+.recom-box-item-icon{
+  width: 500rpx;
+  height: 500rpx;
+  border-top-left-radius: 30rpx;
+  border-top-right-radius: 30rpx;
+}
+
+.recom-box-text{
+  font-size: 32rpx;
+  font-weight: bold;
+  float: left;
+  color: #333;
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;/*行数n*/
+  -webkit-box-orient: vertical; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.intro-box-text{
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-top: 25rpx;
+  margin-left: 20rpx;
+  margin-bottom: 5rpx;
+  display: -webkit-box;
+  overflow: hidden;
+}
+
+.intro-box-text2{
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-left: 20rpx;
+  display: -webkit-box;
+  overflow: hidden;
+}
+
+.intro-detail-text{
+  font-size: 24rpx;
+  color: #333;
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  margin-bottom: 20rpx;
+  display: -webkit-box;
+  overflow: hidden;
+  text-align-last: left;
+}
+
+.intro-detail-text2{
+  font-size: 24rpx;
+  color: #333;
+  margin-top: 10rpx;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  margin-bottom: 20rpx;
+  display: -webkit-box;
+  overflow: hidden;
+  text-align-last: left;
+}
+
+.goods-des{
+  margin-top: 5rpx;
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+}
+
+.goods-des2{
+  overflow: hidden;
+  width: 100%;
+  text-align: left;
+}
+
+.goods-price{
+  font-size: 35rpx;
+  font-weight: bold;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: red;
+  float: left;
+  margin-bottom: 10rpx;
+  margin-top: 10rpx;
+  margin-left: 20rpx;
+}
+
+.goods-wants{
+  font-size: 28rpx;
+  float: right;
+  color: #aaa;
+  margin-right: 20rpx;
+  margin-top: 18rpx;
+  margin-bottom: 10rpx;
+}
+
+.goods-sell{
+  font-size: 30rpx;
+  float: right;
+  color: #aaa;
+  margin-bottom: 10rpx;
+  margin-right: 10rpx;
+  margin-top: 15rpx;
+  text-decoration: underline;
+}
+
+.goods-tag{
+  width: 150rpx;
+  border-style: solid;
+  border-width: 3rpx;
+  border-color: rgb(0, 119, 255);
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  color: rgb(0, 119, 255);
+  float: right;
+  margin-right: 20rpx;
+  margin-bottom: 5rpx;
+  margin-top: 20rpx;
+}
+
+.cm-box-item{
+  width: 88%;
+  overflow: hidden;
+  background: #fff;
+  color: #333;
+  margin: 30rpx auto;
+  margin-top: 10rpx;
+  border-radius: 30rpx;
+  box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
+}
+
+.profile-img{
+  width: 50rpx;
+  height: 50rpx;
+  float: left;
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+}

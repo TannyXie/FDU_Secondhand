@@ -1,3 +1,4 @@
+
 {
   "pages": [
     "pages/index/index",
@@ -13,7 +14,17 @@
     "pages/openapi/cloudid/cloudid",
     "pages/im/im",
     "pages/im/room/room",
-    "pages/message/index"
+    "pages/message/index",
+    "pages/details/index",
+    "pages/post/index",
+    "pages/my/my",
+    "pages/my/myPost/myPost",
+    "pages/my/browseHistory/browseHistory",
+    "pages/my/myFavourite/myFavourite",
+    "pages/my/myOrder/myOrder",
+    "pages/my/addressAdmin/addressAdmin",
+    "pages/my/myCart/myCart",
+    "pages/my/payment/payment"
   ],
   "tabBar": {
     "list": [{
@@ -22,7 +33,7 @@
       "iconPath": "images/home.png",
       "selectedIconPath": "images/home_selected.png"
     }, {
-      "pagePath": "pages/index/index",
+      "pagePath": "pages/post/index",
       "text": "发布",
       "iconPath": "images/add.png",
       "selectedIconPath": "images/add_selected.png"
@@ -32,7 +43,7 @@
       "iconPath": "images/message.png",
       "selectedIconPath": "images/message_selected.png"
     }, {
-      "pagePath": "pages/index/index",
+      "pagePath": "pages/my/my",
       "text": "我的",
       "iconPath": "images/user.png",
       "selectedIconPath": "images/user_selected.png"
@@ -42,9 +53,10 @@
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "云开发 QuickStart",
+    "navigationBarTitleText": "豆芽菜",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",
   "style": "v2"
 }
+
