@@ -12,36 +12,53 @@
     "pages/openapi/callback/callback",
     "pages/openapi/cloudid/cloudid",
     "pages/im/im",
-    "pages/im/room/room"
+    "pages/im/room/room",
+    "pages/message/index",
+    "pages/details/index",
+    "pages/post/index",
+    "pages/my/my",
+    "pages/my/myPost/myPost",
+    "pages/my/browseHistory/browseHistory",
+    "pages/my/myFavourite/myFavourite",
+    "pages/my/myOrder/myOrder",
+    "pages/my/addressAdmin/addressAdmin",
+    "pages/my/myCart/myCart",
+    "pages/my/payment/payment",
+    "pages/message/chatrm/index"
   ],
   "tabBar": {
-    "list": [{
-      "pagePath": "pages/index/index",
-      "text": "首页",
-      "iconPath": "images/home.png",
-      "selectedIconPath": "images/home_selected.png"
-    }, {
-      "pagePath": "pages/index/index",
-      "text": "发布",
-      "iconPath": "images/add.png",
-      "selectedIconPath": "images/add_selected.png"
-    }, {
-      "pagePath": "pages/index/index",
-      "text": "消息",
-      "iconPath": "images/message.png",
-      "selectedIconPath": "images/message_selected.png"
-    }, {
-      "pagePath": "pages/index/index",
-      "text": "我的",
-      "iconPath": "images/user.png",
-      "selectedIconPath": "images/user_selected.png"
-    }]
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home_selected.png"
+      },
+      {
+        "pagePath": "pages/post/index",
+        "text": "发布",
+        "iconPath": "images/add.png",
+        "selectedIconPath": "images/add_selected.png"
+      },
+      {
+        "pagePath": "pages/message/index",
+        "text": "消息",
+        "iconPath": "images/message.png",
+        "selectedIconPath": "images/message_selected.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "images/user.png",
+        "selectedIconPath": "images/user_selected.png"
+      }
+    ]
   },
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "云开发 QuickStart",
+    "navigationBarTitleText": "豆芽菜",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",
