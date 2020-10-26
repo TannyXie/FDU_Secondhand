@@ -62,5 +62,16 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  onClick: function(){
+
+  },
+
+  formSubmit:function(){
+    var textvalue = document.getElementById("text").value;
+    console.log('我们拿到数据了',textvalue);
+  
+    console.log('hi')
   }
 })
