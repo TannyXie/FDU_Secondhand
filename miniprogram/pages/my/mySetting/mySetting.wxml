@@ -1,0 +1,15 @@
+<!--pages/my/mySetting/mySetting.wxml-->
+<view class='wrapper'>
+  <view class='title'>学号邮箱认证</view>
+  <view class='student'>
+  <view class='student_id'>邮箱:</view>
+  <input value='{{studentId}}' placeholder="@fudan.edu.cn结尾" placeholder-class='holder' bindblur='ipnutStudentId'>{{studentId}}</input>
+  </view>
+  <view class='pass'>
+  <view class='pass_word'>验证码:</view>
+ <input value='{{passWord}}' bindblur ='inputPassWord' password="{{true}}">{{passWord}}</input>
+ </view>
+
+ <button type="primary"  size="mini"  class='btn' disabled="{{studentId == ''||buttonLoading ? true : false}}" loading="{{buttonLoading}}" bindtap="bindSubmit">发送验证码</button>
+ <button type="primary"    class='btn2' loading="{{button2Loading}}" bindtap="verifySubmit">验证</button>
+</view>
