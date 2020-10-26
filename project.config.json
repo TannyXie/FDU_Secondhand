@@ -32,29 +32,25 @@
     "packNpmManually": false,
     "packNpmRelationList": []
   },
-  "appid": "wxa43f51adbee86493",
+  "appid": "wxf1e93e8e7a4a4eb6",
   "projectname": "project",
   "libVersion": "2.8.1",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "condition": {
     "search": {
-      "current": -1,
       "list": []
     },
     "conversation": {
-      "current": -1,
       "list": []
     },
     "plugin": {
-      "current": -1,
       "list": []
     },
     "game": {
       "list": []
     },
     "miniprogram": {
-      "current": 0,
       "list": [
         {
           "id": -1,
