@@ -1,11 +1,11 @@
 <!--pages/message/chatrm/index.wxml-->
 <view class="content">
-  <view class="section">
-    <form class="form">
-      <textarea class="testarea-class" id="$value"></textarea>
-    </form>
-  </view>
-  <view>
-    <button class="button" type="button" id="sub">发送</button>
-  </view>
+  <form>
+    <textarea 
+      class="textarea-class" 
+      name="chatting" 
+      placeholder="Type to chat...">
+    </textarea>
+    <button class="button" type="submit" id="sub">发送</button>
+  </form>
 </view>
