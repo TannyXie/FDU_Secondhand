@@ -1,0 +1,215 @@
+/* pages/search/search.wxss */
+/* 搜索框 */
+.hmly-search{
+  width: 90%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  margin: 0rpx auto;
+}
+
+.hmly-search-left{
+  flex: 4;
+  background-color: rgb(240, 240, 240);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10rpx 20rpx;
+  border-radius: 15rpx;
+}
+
+.hmly-search input{
+  width: 90%;
+  height: 100%;
+  font-size: 29rpx;
+  margin-left: 20rpx;
+}
+
+.hmly-search-right{
+  flex: 0.5;
+  font-size: 30rpx;
+  color: #aaa;
+  text-align: center;
+  margin-left: 30rpx;
+}
+
+/* 搜索历史 */
+.hmly-history{
+  width: 90%;
+  height: auto;
+  margin: 0rpx auto;
+  margin-top: 80rpx;
+}
+
+.hmly-title{
+  width: 100%;
+  height: 50rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.hmly-title-text{
+  color: #000;
+  font-weight: 700;
+}
+
+.hmly-history-content{
+  width: 100%;
+  height: auto;
+  margin-top: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.hmly-content-item{
+  width: 150rpx;
+  font-size: 33rpx;
+  text-align: center;
+  padding: 10rpx 20rpx;
+  margin-bottom: 20rpx;
+  border-radius: 25rpx;
+}
+
+/* 热门搜索 */
+.hmly-hot{
+  width: 90%;
+  height: auto;
+  margin: 0rpx auto;
+  margin-top: 50rpx;
+}
+
+.hmly-hot-content{
+  width: 100%;
+  height: auto;
+  margin-top: 30rpx;
+}
+
+.hmly-hot-items{
+  width: 100%;
+  height: 50rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.hmly-item-left{
+  display: flex;
+  justify-content: flex-start;
+  font-size: 32rpx;
+}
+
+.hmly-item-title{
+  margin-left: 40rpx;
+}
+
+.cate-item{
+  margin-top: 175rpx;
+  height: auto;
+  overflow: hidden;
+}
+
+.cate-item .h{
+  height: 145rpx;
+  width: 750rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cate-item .h .name{
+  display: block;
+  height: 35rpx;
+  margin-bottom: 18rpx;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.cate-item .h .desc{
+  display: block;
+  height: 24rpx;
+  font-size: 24rpx;
+  color: #999;
+}
+
+.cate-item .b{
+width: 750rpx;
+padding: 0 6.25rpx;
+height: auto;
+overflow: hidden;
+}
+
+.cate-item .list-filter{
+  height: 80rpx;
+  width: 100%;
+  background: #fff;
+  margin-bottom: 6.25rpx;
+}
+
+.cate-item .b .item{
+float: left;
+background: #fff;
+width: 365rpx;
+margin-bottom: 6.25rpx;
+padding-bottom: 33.333rpx;
+height: auto;
+overflow: hidden;
+text-align: center;
+}
+
+.cate-item .b .item-b{
+margin-left: 6.25rpx;
+}
+
+.cate-item .item .img{
+width: 302rpx;
+height: 302rpx;
+}
+
+.cate-item .item .name{
+display: block;
+width: 365.625rpx;
+height: 35rpx;
+margin: 11.5rpx 0 22rpx 0;
+text-align: center;
+overflow: hidden;
+padding: 0 20rpx;
+font-size: 30rpx;
+color: #333;
+}
+
+.cate-item .item .price{
+display: block;
+width: 365.625rpx;
+height: 30rpx;
+text-align: center;
+font-size: 30rpx;
+color: #b4282d;
+}
+
+.search-result-empty{
+  width: 100%;
+  height: 100%;
+  padding-top: 300rpx;
+}
+
+.search-result-empty .icon{
+  margin: 0 auto;
+  display: block;
+  width: 240rpx;
+  height: 240rpx;
+}
+
+.search-result-empty .text{
+  display: block;
+  width: 100%;
+  height: 40rpx;
+  font-size: 28rpx;
+  text-align: center;
+  color: #999;
+}

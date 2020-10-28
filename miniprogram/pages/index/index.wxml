@@ -10,7 +10,7 @@
 <!--宫格导航-->
 <view class="shop-nav">
   <block>
-    <view class="shop-nav-item" bindtap="{{item.events}}" wx:for="{{navList}}" wx:key="index">
+    <view class="shop-nav-item" bindtap="gotoFenlei" data-text="{{item.text}}" wx:for="{{navList}}" wx:key="index">
       <!--
         为了方便，统一使用相同界面
       -->
