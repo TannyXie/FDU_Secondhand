@@ -42,7 +42,7 @@
         <view class="goods-wants">{{item.nums}}收藏</view>
       </view>
       <!--卖家+标签-->
-      <view class="goods-des">
+      <view class="goods-des2">
         <view class="goods-sell">
           {{item.seller}}
         </view>
