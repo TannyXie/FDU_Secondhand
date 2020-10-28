@@ -15,7 +15,7 @@
     "pages/im/room/room",
     "pages/message/index",
     "pages/details/index",
-    "pages/post/index",
+    "pages/post/post",
     "pages/my/my",
     "pages/my/myPost/myPost",
     "pages/my/browseHistory/browseHistory",
