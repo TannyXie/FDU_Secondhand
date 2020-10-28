@@ -56,11 +56,15 @@ Page({
     })
   },
   // 上新推荐改变事件
+
   gotoDialogue(e) {
     var url = e.currentTarget.dataset.coverimg;
     var title = e.currentTarget.dataset.title;
     wx.navigateTo({
-      url: '/pages/details/details?url=' + url + '&title=' + title,
+      url: '/pages/message/chatrm/index',
     })
+    //wx.navigateTo({
+    //  url: '/pages/details/details?url=' + url + '&title=' + title,
+    //})
   }
 })

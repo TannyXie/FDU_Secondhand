@@ -26,7 +26,8 @@
     "pages/my/payment/payment",
     "pages/my/mySetting/mySetting",
     "pages/search/search",
-    "pages/category/category"
+    "pages/category/category",
+    "pages/message/chatrm/index"
   ],
   "tabBar": {
     "list": [{

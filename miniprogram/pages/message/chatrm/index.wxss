@@ -1,0 +1,41 @@
+/* miniprogram/pages/message/chatrm/chatrm.wxss */
+.content{
+  width: 90%;
+  left: 38rpx;
+  bottom: 0rpx;
+  margin-bottom: 100rpx;
+  position: absolute;
+}
+.textarea-class{
+  border-radius: 5px;
+  width: auto;
+  height: 180rpx;
+  padding-top: 5rpx;
+  padding-left: 10rpx;
+  border: 1px solid #cccccc;
+  margin-bottom: 50rpx;
+}
+.button{
+  outline: none;
+  color: white;
+  background: tan;
+}
+.button:active{
+  background: #ccc;
+}
+.textarea-class::placeholder{
+  color:grey;
+  font-size: 32;
+  font-style: oblique;
+  outline: 2px solid #cccccc;
+  border: 10rpx;
+  display: block;
+  float: left;
+  width: 370rpx;
+  height: 35rpx;
+  font-size: 25rpx;
+  text-align: top;
+  line-height: 35rpx;
+  resize: none;
+  position: absolute;
+}
