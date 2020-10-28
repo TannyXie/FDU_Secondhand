@@ -5,7 +5,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    i:0,
+    msList:[
+      {
+        message:'',
+        sender: ''
+      }
+    ]
   },
 
   /**
@@ -68,10 +74,19 @@ Page({
 
   },
 
-  formSubmit:function(){
-    var textvalue = document.getElementById("text").value;
-    console.log('我们拿到数据了',textvalue);
-  
-    console.log('hi')
+  formSubmit(e){
+    console.log('我们拿到数据了',e);
+    if(e.target.id=="sub"){
+
+    }
+  },
+
+  textChange(e){
+    this.data.msList[this.data.i] = e.detail.value;
+    console.log(e);
+    this.setData({
+      value:"hello"
+    });
+    
   }
 })

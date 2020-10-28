@@ -1,12 +1,14 @@
 <!--pages/message/chatrm/index.wxml-->
 <view class="content">
-  <form onsubmit="formSubmit"
+  <form bindtap="formSubmit"
       id="text">
     <textarea 
       class="textarea-class" 
       name="chatting" 
-      placeholder="Type to chat..."> 
+      placeholder="Type to chat..."
+      bindinput="textChange"
+      id="textbox">
     </textarea>
-    <button class="button" type="submit" id="sub" bindtap="formSubmit">发送</button>
+    <button class="button" type="submit" id="sub">发送</button>
   </form>
 </view>
