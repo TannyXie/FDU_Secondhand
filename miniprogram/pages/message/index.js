@@ -6,17 +6,17 @@ Page({
     messageList: [{
       name: "阚海滨",
       message: "你的作业没交",
-      profile: '/images/messages/github-otus.png'
+      profile: '/pages/details/user-unlogin.png'
     },
     {
       name: '张建国',
       message: '请各位同学告诉我上课时间',
-      profile: '/images/messages/github-otus.png'
+      profile: '/pages/details/user-unlogin.png'
     },
     {
       name: '王勇',
       message: '这个不考的，但我还是要讲',
-      profile: '/images/messages/github-otus.png'
+      profile: '/pages/details/user-unlogin.png'
     }
   ],
     swiperCurrent: 0,
