@@ -16,5 +16,18 @@ exports.main = async (event, context) => {
     success:res=>{
       console.log(res)
     }
-  });
+  })
+  .then((res) => {
+    return {
+      statusCode: 200,
+      statusMsg: 'ok',
+      data: res.data
+    }
+  })
+  .catch((err) => {
+    return {
+      statusCode: 400,
+      statusMsg: err
+    }
+  })
 }

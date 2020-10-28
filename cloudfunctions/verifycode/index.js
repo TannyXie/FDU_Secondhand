@@ -5,7 +5,7 @@
  * - studentMail 学生邮箱
  * - enteredCode 用户输入的验证码
  * 返回说明：
- * - statusCode 状态码 成功时为200 失败时为400
+ * - statusCode 状态码 成功时为200 失败时为400或500
  * - statusMsg 状态信息
  */
 

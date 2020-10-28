@@ -6,7 +6,6 @@ const db = cloud.database()
 const _ = db.command
 const $ = _.aggregate
 
-// 云函数入口函数
 exports.main = async (event, context) => {
   // const wxContext = cloud.getWXContext()
   return await db.collection('second-hand-good')
@@ -16,5 +15,18 @@ exports.main = async (event, context) => {
     success:res=>{
       console.log(res)
     }
-  });
+  })
+  .then((res) => {
+    return {
+      statusCode: 200,
+      statusMsg: 'ok',
+      data: res.data
+    }
+  })
+  .catch((err) => {
+    return {
+      statusCode: 400,
+      statusMsg: err
+    }
+  })
 }
