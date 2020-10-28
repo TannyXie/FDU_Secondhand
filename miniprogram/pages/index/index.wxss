@@ -130,7 +130,7 @@
   font-size: 35rpx;
   font-weight: bold;
   font-family: Georgia, 'Times New Roman', Times, serif;
-  color: red;
+  color: orangered;
   float: left;
   margin-bottom: 10rpx;
   margin-left: 10rpx;
@@ -157,10 +157,11 @@
   width: 150rpx;
   border-style: solid;
   border-width: 3rpx;
-  border-color: rgb(0, 119, 255);
+  border-color: gold;
   border-radius: 40rpx;
   font-size: 28rpx;
-  color: rgb(0, 119, 255);
+  color: white;
+  background-color: gold;
   float: left;
   margin-left: 10rpx;
   margin-bottom: 5rpx;
