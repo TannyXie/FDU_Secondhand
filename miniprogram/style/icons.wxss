@@ -14,3 +14,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.icon-jiantouUp:before {
+  content: "\e6a5";
+}
+
+.icon-jiantouDown:before {
+  content: "\e6c5";
+}
