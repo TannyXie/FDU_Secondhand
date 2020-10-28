@@ -7,18 +7,21 @@
   position: absolute;
 }
 .textarea-class{
+  background-color: #fff;
+  box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
   border-radius: 5px;
   width: auto;
   height: 180rpx;
-  padding-top: 5rpx;
-  padding-left: 10rpx;
-  border: 1px solid #cccccc;
+  padding-top: 10rpx;
+  padding-left: 20rpx;
   margin-bottom: 50rpx;
 }
 .button{
   outline: none;
   color: white;
-  background: tan;
+  background: black;
+  border-radius: 90rpx;
+  box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
 }
 .button:active{
   background: #ccc;
