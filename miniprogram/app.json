@@ -15,7 +15,7 @@
     "pages/im/room/room",
     "pages/message/index",
     "pages/details/index",
-    "pages/post/index",
+    "pages/post/post",
     "pages/my/my",
     "pages/my/myPost/myPost",
     "pages/my/browseHistory/browseHistory",
@@ -24,7 +24,9 @@
     "pages/my/addressAdmin/addressAdmin",
     "pages/my/myCart/myCart",
     "pages/my/payment/payment",
-    "pages/my/mySetting/mySetting"
+    "pages/my/mySetting/mySetting",
+    "pages/search/search",
+    "pages/category/category"
   ],
   "tabBar": {
     "list": [{
