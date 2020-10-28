@@ -3,11 +3,11 @@
 @import "../../style/weui.wxss";
 
 page {
-  background-color: #f0eff4;
+  background-color: #F6F6F6;
 }
 
 .top {
-  background-color: #fff;
+  background-color: #F6F6F6;
   /* border-bottom: 2rpx solid #d0d0d0; */
   position: relative;
   height: 180rpx;
