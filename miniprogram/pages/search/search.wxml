@@ -1,0 +1,43 @@
+<!--pages/search/search.wxml-->
+<!--搜索框-->
+<view class="hmly-search">
+  <view class="hmly-search-left">
+    <text class="icon-search"></text>
+    <input placeholder="搜索二手物品" bindinput="bindInput"  bindchange="bindChange" bindconfirm="bindConfirm" value="{{inputValue}}"></input>
+  </view>
+  <view class="hmly-search-right" bindtap="goBack">取消</view>
+</view>
+
+<!--热门搜索-->
+<view class="hmly-hot">
+  <!--提示标题-->
+  <view class="hmly-title">
+    <view class="title-text">热门商品</view>
+  </view>
+  <view class="hmly-hot-content">
+    <view class="hmly-hot-items" wx:for="{{hotData}}" wx:key="index">
+      <view class="hmly-item-left">
+        <view class="{{index<3 ? 'text-red' : ''}}">{{index+1}}</view>
+        <view class="hmly-item-title text-black">{{item.intro}}</view>
+      </view>
+      <text class="{{item.icon}} {{item.color}}"></text>
+    </view>
+  </view>
+</view>
+
+<view class="search-result" wx:if="{{ showitem && goodsList.length}}">
+  <view class="cate-item">
+    <view class="b">
+      <navigator class="item {{(iindex + 1) % 2 == 0 ? 'item-b' : ''}}" url="/pages/goods/goods?id={{iitem.id}}" wx:for="{{goodsList}}" wx:for-item="iitem" wx:for-index="iindex">
+        <image class="img" src="{{iitem.middleCover}}" background-size="cover"></image>
+        <text class="name">{{iitem.intro}}</text>
+        <text class="price">￥{{iitem.price}}</text>
+      </navigator>
+    </view>
+  </view>
+  </view>
+
+  <view class="search-result-empty" wx:if="{{!goodsList.length && showitem}}">
+    <image class="icon" src="http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/noSearchResult-7572a94f32.png"></image>
+    <text class="text">您寻找的商品还未上架</text>
+  </view>

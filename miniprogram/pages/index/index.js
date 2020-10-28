@@ -7,65 +7,76 @@ Page({
   data: {
     navList: [{
         icon: '/images/nav-icon/书.png',
-        events: 'goToFenlei',
         text: '二手书籍'
       },
       {
         icon: '/images/nav-icon/数码家电.png',
-        events: 'goToFenlei',
         text: '数码家电'
       },
       {
         icon: '/images/nav-icon/生活用品.png',
-        events: 'goToFenlei',
         text: '生活用品'
       },
       {
         icon: '/images/nav-icon/护肤美妆.png',
-        events: 'goToFenlei',
         text: '护肤美妆'
       },
       {
         icon: '/images/nav-icon/更多.png',
-        events: 'goToFenlei',
         text: '更多'
       },
     ],
     goodsList: [{
+      id: '1',
       coverMiddle: '/images/goods/01.jpg',
       events: 'goToBangDan',
       intro: '数字设计',
       price: '￥15',
       nums: '3',
       seller: '草莓屁屁',
-      tag: '二手书籍'
+      tag: '二手书籍',
+      desc: 'xxx',
+      comment: 'xxx',
+      date: 'xxxx-xx-xx'
     },
     {
+      id: '2',
       coverMiddle: '/images/goods/02.jpg',
       events: 'goToBangDan',
       intro: '蓝牙耳机',
       price: '￥360',
       nums: '8',
       seller: '奈寒',
-      tag: '数码产品'
+      tag: '数码产品',
+      desc: 'xxx',
+      comment: 'xxx',
+      date: 'xxxx-xx-xx'
     },
     {
+      id: '3',
       coverMiddle: '/images/goods/03.jpg',
       events: 'goToBangDan',
       intro: '美宝莲卸妆水',
       price: '￥69',
       nums: '1',
       seller: '豆',
-      tag: '护肤化妆'
+      tag: '护肤化妆',
+      desc: 'xxx',
+      comment: 'xxx',
+      date: 'xxxx-xx-xx'
     },
     {
+      id: '4',
       coverMiddle: '/images/goods/04.jpg',
       events: 'goToBangDan',
       intro: '美宝莲口红',
       price: '￥80',
       nums: '4',
       seller: '茜茜子',
-      tag: '护肤美妆'
+      tag: '护肤美妆',
+      desc: 'xxx',
+      comment: 'xxx',
+      date: 'xxxx-xx-xx'
     },
   ],
     swiperCurrent: 0,
@@ -99,20 +110,23 @@ Page({
     });
   },
   // 宫格导航改变事件
-  goToBangDan: function() {
+  gotoFenlei(e) {
+    var text=e.currentTarget.dataset.text;
+    let str = JSON.stringify(text)
+    console.log('goto: '+ str);
     wx.navigateTo({
-      url: '/pages/classification/classification',
+      url: '/pages/category/category?str=' + str,
     })
   },
   // 上新推荐改变事件
   gotoDetails(e) {
     var url = e.currentTarget.dataset.coverimg;
     var title = e.currentTarget.dataset.title;
-    wx.navigateTo({
-      url: '/pages/details/index',
-    })
     //wx.navigateTo({
     //  url: '/pages/details/details?url=' + url + '&title=' + title,
     //})
+    wx.navigateTo({
+      url: '/pages/details/index'
+    })
   }
 })
