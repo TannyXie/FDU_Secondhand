@@ -19,10 +19,10 @@ exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
   try {
     let _date=new Date()
-    let _id=getRandomString()
+    // let _id=getRandomString()
     return await db.collection('second-hand-good').add({ //填写自己的数据库名称
       data: {
-        id:_id,
+        // id:_id,
         commentList:[],
         coverMiddle:"/images/goods/"+event.coverMiddle,
         date:_date,

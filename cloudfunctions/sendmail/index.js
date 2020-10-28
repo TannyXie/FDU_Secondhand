@@ -9,6 +9,12 @@
  */
 
 const nodemailer = require('nodemailer')
+const cloud = require('wx-server-sdk')
+cloud.init({
+  env: cloud.DYNAMIC_CURRENT_ENV
+})
+const db = cloud.database()
+
 
 function generateVerificationCode() {
   let code = ''
@@ -36,20 +42,16 @@ function sendMail(mail, code) {
   })
 }
 
-const cloud = require('wx-server-sdk')
-cloud.init({
-  env: cloud.DYNAMIC_CURRENT_ENV
-})
-
-const db = cloud.database()
-
 exports.main = async (event, context) => {
-  let mail = event.studentMail
-  let code = generateVerificationCode()
+  const mail = event.studentMail
+  const code = generateVerificationCode()
+  const wxContext = cloud.getWXContext()
+
   sendMail(mail, code).then((res) => {
     console.log(res)
     db.collection('verification').add({
       data: {
+        _id: wxContext.OPENID,
         mail: mail,
         code: code
       }
