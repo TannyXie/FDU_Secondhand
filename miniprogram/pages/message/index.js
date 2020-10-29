@@ -6,17 +6,17 @@ Page({
     messageList: [{
       name: "阚海滨",
       message: "你的作业没交",
-      profile: '/images/messages/github-otus.png'
+      profile: '/pages/details/user-unlogin.png'
     },
     {
       name: '张建国',
       message: '请各位同学告诉我上课时间',
-      profile: '/images/messages/github-otus.png'
+      profile: '/pages/details/user-unlogin.png'
     },
     {
       name: '王勇',
       message: '这个不考的，但我还是要讲',
-      profile: '/images/messages/github-otus.png'
+      profile: '/pages/details/user-unlogin.png'
     }
   ],
     swiperCurrent: 0,
@@ -56,11 +56,15 @@ Page({
     })
   },
   // 上新推荐改变事件
+
   gotoDialogue(e) {
     var url = e.currentTarget.dataset.coverimg;
     var title = e.currentTarget.dataset.title;
     wx.navigateTo({
-      url: '/pages/details/details?url=' + url + '&title=' + title,
+      url: '/pages/message/chatrm/index',
     })
+    //wx.navigateTo({
+    //  url: '/pages/details/details?url=' + url + '&title=' + title,
+    //})
   }
 })

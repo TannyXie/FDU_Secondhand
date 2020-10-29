@@ -3,7 +3,7 @@
   height: 70rpx;
   margin: 0rpx auto;
   margin-top: 25rpx;
-  font-size: 42rpx;
+  font-size: 38rpx;
   font-weight: bolder;
   display: flex;
   align-items: center;
@@ -11,12 +11,11 @@
 }
 
 .text-subtitle{
-  color: slategray;
   width: 90%;
   height: 70rpx;
   margin: 0rpx auto;
-  margin-top: 25rpx;
-  font-size: 32rpx;
+  margin-top: 15rpx;
+  font-size: 38rpx;
   font-weight: bolder;
   display: flex;
   align-items: center;
@@ -24,7 +23,7 @@
 }
 
 .left-button{
-  left:-100px;
+  left:-250rpx;
   font-size: 32rpx;
   margin: 0rpx auto;
   margin-top: 25rpx;
@@ -41,7 +40,7 @@
 .center-button{
   font-size: 32rpx;
   margin: 0rpx auto;
-  margin-top: 25rpx;
+  margin-top: 20rpx;
   background-color: black;
   color: white;
   border-radius: 90rpx;
@@ -52,7 +51,7 @@
   justify-content: center;
 }
 
-textarea {
+/*.textarea {
   text-align:center;
   left:17px;
   font-size: 32rpx;
@@ -60,4 +59,18 @@ textarea {
   border-radius: 50rpx;
   width: 680rpx;
   padding: 25rpx 0;
+}*/
+
+.textarea{
+  width: 88%;
+  overflow: hidden;
+  background: #fff;
+  color: #333;
+  margin: 30rpx auto;
+  margin-top: 10rpx;
+  border-radius: 30rpx;
+  box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
+  padding-top: 30rpx;
+  padding-left: 30rpx;
+  font-size: 32rpx;
 }

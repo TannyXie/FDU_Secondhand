@@ -2,7 +2,7 @@
 <!-- 头部 -->
 <view class="text-title">
   <block>
-    <text>出售你不需要的物品</text>
+    <text>拍照上传</text>
   </block>
 </view>
 
@@ -15,7 +15,7 @@
   </block>
 </view>
 
-<textarea style="height: 5em" placeholder="写下该物品的简介，建议不超过500字"  />
+<textarea class="textarea" style="height:5em" placeholder="写下该物品的简介，建议不超过500字"  />
 
 <view class="text-subtitle">
   <block>
@@ -23,7 +23,7 @@
   </block>
 </view>
 
-<textarea style="height: 2em" placeholder="输入种类"  />
+<textarea class="textarea" style="height:2em" placeholder="输入种类并enter"  />
 
 <view class="text-subtitle">
   <block>
@@ -31,6 +31,6 @@
   </block>
 </view>
 
-<textarea style="height: 1em" placeholder="输入你认为合适的定价，单位：人民币"  />
+<textarea class="textarea" style="height:2em" placeholder="输入你认为合适的定价，单位：人民币"  />
 
 <button class="center-button" style="width:24vw" bindtap="doUpLoad">发布</button>

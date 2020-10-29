@@ -26,59 +26,7 @@ Page({
         text: '更多'
       },
     ],
-    goodsList: [{
-      id: '1',
-      coverMiddle: '/images/goods/01.jpg',
-      events: 'goToBangDan',
-      intro: '数字设计',
-      price: '￥15',
-      nums: '3',
-      seller: '草莓屁屁',
-      tag: '二手书籍',
-      desc: 'xxx',
-      comment: 'xxx',
-      date: 'xxxx-xx-xx'
-    },
-    {
-      id: '2',
-      coverMiddle: '/images/goods/02.jpg',
-      events: 'goToBangDan',
-      intro: '蓝牙耳机',
-      price: '￥360',
-      nums: '8',
-      seller: '奈寒',
-      tag: '数码产品',
-      desc: 'xxx',
-      comment: 'xxx',
-      date: 'xxxx-xx-xx'
-    },
-    {
-      id: '3',
-      coverMiddle: '/images/goods/03.jpg',
-      events: 'goToBangDan',
-      intro: '美宝莲卸妆水',
-      price: '￥69',
-      nums: '1',
-      seller: '豆',
-      tag: '护肤化妆',
-      desc: 'xxx',
-      comment: 'xxx',
-      date: 'xxxx-xx-xx'
-    },
-    {
-      id: '4',
-      coverMiddle: '/images/goods/04.jpg',
-      events: 'goToBangDan',
-      intro: '美宝莲口红',
-      price: '￥80',
-      nums: '4',
-      seller: '茜茜子',
-      tag: '护肤美妆',
-      desc: 'xxx',
-      comment: 'xxx',
-      date: 'xxxx-xx-xx'
-    },
-  ],
+    goodsList: [],
     swiperCurrent: 0,
   },
 
@@ -87,27 +35,17 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    var url = 'https://mobile.ximalaya.com/mobile/discovery/v3/recommend/hotAndGuess?code=43_310000_3100&device=android&version=5.4.45';
-
-    // 调用自己封装的工具函数，在utils中
-    utils.myRequest({
-      url: url,
-      methods: 'GET',
-      success: function(result){
-        that.setData({
-          showitem: true,
-          guess: result.data.paidArea.list,
-          xiaoshuocontent: result.data.hotRecommends.list[0].list,
-          xiangshengcontent: result.data.hotRecommends.list[2].list,
-          lishicontent: result.data.hotRecommends.list[3].list
-        })
+    wx.cloud.callFunction({
+      name: 'latest8',
+      data:{
       },
-      fail: function() {
+      success(res) {
+        console.log('成功', res.result.data.list);
         that.setData({
-          showitem: false
-        })
-      }
-    });
+          goodsList: res.result.data.list,
+        });
+      },
+    })
   },
   // 宫格导航改变事件
   gotoFenlei(e) {
@@ -122,8 +60,11 @@ Page({
   gotoDetails(e) {
     var url = e.currentTarget.dataset.coverimg;
     var title = e.currentTarget.dataset.title;
+    //wx.navigateTo({
+    //  url: '/pages/details/details?url=' + url + '&title=' + title,
+    //})
     wx.navigateTo({
-      url: '/pages/details/details?url=' + url + '&title=' + title,
+      url: '/pages/details/index'
     })
   }
 })
