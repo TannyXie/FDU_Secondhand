@@ -89,10 +89,10 @@ Page({
           tag: this.data.name,
         },
         success(res) {
-          console.log('成功', res.result.data);
+          console.log('成功', res.result.data.list);
           that.setData({
             loading: 0,
-            goodsList: res.result.data,
+            goodsList: res.result.data.list,
           });
         },
       })

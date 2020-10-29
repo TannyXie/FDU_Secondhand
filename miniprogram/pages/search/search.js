@@ -26,9 +26,9 @@ Page({
       data:{
       },
       success(res) {
-        console.log('成功', res.result.data);
+        console.log('成功', res.result.data.list);
         that.setData({
-          hotData: res.result.data,
+          hotData: res.result.data.list,
         });
       },
     })
