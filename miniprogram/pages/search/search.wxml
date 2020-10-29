@@ -16,11 +16,10 @@
   </view>
   <view class="hmly-hot-content">
     <view class="hmly-hot-items" wx:for="{{hotData}}" wx:key="index">
-      <view class="hmly-item-left">
+      <view class="hmly-item-left" bindtap="gotoDetails">
         <view class="{{index<3 ? 'text-red' : ''}}">{{index+1}}</view>
         <view class="hmly-item-title text-black">{{item.intro}}</view>
       </view>
-      <text class="{{item.icon}} {{item.color}}"></text>
     </view>
   </view>
 </view>
