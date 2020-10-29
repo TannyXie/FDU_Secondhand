@@ -1,12 +1,23 @@
 <!--pages/message/chatrm/index.wxml-->
+<view class="mess-area">
+<view class="mess-box">
+  <view class="hist-mess" wx:for="{{histMess}}" wx:key="{{index}}">
+    <view class="input-box">
+        {{item.message}}
+      </view>
+      <view class="input-box2">
+        {{item.response}}
+      </view>
+  </view>
+</view>
+</view>
 <view class="content">
-  <form onsubmit="formSubmit"
-      id="text">
-    <textarea 
-      class="textarea-class" 
-      name="chatting" 
-      placeholder="Type to chat..."> 
+  <form bindtap="formSubmit" id="text">
+    <textarea class="textarea-class" name="chatting" placeholder="Type to chat..." bindinput="textChange" id="textbox"
+      confirm-type="send" value="{{inputMessage}}">
     </textarea>
-    <button class="button" type="submit" id="sub" bindtap="formSubmit">发送</button>
+    <button class="button" type="submit" id="sub" bindtap="inputRenew">
+      发送
+    </button>
   </form>
 </view>
