@@ -6,11 +6,8 @@ Page({
    */
   data: {
     i:0,
-    msList:[
-      {
-        message:'',
-        sender: ''
-      }
+    inputMessage : '',
+    histMess : [
     ]
   },
 
@@ -75,18 +72,29 @@ Page({
   },
 
   formSubmit(e){
-    console.log('我们拿到数据了',e);
     if(e.target.id=="sub"){
 
     }
   },
 
   textChange(e){
-    this.data.msList[this.data.i] = e.detail.value;
-    console.log(e);
     this.setData({
-      value:"hello"
+      inputMessage : e.detail.value,
     });
-    
+    console.log(this.data.inputMessage);
+  },
+
+  inputRenew(e){
+    var history = this.data.histMess;
+    history.push({
+      message: this.data.inputMessage,
+      response: 'this is a response'
+    });
+    var i = this.data.i;
+    this.setData({
+      inputMessage : '',
+      i : i+1,
+      histMess : history
+    })
   }
 })
