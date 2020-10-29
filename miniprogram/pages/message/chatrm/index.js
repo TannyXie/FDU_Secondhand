@@ -5,7 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    i:0,
+    inputMessage : '',
+    histMess : [
+    ]
   },
 
   /**
@@ -68,10 +71,30 @@ Page({
 
   },
 
-  formSubmit:function(){
-    var textvalue = document.getElementById("text").value;
-    console.log('我们拿到数据了',textvalue);
-  
-    console.log('hi')
+  formSubmit(e){
+    if(e.target.id=="sub"){
+
+    }
+  },
+
+  textChange(e){
+    this.setData({
+      inputMessage : e.detail.value,
+    });
+    console.log(this.data.inputMessage);
+  },
+
+  inputRenew(e){
+    var history = this.data.histMess;
+    history.push({
+      message: this.data.inputMessage,
+      response: 'this is a response'
+    });
+    var i = this.data.i;
+    this.setData({
+      inputMessage : '',
+      i : i+1,
+      histMess : history
+    })
   }
 })

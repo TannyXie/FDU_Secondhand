@@ -39,3 +39,24 @@
   resize: none;
   position: absolute;
 }
+
+.mess-box{
+  width: 90%;
+  margin-top: 10rpx;
+
+}
+
+.hist-mess{
+  height: 110rpx;
+  width: 100%;
+  background: #04BE02;
+  color: black;
+  margin: 30rpx;
+  font-size: 32rpx;
+  border-radius: 30rpx;
+}
+
+.input-box{
+  margin-left: 25rpx;
+  margin-top: 39rpx;
+}
