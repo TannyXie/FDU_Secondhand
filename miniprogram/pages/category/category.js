@@ -48,50 +48,13 @@ Page({
       text: '其他'
     },
     ],
-    loading: 0,
+    loading: 1,
     goodsList: [],
     currentCategory: {},
     name: '',
     scrollLeft: 0,
     scrollTop: 0,
     scrollHeight: 0,
-  },
-
-  getCategoryInfo: function () {
-    let that = this;
-    let url = 'https://mobile.ximalaya.com/mobile/discovery/v3/recommend/hotAndGuess?code=43_310000_3100&device=android&version=5.4.45';
-    utils.request(url, { name: this.data.name })
-      .then(function (res) {
-
-        if (res.errno == 0) {
-          that.setData({
-            navList: res.data.brotherCategory,
-            currentCategory: res.data.tag
-          });
-
-          //nav位置
-          let currentIndex = 0;
-          let navListCount = that.data.navList.length;
-          for (let i = 0; i < navListCount; i++) {
-            currentIndex += 1;
-            if (that.data.navList[i].text == that.data.name) {
-              break;
-            }
-          }
-          if (currentIndex > navListCount / 2 && navListCount > 5) {
-            that.setData({
-              scrollLeft: currentIndex * 60
-            });
-          }
-          that.getGoodsList();
-
-        } else {
-          //显示错误信息
-        }
-        
-      });
-
-      
   },
 
   /**
@@ -114,18 +77,29 @@ Page({
       }
     });
 
-    this.getCategoryInfo();
+    this.getGoodsList();
   },
 
   getGoodsList: function () {
     var that = this;
-    url = 'https://mobile.ximalaya.com/mobile/discovery/v3/recommend/hotAndGuess?code=43_310000_3100&device=android&version=5.4.45';
-    util.request(url, {tag: that.data.text})
-      .then(function (res) {
-        that.setData({
-          goodsList: res.data.goodsList,
-        });
-      });
+    if (this.data.name){
+      wx.cloud.callFunction({
+        name: 'searchByTag',
+        data:{
+          tag: this.data.name,
+        },
+        success(res) {
+          console.log('成功', res.result.data);
+          that.setData({
+            loading: 0,
+            goodsList: res.result.data,
+          });
+        },
+      })
+    }
+    else{
+      console.log('全部');
+    }
   },
 
   switchCate: function(e) {
@@ -152,23 +126,22 @@ Page({
         }
         wx.setStorageSync('categoryId', text)
         this.setData({
-            name: text
+            name: text,
+            loading: 1,
         })
+        this.getGoodsList();
     }
 },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-
-  },
+  onReady: function () {},
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
   },
 
   /**
