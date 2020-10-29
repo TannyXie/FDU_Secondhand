@@ -13,21 +13,25 @@ Page({
     keyword:'',
     goodsList: [],
     showitem: false,
-    hotData:[
-      {intro:"数分",icon:"icon-jiantouUp",color:"text-orange"},
-      {intro:"airpods",icon:"icon-jiantouUp",color:"text-red"},
-      {intro:"卸妆水",icon:"icon-jiantouDown",color:"text-green"},
-      {intro:"编译课本",icon:"icon-jiantouUp",color:"text-red"},
-      {intro:"薯片",icon:"icon-jiantouDown",color:"text-green"},
-      {intro:"毛概",icon:"icon-jiantouUp",color:"text-red"},
-    ]
+    hotData:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that = this;
+    wx.cloud.callFunction({
+      name: 'keptTop6',
+      data:{
+      },
+      success(res) {
+        console.log('成功', res.result.data);
+        that.setData({
+          hotData: res.result.data,
+        });
+      },
+    })
   },
 
   onShow:function(){
@@ -40,10 +44,6 @@ Page({
   },
 
   onHide:function(){
-    console.log('search is onHide')
-    wx.redirectTo({
-        url: '../search/search'
-    })
   },
 
   goBack: function(){
@@ -109,5 +109,17 @@ Page({
     }else{
       console.log('未输入任何字符')
     }
+  },
+
+  // 上新推荐改变事件
+  gotoDetails(e) {
+    var url = e.currentTarget.dataset.coverimg;
+    var title = e.currentTarget.dataset.title;
+    //wx.navigateTo({
+    //  url: '/pages/details/details?url=' + url + '&title=' + title,
+    //})
+    wx.navigateTo({
+      url: '/pages/details/index'
+    })
   }
 })
