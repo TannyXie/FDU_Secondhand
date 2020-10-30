@@ -1,4 +1,8 @@
 /* miniprogram/pages/message/chatrm/chatrm.wxss */
+.mess-area{
+  height: 720rpx;
+  overflow: scroll;
+}
 .content{
   width: 90%;
   left: 38rpx;
@@ -12,7 +16,7 @@
   border-radius: 5px;
   width: auto;
   height: 180rpx;
-  padding-top: 10rpx;
+  padding-top: 20rpx;
   padding-left: 20rpx;
   margin-bottom: 50rpx;
 }
@@ -26,6 +30,7 @@
 .button:active{
   background: #ccc;
 }
+/*
 .textarea-class::placeholder{
   color:grey;
   font-size: 32;
@@ -41,4 +46,49 @@
   line-height: 35rpx;
   resize: none;
   position: absolute;
+}
+*/
+.mess-box{
+  width: 90%;
+  margin-top: 10rpx;
+}
+
+.hist-mess{
+  width: 100%;
+}
+
+.input-box{
+  word-wrap: break-word;
+  word-break: break-all;
+  width: fit-content;
+  margin-top: 25rpx;
+  margin-left: 40rpx;
+  margin-right: 25rpx;
+  background: #000;
+  color: #fff;
+  font-size: 40rpx;
+  border-radius: 30rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  padding-top: 15rpx;
+  padding-bottom: 15rpx;
+  box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
+}
+
+.input-box2{
+  word-wrap: break-word;
+  word-break: break-all;
+  width: fit-content;
+  margin-top: 25rpx;
+  margin-left: 40rpx;
+  margin-right: 25rpx;
+  background: #fff;
+  color: #000;
+  font-size: 40rpx;
+  border-radius: 30rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  padding-top: 15rpx;
+  padding-bottom: 15rpx;
+  box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
 }
