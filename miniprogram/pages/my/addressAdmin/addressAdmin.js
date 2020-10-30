@@ -1,4 +1,3 @@
-// miniprogram/pages/addressAdmin/addressAdmin.js
 Page({
   data:{
     address:{

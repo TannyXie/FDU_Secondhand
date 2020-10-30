@@ -46,9 +46,7 @@ exports.main = async (event, context) => {
   const mail = event.studentMail
   const code = generateVerificationCode()
   const wxContext = cloud.getWXContext()
-
   sendMail(mail, code).then((res) => {
-    console.log(res)
     db.collection('verification').add({
       data: {
         _id: wxContext.OPENID,
