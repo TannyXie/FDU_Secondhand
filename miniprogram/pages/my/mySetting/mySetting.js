@@ -1,4 +1,5 @@
 // miniprogram/pages/my/mySetting/mySetting.js
+const app = getApp()
 Page({
 
   /**
@@ -9,6 +10,7 @@ Page({
     button2Loading: false,
     studentId: '',
     passWord:'',
+    authorized:false,
   },
 
   /**
@@ -119,9 +121,20 @@ Page({
     })
     var that = this;
     var studentId = that.data.studentId;
+    var passWord = that.data.passWord;
     //调用云函数，去获取后端返回的状态
-
-
+    wx.cloud.callFunction({
+      name: 'sendmail',
+      data:{
+        studentMail:studentId
+      },
+      success(res) {
+        console.log(res);
+      },
+    })
+    this.setData({
+      buttonLoading: false,
+    })
   },
   verifySubmit: function () {
     var that = this;
@@ -129,9 +142,29 @@ Page({
       button2Loading: true
     })
     var that = this;
+    var studentId = that.data.studentId;
     var passWord = that.data.passWord;
-    //检查验证码是否正确（超时处理*）
-
-
+    //检查验证码是否正确
+    wx.cloud.callFunction({
+      name: 'verifycode',
+      data:
+      {
+        studentMail: studentId,
+        enteredCode: passWord,
+      },
+      success(res) {
+        console.log(res);
+        if(res.result.statusMsg=='wrong code')
+        {
+          wx.showModal({
+            title: '提示',
+            content: '验证码错误',
+          })
+        }
+      },
+    })
+    this.setData({
+      button2Loading: false
+    })
   },
 })

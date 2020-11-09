@@ -23,13 +23,14 @@ exports.main = async (event, context) => {
   const code = event.enteredCode
 
   res = await db.collection('verification').where({mail: _.eq(mail)}).orderBy('time', 'desc').get()
-  
+  console.log(res.data.length);
+  console.log(res.data);
   if (res.data.length == 0) {
     return {
       statusCode: 400,
       statusMsg: 'invalid mailbox'
     }
-  } else if (res.data[0].code != code) {
+  } else if (res.data[res.data.length-1].code != code) {
     return {
       statusCode: 400,
       statusMsg: 'wrong code'

@@ -30,10 +30,12 @@
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
     "packNpmManually": false,
-    "packNpmRelationList": []
+    "packNpmRelationList": [],
+    "enableEngineNative": false,
+    "minifyWXSS": true
   },
   "appid": "wxf1e93e8e7a4a4eb6",
-  "projectname": "project",
+  "projectname": "FDU_Secondhand",
   "libVersion": "2.8.1",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},

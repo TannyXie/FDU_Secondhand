@@ -46,7 +46,7 @@ exports.main = (event, context) => {
   const mail = event.studentMail
   const code = generateVerificationCode()
   const wxContext = cloud.getWXContext()
-
+  
   return sendMail(mail, code)
   .then((res) => {
     console.log(res)

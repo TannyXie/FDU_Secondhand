@@ -5,7 +5,6 @@
  *   coverMiddle 图片url
  *   desc 商品描述
  *   intro 商品名
- *   nums 收藏数
  *   price 商品价格
  *   sellerId 作为卖家的用户ID
  *   tag 商品类别
