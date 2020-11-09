@@ -1,6 +1,6 @@
 /**
  * API：
- *   添加一件商品
+ *   发布商品
  * 参数说明：
  *   coverMiddle 图片url
  *   desc 商品描述
