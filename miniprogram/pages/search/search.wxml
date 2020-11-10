@@ -8,11 +8,26 @@
   <view class="hmly-search-right" bindtap="goBack">取消</view>
 </view>
 
+<!--搜索历史-->
+<view class="hmly-history" wx:if="{{!showitem}}">
+  <!--提示标题-->
+  <view class="hmly-title">
+    <view class="hmly-title-text">搜索历史</view>
+    <image src="/images/trash-9.png" class="clearicon" bindtap="clearHistory"></image>
+  </view>
+  <!--内容-->
+  <view class="hmly-history-content">
+    <view wx:for="{{getSearch}}" wx:key="index">
+      <view class="hmly-content-item bg-gray text-black" data-search="{{item}}" bindtap="historySearch">{{item}}</view>
+    </view>
+  </view>
+</view>
+
 <!--热门搜索-->
 <view class="hmly-hot" wx:if="{{!showitem}}">
   <!--提示标题-->
   <view class="hmly-title">
-    <view class="title-text">热门商品</view>
+    <view class="hmly-title-text">热门商品</view>
   </view>
   <view class="hmly-hot-content">
     <view class="hmly-hot-items" wx:for="{{hotData}}" wx:key="index">

@@ -41,6 +41,14 @@
   margin-top: 80rpx;
 }
 
+.clearicon {
+  margin-top: 20rpx;
+  float: right;
+  display: block;
+  height: 38rpx;
+  width: 38rpx;
+}
+
 .hmly-title{
   width: 100%;
   height: 50rpx;
@@ -60,7 +68,6 @@
   height: auto;
   margin-top: 30rpx;
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
 }
@@ -71,6 +78,7 @@
   text-align: center;
   padding: 10rpx 20rpx;
   margin-bottom: 20rpx;
+  margin-left: 25rpx;
   border-radius: 25rpx;
 }
 
