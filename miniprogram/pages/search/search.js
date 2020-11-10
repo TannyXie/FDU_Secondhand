@@ -58,6 +58,13 @@ Page({
   onShareAppMessage: function () {
 
   },
+  clearHistory: function () {
+    wx.clearStorageSync('getSearch')
+    this.setData({
+      getSearch: []
+    })
+
+  },
 
   bindInput:function(e){
     this.setData({
@@ -75,7 +82,7 @@ Page({
     wx.cloud.callFunction({
       name: 'search',
       data:{
-        intro: this.data.inputValue
+        intro: this.data.keyword
       },
       success(res) {
         console.log('成功', res.result.data.list);
@@ -106,8 +113,6 @@ Page({
   },
 
   bindConfirm:function(e){
-    let data;
-    let localStorageValue = [];
     if(this.data.inputValue != ''){
       //调用API从本地缓存中获取数据
       var searchData = wx.getStorageSync('searchData') || []
@@ -123,6 +128,14 @@ Page({
     }else{
       console.log('未输入任何字符')
     }
+  },
+
+  historySearch(e){
+    this.setData({
+      keyword: e.currentTarget.dataset.search,
+      goodsList: []
+    });
+    this.getGoodsList();  
   },
 
   // 上新推荐改变事件

@@ -205,25 +205,21 @@
   flex-direction: column;
 }
 
-.goods-box .navi-url .image {
+.goods-box .navi-url .box .image {
   width: 256rpx;
-  height: 256rpx;
-  border-radius: 8rpx;
+  height: 380rpx;
+  border-radius: 10rpx;
   background: #f9f9f9;
-}
-
-.goods-box .navi-url .box {
-  height: 256rpx;
-  width: auto;
+  object-fit: cover;
+  overflow: hidden;
   position: relative;
-  margin-bottom: 10rpx;
 }
 
 .goods-box .navi-url .box .new-tag {
   height: 36rpx;
   width: auto;
   background: #ca2a1d;
-  position: absolute;
+  position: relative;
   top: 20rpx;
   left: 0;
   line-height: 36rpx;
