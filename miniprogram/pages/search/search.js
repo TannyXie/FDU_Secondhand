@@ -72,23 +72,37 @@ Page({
 
   getGoodsList: function () {
     let that = this;
-    let url = 'https://mobile.ximalaya.com/mobile/discovery/v3/recommend/hotAndGuess?code=43_310000_3100&device=android&version=5.4.45';
-    utils.myRequest({
-      url: url,
-      data: this.data.keyword,
-      methods: 'GET',
-      success: function(res){
+    wx.cloud.callFunction({
+      name: 'search',
+      data:{
+        intro: this.data.inputValue
+      },
+      success(res) {
+        console.log('成功', res.result.data.list);
         that.setData({
           showitem: true,
-          goodsList: res.data.goods
-        })
+          goodsList: res.result.data.list,
+        });
       },
-      fail: function() {
-        that.setData({
-          showitem: false
-        })
-      }
-    });
+    })
+  
+    // utils.myRequest({
+    //   url: url,
+    //   data: this.data.keyword,
+    //   methods: 'GET',
+    //   success: function(res){
+    //     that.setData({
+    //       showitem: true,
+    //       goodsList: res.data.goods
+    //     })
+    //   },
+    //   fail: function() {
+    //     that.setData({
+    //       showitem: false
+    //     })
+    //   }
+    // });
+  
   },
 
   bindConfirm:function(e){
