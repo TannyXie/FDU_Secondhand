@@ -209,19 +209,19 @@
   width: 256rpx;
   height: 256rpx;
   border-radius: 8rpx;
-  background: #f9f9f9
+  background: #f9f9f9;
 }
 
 .goods-box .navi-url .box {
   height: 256rpx;
-  width: 256rpx;
+  width: auto;
   position: relative;
   margin-bottom: 10rpx;
 }
 
 .goods-box .navi-url .box .new-tag {
   height: 36rpx;
-  width: 60rpx;
+  width: auto;
   background: #ca2a1d;
   position: absolute;
   top: 20rpx;
