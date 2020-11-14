@@ -164,7 +164,8 @@ Page({
       },
     })
     this.setData({
-      button2Loading: false
+      button2Loading: false,
+      authorized:true
     })
   },
 })

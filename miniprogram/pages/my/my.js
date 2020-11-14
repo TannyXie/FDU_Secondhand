@@ -10,7 +10,7 @@ Page({
     //判断小程序的API，回调，参数，组件等是否在当前版本可用。
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     userInfo: {
-      nickName: '个人信息',
+      nickName: '',
       avatarUrl: '', 
     },
    
@@ -47,17 +47,8 @@ Page({
    */
   onShow: function() {
     var that = this;
-    var studentId = that.data.studentId;
     var nickName = 'userInfo.nickName';
     var avatarUrl = 'userInfo.avatarUrl';
-    wx.getStorage({  //异步获取缓存值studentId
-      key: 'studentId',
-      success: function (res) { 
-        that.setData({
-          studentId: res.data
-        })
-      }
-    })
     //get缓存值用户名字，并设置
     try {
       var value = wx.getStorageSync('nickName')
