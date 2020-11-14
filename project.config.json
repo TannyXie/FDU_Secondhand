@@ -32,6 +32,7 @@
     "userConfirmedUseCompilerModuleSwitch": false,
     "packNpmManually": false,
     "packNpmRelationList": [],
+    "enableEngineNative": false,
     "minifyWXSS": true
   },
   "appid": "wxf1e93e8e7a4a4eb6",

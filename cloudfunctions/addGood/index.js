@@ -1,7 +1,7 @@
 /**
  * API：
- *   添加一件商品
- * 传入参数：
+ *   发布商品
+ * 参数说明：
  *   coverMiddle 图片url
  *   desc 商品描述
  *   intro 商品名

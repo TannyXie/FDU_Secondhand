@@ -1,14 +1,11 @@
-// pages/message/chatrm/index.js
+// pages/my/browsindexeHistory/browseHistory.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    i:0,
-    inputMessage : '',
-    histMess : [
-    ]
+
   },
 
   /**
@@ -64,38 +61,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
-  },
-
-  onClick: function(){
-
-  },
-
-  formSubmit(e){
-    if(e.target.id=="sub"){
-
-    }
-  },
-
-  textChange(e){
-    this.setData({
-      inputMessage : e.detail.value,
-    });
-    console.log(this.data.inputMessage);
-  },
-
-  inputRenew(e){
-    var history = this.data.histMess;
-    history.push({
-      message: this.data.inputMessage,
-      response: 'this is a response'
-    });
-    var i = this.data.i;
-    this.setData({
-      inputMessage : '',
-      i : i+1,
-      histMess : history
-    })
 
   }
 })
