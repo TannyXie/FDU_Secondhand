@@ -96,6 +96,6 @@ Page({
       i : i+1,
       histMess : history
     })
-    console.log(this.data.histMess)
+
   }
 })
