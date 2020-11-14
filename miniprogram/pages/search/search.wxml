@@ -8,11 +8,26 @@
   <view class="hmly-search-right" bindtap="goBack">取消</view>
 </view>
 
-<!--热门搜索-->
-<view class="hmly-hot">
+<!--搜索历史-->
+<view class="hmly-history" wx:if="{{!showitem}}">
   <!--提示标题-->
   <view class="hmly-title">
-    <view class="title-text">热门商品</view>
+    <view class="hmly-title-text">搜索历史</view>
+    <image src="/images/trash-9.png" class="clearicon" bindtap="clearHistory"></image>
+  </view>
+  <!--内容-->
+  <view class="hmly-history-content">
+    <view wx:for="{{getSearch}}" wx:key="index">
+      <view class="hmly-content-item bg-gray text-black" data-search="{{item}}" bindtap="historySearch">{{item}}</view>
+    </view>
+  </view>
+</view>
+
+<!--热门搜索-->
+<view class="hmly-hot" wx:if="{{!showitem}}">
+  <!--提示标题-->
+  <view class="hmly-title">
+    <view class="hmly-title-text">热门商品</view>
   </view>
   <view class="hmly-hot-content">
     <view class="hmly-hot-items" wx:for="{{hotData}}" wx:key="index">
@@ -25,15 +40,42 @@
 </view>
 
 <view class="search-result" wx:if="{{ showitem && goodsList.length}}">
-  <view class="cate-item">
+  <!-- 上新推荐 -->
+<view class="goods-recom">
+  <!-- 这没有没有使用数据绑定，因为是练手而且数据比较少 -->
+  <view class="recom-box">
+    <view class="recom-box-item" bindtap="gotoDetails" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{goodsList}}" wx:key="{{index}}">
+      <view class="recom-box-img">
+        <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
+      </view>
+      <!--标题-->
+      <view class="recom-box-text">{{item.intro}}</view>
+      <!--价格+收藏数-->
+      <view class="goods-des">
+        <view class="goods-price">¥ {{item.price}}</view>
+        <view class="goods-wants">{{item.nums}}收藏</view>
+      </view>
+      <!--卖家+标签-->
+      <view class="goods-des2">
+        <view class="goods-sell">
+          {{item.name}}
+        </view>
+        <view class="goods-tag">
+          {{item.tag}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+  <!-- <view class="cate-item">
     <view class="b">
       <navigator class="item {{(iindex + 1) % 2 == 0 ? 'item-b' : ''}}" url="/pages/goods/goods?id={{iitem.id}}" wx:for="{{goodsList}}" wx:for-item="iitem" wx:for-index="iindex">
-        <image class="img" src="{{iitem.middleCover}}" background-size="cover"></image>
+        <image class="img" src="{{iitem.coverMiddle}}" background-size="cover"></image>
         <text class="name">{{iitem.intro}}</text>
         <text class="price">￥{{iitem.price}}</text>
       </navigator>
     </view>
-  </view>
+  </view> -->
   </view>
 
   <view class="search-result-empty" wx:if="{{!goodsList.length && showitem}}">
