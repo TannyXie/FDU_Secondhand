@@ -13,14 +13,13 @@
 }
 
 .text-title2{
-  width: 90%;
   height: 70rpx;
-  margin: 0rpx auto;
+  margin-left: 38rpx;
   font-size: 38rpx;
   font-weight: bolder;
-  display: flex;
   align-items: center;
   align-content: center;
+  float: left;
 }
 
 
@@ -163,6 +162,12 @@
   text-align: left;
 }
 
+.title-box {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+}
+
 .goods-price{
   font-size: 35rpx;
   font-weight: bold;
@@ -226,4 +231,17 @@
   margin-top: 20rpx;
   margin-left: 20rpx;
   margin-right: 20rpx;
+}
+
+.small-button{
+  background: #000;
+  color: #fff;
+  border-radius: 10rpx;
+  box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
+  width: 80rpx;
+  height: 40rpx;
+  font-size: 28rpx;
+  margin-left: 20rpx;
+  margin-top: 10rpx;
+  text-align: center;
 }
