@@ -7,18 +7,18 @@
 
 <view class="goods-recom">
   <view class="recom-box">
-    <view class="recom-box-item" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}"
-      wx:for="{{goodsList}}" wx:key="{{index}}">
+    <view class="recom-box-item" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{goodsList}}"
+      wx:key="{{index}}">
       <view class="recom-box-img">
         <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
       </view>
     </view>
   </view>
 </view>
-<view class="text-title2">
-  <block>
-    <text>物品介绍</text>
-  </block>
+<view class="title-box">
+  <view class="text-title2">物品介绍</view>
+  <view class="small-button">收藏</view>
+  <view class="small-button">加购</view>
 </view>
 <view class="goods-recom">
   <view class="recom-box">
