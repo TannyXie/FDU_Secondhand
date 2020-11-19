@@ -13,7 +13,10 @@ Page({
     keyword:'',
     goodsList: [],
     showitem: false,
-    hotData:[]
+    hotData:[],
+    currentSortType: 'default',
+    currentSortOrder: 'desc',
+    salesSortOrder:'desc'
   },
 
   /**
@@ -148,5 +151,42 @@ Page({
     wx.navigateTo({
       url: '/pages/details/index'
     })
-  }
+  },
+  openSortFilter: function (event) {
+    let currentId = event.currentTarget.id;
+    switch (currentId) {
+        case 'salesSort':
+            let _SortOrder = 'asc';
+            if (this.data.salesSortOrder == 'asc') {
+                _SortOrder = 'desc';
+            }
+            this.setData({
+                'currentSortType': 'nums',
+                'currentSortOrder': 'asc',
+                'salesSortOrder': _SortOrder
+            });
+            this.getGoodsList();
+            break;
+        case 'priceSort':
+            let tmpSortOrder = 'asc';
+            if (this.data.currentSortOrder == 'asc') {
+                tmpSortOrder = 'desc';
+            }
+            this.setData({
+                'currentSortType': 'price',
+                'currentSortOrder': tmpSortOrder,
+                'salesSortOrder': 'asc'
+            });
+            this.getGoodsList();
+            break;
+        default:
+            //综合排序
+            this.setData({
+                'currentSortType': 'default',
+                'currentSortOrder': 'desc',
+                'salesSortOrder': 'desc'
+            });
+            this.getGoodsList();
+    }
+}
 })

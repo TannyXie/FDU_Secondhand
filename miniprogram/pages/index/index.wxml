@@ -46,7 +46,7 @@
         <view class="goods-sell">
           {{item.name}}
         </view>
-        <view class="goods-tag">
+        <view class="goods-tag" bindtap="gotoFenlei" data-text="{{item.tag}}">
           {{item.tag}}
         </view>
       </view>
