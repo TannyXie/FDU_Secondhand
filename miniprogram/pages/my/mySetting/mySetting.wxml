@@ -10,5 +10,5 @@
     <input value='{{passWord}}' placeholder="输入验证码" bindblur='inputPassWord' password="{{true}}">{{passWord}}</input>
   </view>
   <button class='btn' disabled="{{studentId == ''||buttonLoading ? true : false}}" loading="{{buttonLoading}}" bindtap="bindSubmit">发送验证码</button>
-  <button class='btn2' loading="{{button2Loading}}" bindtap="verifySubmit">验证</button>
+  <button class='btn2' loading="{{button2Loading}}" bindtap="verifySubmit"form-type="submit">验证</button>
 </form>

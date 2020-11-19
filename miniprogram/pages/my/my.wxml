@@ -6,11 +6,10 @@
     <navigator url="mySetting/mySetting" hover-class="navigator-hover">
     <image wx:if="{{userInfo && userInfo.avatarUrl}}" class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image></navigator>
     <text class="userinfo-nickname">{{ userInfo.nickName }}</text>
-    <!--<button class="btn_log" bindtap="bindGetUserInfo">登录</button>-->
   </view>
  <!--小图标-->
  <view class="icon-bar">
-  <navigator url="myPost/myPost" hover-class="navigator-hover">
+  <navigator url="addressAdmin/addressAdmin" hover-class="navigator-hover">
     <view class="icon-bar-item">
       <image src='../../images/my/upload.png'></image>
       <text>我的发布</text>

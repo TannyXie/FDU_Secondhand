@@ -1,5 +1,6 @@
 // miniprogram/pages/my/mySetting/mySetting.js
 const app = getApp()
+var auth=app.globalData.auth;
 Page({
 
   /**
@@ -34,6 +35,7 @@ Page({
     var that = this;
     var studentId = that.data.studentId;
     var passWord = that.data.passWord;
+    console.log(auth)
     wx.getStorage({  //异步获取缓存值studentId
       key: 'studentId',
       success: function (res) {
@@ -130,6 +132,10 @@ Page({
       },
       success(res) {
         console.log(res);
+        wx.showModal({
+          title: '提示',
+          content: '验证码发送成功',
+        })
       },
     })
     this.setData({
@@ -161,11 +167,41 @@ Page({
             content: '验证码错误',
           })
         }
+        else
+        {
+          //成功则保存邮箱信息
+          wx.setStorage({
+            key: 'studentId',
+            data: studentId,
+          })
+          wx.showModal({
+            title: '提示',
+            content: '验证成功',
+            success: function (res) {
+              this.setData({
+                auth:true,
+              })
+              if (res.confirm) {
+                console.log('用户点击确定')
+                wx.setStorage({
+                  key: 'passWord',
+                  data: '',
+                  success()
+                  {
+                    wx.navigateBack()
+                  }
+                })
+              } else {
+                console.log('用户点击取消')
+              }
+              
+            }
+          })
+        }
+        this.setData({
+          button2Loading: false,
+        })
       },
-    })
-    this.setData({
-      button2Loading: false,
-      authorized:true
     })
   },
 })
