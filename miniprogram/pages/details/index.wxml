@@ -17,7 +17,7 @@
 </view>
 <view class="title-box">
   <view class="text-title2">物品介绍</view>
-  <view class="small-button">收藏</view>
+  <view class="small-button" bindtap="setFavor" >收藏</view>
   <view class="small-button">加购</view>
 </view>
 <view class="goods-recom">
@@ -30,11 +30,11 @@
       </view>
       <view class="goods-des2">
         <view class="goods-wants">{{item.nums}}收藏</view>
-        <view class="goods-sell">{{item.seller}}</view>
-        <view class="goods-price">{{item.price}}</view>
+        <view class="goods-sell">{{seller}}</view>
+        <view class="goods-price">￥ {{item.price}}</view>
       </view>
       <view class="intro-box-text2">商品介绍</view>
-      <p class="intro-detail-text2">这里是介绍这里是介绍这里是介绍这里是介绍这里是介绍这里是介绍这里是介绍这里是介绍这里是介绍这里是介绍</p>
+      <p class="intro-detail-text2">{{item.desc}}</p>
     </view>
   </view>
 </view>
@@ -44,8 +44,8 @@
   </block>
 </view>
 
-<view class="cm-box-item" wx:for="{{goodsList}}" wx:key="{{index}}">
+<view class="cm-box-item" wx:for="{{commentList}}" wx:key="{{index}}">
   <image class="profile-img" src="{{item.userImg}}" mode="widthFix"></image>
-  <view class="intro-box-text">用户名</view>
-  <p class="intro-detail-text">这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论这里是评论</p>
+  <view class="intro-box-text">{{item.userName}}</view>
+  <p class="intro-detail-text">{{item.comment}}</p>
 </view>

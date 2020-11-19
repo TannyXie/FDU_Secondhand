@@ -58,13 +58,14 @@ Page({
   },
   // 上新推荐改变事件
   gotoDetails(e) {
-    var url = e.currentTarget.dataset.coverimg;
-    var title = e.currentTarget.dataset.title;
+    //var url = e.currentTarget.dataset.coverimg;
+    //var title = e.currentTarget.dataset.title;
+    var goodId = e.currentTarget.dataset.id;
     //wx.navigateTo({
     //  url: '/pages/details/details?url=' + url + '&title=' + title,
     //})
     wx.navigateTo({
-      url: '/pages/details/index'
+      url: '/pages/details/index?key=' + goodId
     })
   }
 })

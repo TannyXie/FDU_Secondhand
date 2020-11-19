@@ -30,7 +30,7 @@
 <view class="goods-recom">
   <!-- 这没有没有使用数据绑定，因为是练手而且数据比较少 -->
   <view class="recom-box">
-    <view class="recom-box-item" bindtap="gotoDetails" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{goodsList}}" wx:key="{{index}}">
+    <view class="recom-box-item" bindtap="gotoDetails" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" data-id="{{item._id}}" wx:for="{{goodsList}}" wx:key="{{index}}">
       <view class="recom-box-img">
         <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
       </view>
@@ -46,7 +46,7 @@
         <view class="goods-sell">
           {{item.name}}
         </view>
-        <view class="goods-tag">
+        <view class="goods-tag" bindtap="gotoFenlei" data-text="{{item.tag}}">
           {{item.tag}}
         </view>
       </view>
