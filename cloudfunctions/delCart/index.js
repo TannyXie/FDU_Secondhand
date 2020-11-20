@@ -1,6 +1,6 @@
 /**
  * API
- *   使用户收藏某商品
+ *   把某商品从购物车中删除
  * 参数
  *   userId （可选）用户ID；若不填则默认为当前用户
  *   goodId 商品ID
@@ -15,6 +15,7 @@ const db = cloud.database()
 const _ = db.command
 
 exports.main = async (event, context) => {
+  // 参数检查
   const userId = event.userId ? event.userId : cloud.getWXContext().OPENID
   if (userId == null) {
     return {
@@ -29,34 +30,36 @@ exports.main = async (event, context) => {
       statusMsg: 'no such good'
     }
   }
+
   try {
-    const checkResult = await db.collection('favorite').where({
+    // 数据记录检查
+    const checkResult = await db.collection('cart').where({
       userId: _.eq(userId),
       goodId: _.eq(goodId)
     }).get()
     if (checkResult.data.length == 0) {
-      const res = await db.collection('favorite').add({
-        data: {
-          userId: userId,
-          goodId: goodId
-        }
-      })
-      console.log(res)
       return {
-        statusCode: 200,
-        statusMsg: 'ok'
+        statusCode: 400,
+        statusMsg: 'no such record'
       }
     } else {
+      const delResult = await db.collection('cart').where({
+        userId: _.eq(userId),
+        goodId: _.eq(goodId)
+      }).remove()
+      console.log(delResult)
       return {
-        statusCode: 300,
-        statusMsg: 'already in favorite'
+        statusCode: 200,
+        statusMsg: 'del cart ok'
       }
     }
   } catch (err) {
     console.log(err)
     return {
       statusCode: 400,
-      statusMsg: 'set favorite fail'
+      statusMsg: 'del cart fail'
     }
   }
+
+
 }

@@ -1,6 +1,6 @@
 /**
  * API
- *   使用户收藏某商品
+ *   使用户加购某商品
  * 参数
  *   userId （可选）用户ID；若不填则默认为当前用户
  *   goodId 商品ID
@@ -26,16 +26,16 @@ exports.main = async (event, context) => {
   if (goodId == null) {
     return {
       statusCode: 400,
-      statusMsg: 'no such good'
+      statusMsg: 'good id cannot be null'
     }
   }
   try {
-    const checkResult = await db.collection('favorite').where({
+    checkResult = await db.collection('cart').where({
       userId: _.eq(userId),
       goodId: _.eq(goodId)
     }).get()
     if (checkResult.data.length == 0) {
-      const res = await db.collection('favorite').add({
+      const res = await db.collection('cart').add({
         data: {
           userId: userId,
           goodId: goodId
@@ -49,7 +49,7 @@ exports.main = async (event, context) => {
     } else {
       return {
         statusCode: 300,
-        statusMsg: 'already in favorite'
+        statusMsg: 'already in cart'
       }
     }
   } catch (err) {

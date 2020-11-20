@@ -1,12 +1,12 @@
 /**
  * API
- *   获取用户加购的所有商品
+ *   获取用户发布的所有评论
  * 参数
  *   userId （可选）用户ID；若不填则默认为当前用户
  * 返回
  *   statusCode 状态码
  *   statusMsg 状态信息
- *   data 查询数据，一个goodId的列表
+ *   data 评论数据
  */
 
 const cloud = require('wx-server-sdk')
@@ -15,6 +15,7 @@ const db = cloud.database()
 const _ = db.command
 
 exports.main = async (event, context) => {
+  // 参数检查
   const userId = event.userId ? event.userId : cloud.getWXContext().OPENID
   if (userId == null) {
     return {
@@ -23,28 +24,22 @@ exports.main = async (event, context) => {
     }
   }
 
+  // 数据库操作
   try {
-    const queryResult = await db.collection('cart').where({
+    const result = await db.collection('comment').where({
       userId: _.eq(userId)
     }).get()
-    console.log(queryResult)
-    
-    var goodList = []
-    for (let i = 0; i < queryResult.data.length; i++) {
-      let good = await db.collection('second-hand-good').doc(queryResult.data[i].goodId).get()
-      goodList = goodList.concat(good.data)
-    }
-    console.log(goodList)
+    console.log(result)
     return {
       statusCode: 200,
-      statusMsg: 'ok',
-      data: goodList
+      statusMsg: 'get comments ok',
+      data: result.data 
     }
   } catch (err) {
     console.log(err)
     return {
       statusCode: 400,
-      statusMsg: 'fail',
+      statusMsg: 'get comments fail'
     }
   }
 }
