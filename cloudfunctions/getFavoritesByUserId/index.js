@@ -12,6 +12,7 @@
 const cloud = require('wx-server-sdk')
 cloud.init()
 const db = cloud.database()
+const _ = db.command
 
 exports.main = async (event, context) => {
   const userId = event.userId ? event.userId : cloud.getWXContext().OPENID
@@ -23,19 +24,21 @@ exports.main = async (event, context) => {
   }
 
   try {
-    const _ = db.command
-    const qres = await db.collection('favorite').where({
+    const queryResult = await db.collection('favorite').where({
       userId: _.eq(userId)
     }).get()
-    console.log(qres)
-    var res = []
-    for (let i = 0; i < qres.data.length; i++) 
-      res = res.concat(qres.data[i].goodId)
-    console.log(res)
+    console.log(queryResult)
+    
+    var goodList = []
+    for (let i = 0; i < queryResult.data.length; i++) {
+      let good = await db.collection('second-hand-good').doc(queryResult.data[i].goodId).get()
+      goodList = goodList.concat(good.data)
+    }
+    console.log(goodList)
     return {
       statusCode: 200,
       statusMsg: 'ok',
-      data: res
+      data: goodList
     }
   } catch (err) {
     console.log(err)
