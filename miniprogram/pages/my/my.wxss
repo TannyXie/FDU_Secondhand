@@ -100,8 +100,6 @@ page{
 .board-bar .board-bar-item text{
   font-size:30rpx;
   margin: auto;
-  text-align:right;
-  padding-left: 8px;
 }
 .text-title{
   width: 90%;
@@ -141,8 +139,14 @@ page{
 }
 .auth{
   border: 0;
-  color: #fff;
-  background-color: #000;
-  margin-top: 20rpx;
-  border-radius: 50rpx;
+  color: black;
+  background-color:white;
+  border-radius: 90rpx;
+  font-size:30rpx;
+  display: block;
+  margin-left: 300rpx;
+  margin-bottom:0rpx;
+  padding-left:15rpx;
+  width: 120rpx;
+  height: 80rpx;
 }

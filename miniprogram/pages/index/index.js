@@ -40,6 +40,7 @@ Page({
       data:{
       },
       success(res) {
+        console.log(res)
         console.log('成功', res.result.data.list);
         that.setData({
           goodsList: res.result.data.list,

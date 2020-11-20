@@ -6,7 +6,6 @@
     <navigator url="mySetting/mySetting" hover-class="navigator-hover">
     <image wx:if="{{userInfo && userInfo.avatarUrl}}" class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image></navigator>
     <text class="userinfo-nickname">{{ userInfo.nickName }}</text>
-    <!--<button class="btn_log" bindtap="bindGetUserInfo">登录</button>-->
   </view>
  <!--小图标-->
  <view class="icon-bar">
@@ -88,4 +87,8 @@
 </view>
 </view>
 <!--<button class="btn_quit" bindtap='bindClear'>退出帐号</button>-->
-  
+<view class="information-box">
+  <navigator url="addressAdmin/addressAdmin" hover-class="navigator-hover">
+<view class="text-title">
+  我的地址</view></navigator>
+</view>

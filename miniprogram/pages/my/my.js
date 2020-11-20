@@ -1,5 +1,6 @@
 //my.js
 var app = getApp()
+var StudentId = './addressAdmin/addressAdmin.js'
 Page({
   /**
    * 页面的初始数据
@@ -59,6 +60,8 @@ Page({
    */
   onShow: function() {
     var that = this;
+    var studentId = that.data.name;
+    console.log(studentId)
     var nickName = 'userInfo.nickName';
     var avatarUrl = 'userInfo.avatarUrl';
     //get缓存值用户名字，并设置
@@ -116,7 +119,6 @@ Page({
     if (e.detail.userInfo) {
        //用户按了允许授权按钮
        var userInfo = e.detail.userInfo;
-       console.log(userInfo)
       that.setData({
         nickName: userInfo.nickName
       })
@@ -163,14 +165,6 @@ Page({
       wx.setStorageSync('nickName', '')
     } catch (e) {
     }
-    wx.setStorage({
-      key: 'studentId',
-      data: '',
-    })
-    wx.setStorage({
-      key: 'passWord',
-      data: '',
-    })
     wx.setStorage({
       key: 'avatarUrl',
       data: '',
