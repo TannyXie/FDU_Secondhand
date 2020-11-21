@@ -26,14 +26,31 @@ exports.main = async (event, context) => {
 
   // 数据库操作
   try {
-    const result = await db.collection('comment').where({
+    const queryResult = await db.collection('comment').where({
       userId: _.eq(userId)
     }).get()
-    console.log(result)
+    console.log(queryResult)
+
+    var returnList = []
+    for (let comment of queryResult.data) {
+      const commentId = comment._id
+      const content = comment.content
+      const time = comment.time
+      const userResult = await db.collection('user').doc(comment.userId).get()
+      const goodResult = await db.collection('second-hand-good').doc(comment.goodId).get()
+      returnList = returnList.concat({
+        commentId: commentId,
+        userInfo: userResult.data,
+        goodInfo: goodResult.data,
+        content: content,
+        time: time
+      })
+    }
+    console.log(returnList)
     return {
       statusCode: 200,
       statusMsg: 'get comments ok',
-      data: result.data 
+      data: returnList 
     }
   } catch (err) {
     console.log(err)
