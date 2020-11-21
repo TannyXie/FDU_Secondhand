@@ -5,16 +5,14 @@ Page({
     hasList:false,          // 列表是否有数据
     totalPrice:0,           // 总价，初始为0
     selectAllStatus:true,    // 全选状态，默认全选
-    obj:{
-        name:"hello"
-    }
+
   },
   onShow() {
     this.setData({
       hasList: true,
       carts:[
-        {id:1,title:'耳机',image:'/images/goods/02.jpg',num:1,price:360,selected:true},
-        {id:2,title:'卸妆水',image:'/images/goods/03.jpg',num:1,price:20,selected:true}
+        {id:1,title:'耳机',image:'/images/goods/02.jpg',price:360,selected:true},
+        {id:2,title:'卸妆水',image:'/images/goods/03.jpg',price:20,selected:true}
       ]
     });
     this.getTotalPrice();

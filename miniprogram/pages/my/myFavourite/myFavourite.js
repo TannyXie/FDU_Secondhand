@@ -7,7 +7,7 @@ Page({
   data: {
     goodsList: [
   ],
-  hasList:true,
+  hasList:false,
   },
 
   /**
@@ -103,14 +103,12 @@ Page({
       this.setData({
         goodsList : goodsList 
       });
-  /*
       if(this.data.goodsList.length==0)
       {
         this.setData({
           hasList : false
         });
       }
-      */
   },
 
 })
