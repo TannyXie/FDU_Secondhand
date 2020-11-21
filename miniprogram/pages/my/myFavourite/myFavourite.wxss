@@ -124,8 +124,7 @@
   float: left;
 }
 .favorite-no-data{
-  padding:40rpx 0;
+  padding:30rpx 0;
   color:black;
   text-align: center;
-  margin-left: 10rpx;
 }

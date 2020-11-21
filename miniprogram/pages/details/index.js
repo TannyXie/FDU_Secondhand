@@ -7,7 +7,7 @@ Page({
   data: {
     goodId: '',
     goodsList: [],
-    commentList: [],
+    //commentList: [],
     seller: '',
     swiperCurrent: 0,
   },
@@ -28,7 +28,7 @@ Page({
         that.setData({
           goodId: key,
           goodsList: [res.result.data],
-          commentList: res.result.data.commentList,
+          //commentList: res.result.data.commentList,
           seller: '卖家',
         });
       },

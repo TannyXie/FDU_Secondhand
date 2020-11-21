@@ -84,6 +84,6 @@ Page({
       carts: carts,
       totalPrice: total.toFixed(2)
     });
-  }
-
+  },
 })
+
