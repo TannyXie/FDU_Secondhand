@@ -62,6 +62,7 @@ Page({
     //var url = e.currentTarget.dataset.coverimg;
     //var title = e.currentTarget.dataset.title;
     var goodId = e.currentTarget.dataset.id;
+    console.log(goodId)
     //wx.navigateTo({
     //  url: '/pages/details/details?url=' + url + '&title=' + title,
     //})

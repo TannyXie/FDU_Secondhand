@@ -1,11 +1,12 @@
 <!--miniprogram/pages/my/myFavourite/myFavourite.wxml-->
  <!-- 上新推荐 -->
+ <view class="main">
+ <view wx:if="{{hasList}}">
  <view class="goods-favorite">
   <!-- 这没有没有使用数据绑定，因为是练手而且数据比较少 -->
-  <view wx:if="{{hasList}}">
   <view class="favorite-box">
-    <view class="favorite-box-item" bindtap="gotoDetails" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{goodsList}}" wx:key="{{index}}">
-      <view class="favorite-box-img">
+    <view class="favorite-box-item" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{goodsList}}" wx:key="{{index}}">
+      <view class="favorite-box-img" bindtap="gotoDetails"data-index="{{index}}" >
         <image class="favorite-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
       </view>
       <!--标题-->
@@ -29,7 +30,8 @@
     </view>
   </view>
 </view>
+</view>
 <view wx:else>
-    <view class="cart-no-data">收藏夹是空的哦~</view>
+    <view class="favorite-no-data">收藏夹是空的哦~</view>
 </view>
 </view>

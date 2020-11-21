@@ -7,7 +7,7 @@ Page({
   data: {
     goodsList: [
   ],
-  hasList:true,
+  hasList:false,
   },
 
   /**
@@ -103,14 +103,21 @@ Page({
       this.setData({
         goodsList : goodsList 
       });
-  /*
       if(this.data.goodsList.length==0)
       {
         this.setData({
           hasList : false
         });
       }
-      */
   },
-
+  gotoDetails(e) {
+    const index = e.currentTarget.dataset.index;
+    let goodsList = this.data.goodsList;
+    console.log(index)
+    var goodId = goodsList[index]._id
+    console.log(goodId)
+    wx.navigateTo({
+      url: '/pages/details/index?key=' + goodId
+    })
+}
 })
