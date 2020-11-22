@@ -8,13 +8,30 @@ Page({
 
   },
   onShow() {
-    this.setData({
-      hasList: true,
-      carts:[
-        {id:1,title:'耳机',image:'/images/goods/02.jpg',price:360,selected:true},
-        {id:2,title:'卸妆水',image:'/images/goods/03.jpg',price:20,selected:true}
-      ]
-    });
+    var that = this
+    wx.cloud.callFunction({
+      name: 'getCartByUserId',
+      data:{
+      },
+      success(res) {
+        console.log('成功',res.result.data)
+        if(res.result.data){
+        var carts=[]
+        for (let i = 0; i < res.result.data.length; i++)
+        {
+          carts.push({'_id':res.result.data[i]._id,'title':res.result.data[i].intro,'image':res.result.data[i].coverMiddle,'price':res.result.data[i].price,'selected':true})
+        }
+        that.setData({
+          carts: carts,
+        });
+          if(res.result.data.length){
+          that.setData({
+            hasList: true,
+          });
+        }
+      }
+      },
+    })
     this.getTotalPrice();
   },
   /**
@@ -37,9 +54,18 @@ Page({
   deleteList(e) {
     const index = e.currentTarget.dataset.index;
     let carts = this.data.carts;
+    wx.cloud.callFunction({
+      name: 'delCart',
+      data:{
+        goodId:carts[index]._id
+      },
+      success(res) {
+        console.log('成功');
+      },
+    })
     carts.splice(index,1);
     this.setData({
-      carts: carts
+      carts : carts
     });
     if(!carts.length){
       this.setData({
@@ -85,5 +111,14 @@ Page({
       totalPrice: total.toFixed(2)
     });
   },
+  gotoDetails(e) {
+    const index = e.currentTarget.dataset.index;
+    let carts = this.data.carts;
+    var goodId = carts[index]._id
+    console.log(goodId)
+    wx.navigateTo({
+      url: '/pages/details/index?key=' + goodId
+    })
+}
 })
 

@@ -74,13 +74,13 @@
       position: absolute;
       right: 7rpx;
       top: 25rpx;
-      width: 45rpx;
-      height: 45rpx;
+      width: 50rpx;
+      height: 50rpx;
   }
   .order-icon image,.order-icon navigator{
     display: block;
-    width: 45rpx;
-    height: 45rpx;
+    width: 50rpx;
+    height: 50rpx;
   }
   .cart-toatl-price{
       float: right;

@@ -5,7 +5,7 @@
             <view class="cart-list" wx:for="{{carts}}" wx:key="{{index}}">
                 <icon wx:if="{{item.selected}}" type="success" color="black" data-index="{{index}}"class="cart-pro-select" bindtap="selectList"/>
                 <icon wx:else type="circle" class="cart-pro-select" data-index="{{index}}" bindtap="selectList"/>
-                <image class="cart-thumb" src="{{item.image}}" ></image>
+                <image class="cart-thumb" src="{{item.image}}" bindtap="gotoDetails"data-index="{{index}}"></image>
                 <text class="cart-pro-name">{{item.title}}</text>
                 <text class="cart-pro-price">￥{{item.price}}</text>
                 <text class="cart-del" bindtap="deleteList" data-index="{{index}}">×</text>
