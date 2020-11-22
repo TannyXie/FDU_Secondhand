@@ -72,7 +72,6 @@ Page({
   setFavor(e) {
     var that = this;
     const id = that.data.goodId;
-    console.log(id);
     wx.cloud.callFunction({
       name: 'setFavorite',
       data: {
@@ -82,6 +81,25 @@ Page({
         console.log('成功', res);
         wx.showToast({
           title: '收藏成功',
+          duration: 2000,
+        })
+      },
+    })
+  },
+
+  // 加购
+  addCart(e) {
+    var that = this;
+    const id = that.data.goodId;
+    wx.cloud.callFunction({
+      name: 'addCart',
+      data: {
+        goodId: id
+      },
+      success(res) {
+        console.log('成功', res);
+        wx.showToast({
+          title: '加购成功',
           duration: 2000,
         })
       },
