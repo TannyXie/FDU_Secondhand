@@ -42,7 +42,8 @@ exports.main = async (event, context) => {
       nums:0,
       price:event.price,
       sellerId:event.sellerId,
-      tag:event.tag
+      tag:event.tag,
+      sold:false
     }
   }).then((res) => {
     return {
