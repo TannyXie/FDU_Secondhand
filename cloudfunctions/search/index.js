@@ -45,7 +45,8 @@ exports.main = async (event, context) => {
     intro:{
       $regex:".*"+event.intro+".*",
       $options:'i'
-    }
+    },
+    sold:false
   })
   .lookup({
     from: "user",

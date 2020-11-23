@@ -21,7 +21,8 @@ exports.main = async (event, context) => {
   // const wxContext = cloud.getWXContext()
   return await db.collection('second-hand-good').aggregate()
   .match({
-    tag:event.tag
+    tag:event.tag,
+    sold:false
   })
   .lookup({
     from: "user",
