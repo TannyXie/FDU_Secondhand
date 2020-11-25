@@ -20,7 +20,6 @@
     "pages/post/index",
     "pages/my/my",
     "pages/my/myPost/myPost",
-    "pages/my/browsindexeHistory/browseHistory",
     "pages/my/myFavourite/myFavourite",
     "pages/my/myOrder/myOrder",
     "pages/my/addressAdmin/addressAdmin",

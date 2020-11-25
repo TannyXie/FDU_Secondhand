@@ -4,8 +4,8 @@
 <view class="goods-history">
   <!-- 这没有没有使用数据绑定，因为是练手而且数据比较少 -->
   <view class="history-box">
-    <view class="history-box-item" bindtap="gotoDetails" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{goodsList}}" wx:key="{{index}}">
-      <view class="history-box-img">
+    <view class="history-box-item" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{goodsList}}" wx:key="{{index}}">
+      <view class="history-box-img" bindtap="gotoDetails"data-index="{{index}}" >
         <image class="history-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
       </view>
       <!--标题-->

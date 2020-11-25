@@ -49,6 +49,16 @@ Page({
       },
     })
   },
+  gotoDetails(e) {
+    const index = e.currentTarget.dataset.index;
+    let goodsList = this.data.goodsList;
+    console.log(index)
+    var goodId = goodsList[index]._id
+    console.log(goodId)
+    wx.navigateTo({
+      url: '/pages/details/index?key=' + goodId
+    })
+},
 
   /**
    * 生命周期函数--监听页面隐藏
