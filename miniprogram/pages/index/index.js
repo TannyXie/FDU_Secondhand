@@ -36,12 +36,12 @@ Page({
   onLoad: function (options) {
     var that = this;
     wx.cloud.callFunction({
-      name: 'latest8',
+      name: 'getDateLatest8',
       data:{
       },
       success(res) {
         console.log(res)
-        console.log('成功', res.result.data.list);
+        console.log('latest8成功', res.result.data.list);
         that.setData({
           goodsList: res.result.data.list,
         });

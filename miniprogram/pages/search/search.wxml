@@ -48,7 +48,7 @@
                 </view>
                 <view class="item {{currentSortType == 'price' ? 'active' : ''}}" bindtap="openSortFilter" id="priceSort">
                     <view class="txt">价格</view>
-                    <image class="icon" src="/images/order-by.png" wx:if="{{currentSortType == 'default' || currentSortType == 'sales'}}"></image>
+                    <image class="icon" src="/images/order-by.png" wx:if="{{currentSortType == 'default' || currentSortType == 'nums'}}"></image>
                     <block wx:else>
                         <image class="icon" wx:if="{{currentSortOrder == 'asc'}}" src='/images/asc.png'></image>
                         <image class="icon" wx:elif="{{currentSortOrder == 'desc'}}" src='/images/desc.png'></image>
