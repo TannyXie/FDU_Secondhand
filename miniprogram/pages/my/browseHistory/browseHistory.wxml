@@ -1,13 +1,15 @@
 <!--miniprogram/pages/my/browseHistory/browseHistory.wxml-->
-<view class="goods-recom">
+<view class="main">
+ <view wx:if="{{hasList}}">
+<view class="goods-history">
   <!-- 这没有没有使用数据绑定，因为是练手而且数据比较少 -->
-  <view class="recom-box">
-    <view class="recom-box-item" bindtap="gotoDetails" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{goodsList}}" wx:key="{{index}}">
-      <view class="recom-box-img">
-        <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
+  <view class="history-box">
+    <view class="history-box-item" bindtap="gotoDetails" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{goodsList}}" wx:key="{{index}}">
+      <view class="history-box-img">
+        <image class="history-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
       </view>
       <!--标题-->
-      <view class="recom-box-text">{{item.intro}}</view>
+      <view class="history-box-text">{{item.intro}}</view>
       <!--价格+收藏数-->
       <view class="goods-des">
         <view class="goods-price">{{item.price}}</view>
@@ -24,4 +26,9 @@
       </view>
     </view>
   </view>
+</view>
+</view>
+<view wx:else>
+    <view class="history-no-data">历史浏览是空的哦~</view>
+</view>
 </view>

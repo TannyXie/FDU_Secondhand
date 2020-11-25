@@ -32,6 +32,15 @@ Page({
           seller: '卖家',
         });
       },
+    }),
+    wx.cloud.callFunction({
+      name: 'addHistory',
+      data: {
+        goodId: key
+      },
+      success(res) {
+        console.log('成功', res);
+      },
     })
   },
   /*
@@ -59,8 +68,21 @@ Page({
       }
     });
   },*/
-
-
+  /*
+  onShow:function(options)
+  {
+    var that=this;
+    wx.cloud.callFunction({
+      name: 'addHistory',
+      data: {
+        goodId: that.data.goodId
+      },
+      success(res) {
+        console.log('成功', res);
+      },
+    })
+  },
+*/
   // 宫格导航改变事件
   goToBangDan: function () {
     wx.navigateTo({
