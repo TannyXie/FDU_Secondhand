@@ -48,7 +48,7 @@
                 </view>
                 <view class="item {{currentSortType == 'price' ? 'active' : ''}}" bindtap="openSortFilter" id="priceSort">
                     <view class="txt">价格</view>
-                    <image class="icon" src="/images/order-by.png" wx:if="{{currentSortType == 'default' || currentSortType == 'sales'}}"></image>
+                    <image class="icon" src="/images/order-by.png" wx:if="{{currentSortType == 'default' || currentSortType == 'nums'}}"></image>
                     <block wx:else>
                         <image class="icon" wx:if="{{currentSortOrder == 'asc'}}" src='/images/asc.png'></image>
                         <image class="icon" wx:elif="{{currentSortOrder == 'desc'}}" src='/images/desc.png'></image>
@@ -67,7 +67,7 @@
 
   <view class="cate-item">
     <view class="b">
-      <navigator class="item {{(iindex + 1) % 2 == 0 ? 'item-b' : ''}}" url="/pages/goods/goods?id={{iitem.id}}" wx:for="{{goodsList}}" wx:for-item="iitem" wx:for-index="iindex"  wx:key="id">
+      <navigator class="item {{(iindex + 1) % 2 == 0 ? 'item-b' : ''}}" url='/pages/details/index?key={{iitem._id}}' wx:for="{{goodsList}}" wx:for-item="iitem" wx:for-index="iindex"  wx:key="id">
         <image class="img" src="{{iitem.coverMiddle}}" background-size="cover"></image>
         <text class="name">{{iitem.intro}}</text>
         <text class="price">￥{{iitem.price}}</text>

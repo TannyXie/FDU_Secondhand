@@ -25,7 +25,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     wx.cloud.callFunction({
-      name: 'keptTop6',
+      name: 'getNumsTop6',
       data:{
       },
       success(res) {
@@ -82,13 +82,22 @@ Page({
 
   getGoodsList: function () {
     let that = this;
+    var sortorder = 'desc';
+    if(this.data.currentSortType == 'price'){
+      sortorder = this.data.currentSortOrder;
+    }
+    else if(this.data.currentSortType == 'nums'){
+      sortorder = this.data.salesSortOrder;
+    }
     wx.cloud.callFunction({
       name: 'search',
       data:{
-        intro: this.data.keyword
+        intro: this.data.keyword,
+        sortType: this.data.currentSortType,
+        sortOrder: sortorder
       },
       success(res) {
-        console.log('成功', res.result.data.list);
+        console.log('search成功', res.result.data.list);
         that.setData({
           showitem: true,
           goodsList: res.result.data.list,
