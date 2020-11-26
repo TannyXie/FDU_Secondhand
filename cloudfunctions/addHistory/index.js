@@ -30,27 +30,34 @@ exports.main = async (event, context) => {
     }
   }
   try {
+    date=new Date()
+    time=Date.parse(date)
+    console.log("当前时间戳: ",time)
+    begin_time=(new Date().setHours(0,0,0,0)-8*60*60*1000)
+    console.log("当天第一个时间戳：",begin_time)
     checkResult = await db.collection('history').where({
       userId: _.eq(userId),
-      goodId: _.eq(goodId)
+      goodId: _.eq(goodId),
+      time: _.gte(begin_time)
     }).get()
-    let _date=new Date()
+    // console.log(checkResult.data.length)
     if (checkResult.data.length == 0) {
       const res = await db.collection('history').add({
         data: {
           userId: userId,
           goodId: goodId,
-          time:_date
+          time:time
         }
       })
       console.log(res)
     } else {
       db.collection('history').where({
         userId: _.eq(userId),
-        goodId: _.eq(goodId)
+        goodId: _.eq(goodId),
+        time: _.gte(begin_time)
       }).update({
         data:{
-          time:_date
+          time:time
         }
       })
     }
