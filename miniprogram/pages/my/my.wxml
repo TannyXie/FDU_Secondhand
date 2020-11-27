@@ -1,4 +1,4 @@
- <!--顶部卡片-->
+<!--顶部卡片-->
 <view class="container">
   <!--个人信息卡片-->
 	<view class="userinfo">
@@ -37,58 +37,36 @@
 </view>
 
 <view class="information-box">
-<navigator url="myOrder/myOrder" hover-class="navigator-hover">
+
 <view class="text-title">
-  我卖出的</view>
-</navigator>
+  我的交易</view>
+
 <view class="box-item">
   <view class="board-bar">
     <view class="board-bar-item">
-      <navigator url="myOrder/myOrder" hover-class="navigator-hover">
+      <navigator url="myPost/myPost" hover-class="navigator-hover">
       <image src='/images/my/chart.png'></image>
-      <text>发布总数</text>
+      <text>我发布的</text>
     </navigator>
     </view>
     <view class="board-bar-item">
       <navigator url="myOrder/myOrder" hover-class="navigator-hover">
-      <image src='/images/my/sales.png'></image>
-      <text>卖出总数</text>
+      <image src='/images/my/money.png'></image>
+      <text>我卖出的</text>
     </navigator>
     </view>
     <view class="board-bar-item">
-      <navigator url="myFavourite/myFavourite" hover-class="navigator-hover">
-      <image src='/images/my/money.png'></image>
-      <text>卖出总额</text>
+      <navigator url="myOrder/myOrder" hover-class="navigator-hover">
+      <image src='/images/my/sales.png' mode="aspectFit"></image>
+      <text>我买到的</text>
       </navigator>
     </view>
   </view>
 </view>
 </view>
+
 <view class="information-box">
-<navigator url="myOrder/myOrder" hover-class="navigator-hover">
 <view class="text-title">
-  我购入的</view>
-</navigator>
-<view class="box-item">
-  <view class="board-bar">
-    <view class="board-bar-item">
-      <navigator url="myOrder/myOrder" hover-class="navigator-hover">
-      <image src='/images/my/tu.png'></image>
-      <text>买的总数</text>
-    </navigator>
-    </view>
-    <view class="board-bar-item">
-      <navigator url="myFavourite/myFavourite" hover-class="navigator-hover">
-      <image src='/images/my/money.png'></image>
-      <text>花费总额</text>
-      </navigator>
-    </view>
-  </view>
-</view>
+  我的地址</view>
 </view>
 <!--<button class="btn_quit" bindtap='bindClear'>退出帐号</button>-->
-<view class="information-box">
-  <navigator url="addressAdmin/addressAdmin" hover-class="navigator-hover">
-<view class="text-title">
-  我的地址</view></navigator>
-</view>
