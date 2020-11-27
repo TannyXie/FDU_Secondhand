@@ -31,6 +31,8 @@
     "pages/message/chatrm/index"
   ],
   "tabBar": {
+    "selectedColor": "#000000",
+    "color": "#aaa",
     "list": [{
       "pagePath": "pages/index/index",
       "text": "首页",
