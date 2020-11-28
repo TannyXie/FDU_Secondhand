@@ -46,19 +46,19 @@
     <view class="board-bar-item">
       <navigator url="myPost/myPost" hover-class="navigator-hover">
       <image src='/images/my/chart.png'></image>
-      <text>我发布的</text>
+      <text style="margin-left: 20rpx">我发布的</text>
     </navigator>
     </view>
     <view class="board-bar-item">
-      <navigator url="myOrder/myOrder" hover-class="navigator-hover">
+      <navigator url="mySell/mySell" hover-class="navigator-hover">
       <image src='/images/my/money.png'></image>
-      <text>我卖出的</text>
+      <text style="margin-left: 20rpx">我卖出的</text>
     </navigator>
     </view>
     <view class="board-bar-item">
-      <navigator url="myOrder/myOrder" hover-class="navigator-hover">
+      <navigator url="myBuy/myBuy" hover-class="navigator-hover">
       <image src='/images/my/sales.png' mode="aspectFit"></image>
-      <text>我买到的</text>
+      <text style="margin-left: 20rpx">我买到的</text>
       </navigator>
     </view>
   </view>

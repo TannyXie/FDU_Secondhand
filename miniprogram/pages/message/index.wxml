@@ -4,7 +4,7 @@
 
 <view class="text-title">
     <block>
-        <text>你的消息</text>
+        <text>我的消息</text>
     </block>
 </view>
 <!--消息列表-->
