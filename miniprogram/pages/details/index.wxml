@@ -19,6 +19,7 @@
   <view class="text-title2">物品介绍</view>
   <view class="small-button" bindtap="setFavor" >收藏</view>
   <view class="small-button" bindtap="addCart" >加购</view>
+  <view class="small-button" bindtap="addOrder" >结算</view>
 </view>
 <view class="goods-recom">
   <view class="recom-box">
