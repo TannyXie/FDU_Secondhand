@@ -14,7 +14,6 @@
         </view>
         <view class="goods-des">
           <view class="goods-price">￥{{item.price}}</view>
-          <view class="goods-sold">{{item.sold}}</view>
         </view>
       </view>
     </view>
