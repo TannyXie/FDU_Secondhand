@@ -132,22 +132,18 @@ Page({
   addOrder(e) {
     var that = this;
     const id = that.data.goodId;
-    /*wx.cloud.callFunction({
-      name: 'addCart',
+    wx.cloud.callFunction({
+      name: 'addOrder',
       data: {
         goodId: id
       },
       success(res) {
         console.log('成功', res);
         wx.showToast({
-          title: '加购成功',
+          title: '结算成功',
           duration: 2000,
         })
       },
-    })*/
-    wx.showToast({
-      title: '结算成功',
-      duration: 2000,
     })
   },
 })
