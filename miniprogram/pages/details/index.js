@@ -36,10 +36,11 @@ Page({
     wx.cloud.callFunction({
       name: 'addHistory',
       data: {
-        goodId: key
+        goodId: key,
+        userId: 'fakeuserid1',
       },
       success(res) {
-        console.log('成功', res);
+        console.log('成功加入历史记录', res);
       },
     })
   },
@@ -97,10 +98,11 @@ Page({
     wx.cloud.callFunction({
       name: 'setFavorite',
       data: {
-        goodId: id
+        goodId: id,
+        userId: 'fakeuserid1'
       },
       success(res) {
-        console.log('成功', res);
+        console.log('成功收藏', res);
         wx.showToast({
           title: '收藏成功',
           duration: 2000,
@@ -116,10 +118,11 @@ Page({
     wx.cloud.callFunction({
       name: 'addCart',
       data: {
-        goodId: id
+        goodId: id,
+        userId: 'fakeuserid1'
       },
       success(res) {
-        console.log('成功', res);
+        console.log('成功加购', res);
         wx.showToast({
           title: '加购成功',
           duration: 2000,

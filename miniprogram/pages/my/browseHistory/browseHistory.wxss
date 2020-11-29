@@ -122,3 +122,29 @@
   color:black;
   text-align: center;
 }
+.delete-icon{
+  position: absolute;
+  width: 25rpx;
+  height: 25rpx;
+}
+.text-title{
+  width: 90%;
+  height: 70rpx;
+  margin: 0rpx auto;
+  margin-top: 25rpx;
+  font-size: 38rpx;
+  font-weight: bolder;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  margin-bottom: 20rpx;
+}
+.information-box{
+  min-height: 100%;
+  background:white;
+  color: #333;
+  margin: 30rpx;
+  margin-top: 10rpx;
+  border-radius: 30rpx;
+  box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
+}
