@@ -6,7 +6,15 @@
   </block>
 </view>
 
-<button class="left-button" style="width:24vw" bindtap="doUpLoad">拍照</button>
+<button class="left-button" style="width:24vw" bindtap="doUpload">照片</button>
+
+<view class="text-subtitle">
+  <block>
+    <text>写下名称</text>
+  </block>
+</view>
+
+<textarea class="textarea" style="height:2em" placeholder="写下商品名称" bindinput="nameInput" value="{{name}}" />
 
 
 <view class="text-subtitle">
@@ -15,7 +23,7 @@
   </block>
 </view>
 
-<textarea class="textarea" style="height:5em" placeholder="写下该物品的简介，建议不超过500字"  />
+<textarea class="textarea" style="height:5em" placeholder="写下该物品的简介，建议不超过500字" bindinput="descInput" value="{{description}}" />
 
 <view class="text-subtitle">
   <block>
@@ -23,7 +31,7 @@
   </block>
 </view>
 
-<textarea class="textarea" style="height:2em" placeholder="输入种类并enter"  />
+<textarea class="textarea" style="height:2em" placeholder="输入种类" bindinput="tagInput" value="{{tag}}" />
 
 <view class="text-subtitle">
   <block>
@@ -31,6 +39,20 @@
   </block>
 </view>
 
-<textarea class="textarea" style="height:2em" placeholder="输入你认为合适的定价，单位：人民币"  />
+<textarea class="textarea" style="height:2em" placeholder="输入你认为合适的定价，单位：人民币" bindinput="priceInput" value="{{price}}"  />
 
-<button class="center-button" style="width:24vw" bindtap="doUpLoad">发布</button>
+<view class="text-subtitle">
+  <block>
+    <text>问题</text>
+  </block>
+</view>
+<textarea class="textarea" style="height:2em" placeholder="输入你想要进行自动回复的问题"  bindinput="questionInput" value="{{question}}"/>
+
+<view class="text-subtitle">
+  <block>
+    <text>预设回复</text>
+  </block>
+</view>
+<textarea class="textarea" style="height:2em" placeholder="输入你对该问题的预设回复"  bindinput="answerInput" value = "{{answer}}"/>
+
+<button class="center-button" style="width:24vw" bindtap="doPost">发布</button>
