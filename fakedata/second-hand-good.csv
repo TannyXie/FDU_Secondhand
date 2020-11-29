@@ -1,5 +1,6 @@
-_id,intro,desc,tag,price,nums,coverMiddle,sellerId,commentList
-8e5be7055f8f0464020cb4a04a1cb595,数字设计,一些基本描述,二手书籍,15,3,/images/goods/01.jpg,oFqwP5JMNGQC8Md_imWnu5mPvTC4,"[""d81cd5415f8f053b017ed0bb2db9ec10"",""c54bd3a25f8f05010174e927762e782e""]"
-d782d4875f9529b8019503b071fd210b,蓝牙耳机,一些描述,数码家电,360,8,/images/goods/02.jpg,oFqwP5Ik4q0dt81_AJX8AWkMWHiI,[]
-b8df3bd65f95733601c2509f22a3c16c,美宝莲卸妆水,一些描述,护肤美妆,69,0,/images/goods/03.jpg,oFqwP5J287R2FPQ_wdND_dMJkUhc,[]
-d782d4875f9a521301b402d81e2cb8a9,美宝莲口红,一些描述,护肤美妆,80,4,/images/goods/04.jpg,oFqwP5J287R2FPQ_wdND_dMJkUhc,[]
+_id, intro, desc, tag, price, nums, coverMiddle, sellerId, sold, date
+fakegoodid1, 数字设计, 一些基本描述, 二手书籍, 15, 3, /images/goods/01.jpg, fakeuserid1, false, 1570067471773
+fakegoodid2, 蓝牙耳机, 一些描述, 数码家电, 360, 8, /images/goods/02.jpg, fakeuserid2, true, 1570067353425
+fakegoodid3, 美宝莲卸妆水, 一些描述, 护肤美妆, 69, 0, /images/goods/03.jpg, fakeuserid3, true, 1570067553425
+fakegoodid4, 美宝莲口红, 一些描述, 护肤美妆, 80, 4, /images/goods/04.jpg, fakeuserid3, false, 1579967353425
+fakegoodid5, 农夫山泉12瓶, 很好喝的水, 日常用品, 24, 2, /images/goods/05.jpg, fakeuserid5, false, 1600067253425

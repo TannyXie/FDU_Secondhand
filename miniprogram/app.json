@@ -20,6 +20,8 @@
     "pages/post/index",
     "pages/my/my",
     "pages/my/myPost/myPost",
+    "pages/my/mySell/mySell",
+    "pages/my/myBuy/myBuy",
     "pages/my/myFavourite/myFavourite",
     "pages/my/myOrder/myOrder",
     "pages/my/addressAdmin/addressAdmin",

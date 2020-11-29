@@ -127,4 +127,23 @@ Page({
       },
     })
   },
+
+  // 结算
+  addOrder(e) {
+    var that = this;
+    const id = that.data.goodId;
+    wx.cloud.callFunction({
+      name: 'addOrder',
+      data: {
+        goodId: id
+      },
+      success(res) {
+        console.log('成功', res);
+        wx.showToast({
+          title: '结算成功',
+          duration: 2000,
+        })
+      },
+    })
+  },
 })

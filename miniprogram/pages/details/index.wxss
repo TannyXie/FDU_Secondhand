@@ -77,7 +77,6 @@
 
 .recom-box-img{
   width: 500rpx;
-  height: 500rpx;
   overflow: hidden;
   border-top-left-radius: 30rpx;
   border-top-right-radius: 30rpx;
@@ -171,7 +170,6 @@
 .goods-price{
   font-size: 35rpx;
   font-weight: bold;
-  font-family: Georgia, 'Times New Roman', Times, serif;
   color: orangered;
   float: left;
   margin-bottom: 10rpx;
@@ -202,11 +200,10 @@
   width: 150rpx;
   border-style: solid;
   border-width: 3rpx;
-  border-color: gold;
   border-radius: 40rpx;
   font-size: 28rpx;
   color: white;
-  background-color: gold;
+  background: linear-gradient(to right, #707070, #92817a);
   float: right;
   margin-right: 20rpx;
   margin-bottom: 5rpx;
