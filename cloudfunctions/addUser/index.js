@@ -13,8 +13,7 @@ cloud.init()
 const db = cloud.database()
 
 exports.main = async (event, context) => {
-  const wxContext = cloud.getWXContext()
-  const openid = wxContext.OPENID
+  const openid = cloud.getWXContext().OPENID
   const name = event.name
   const avatarUrl = event.avatarUrl
   const gender = event.gender
@@ -22,7 +21,7 @@ exports.main = async (event, context) => {
   try {
     res = await db.collection('user').add({
       data: {
-        _id: openid,
+        openid: openid,
         name: name,
         avatarUrl: avatarUrl,
         gender: gender,
@@ -33,13 +32,13 @@ exports.main = async (event, context) => {
     console.log(res)
     return {
       statusCode: 200,
-      statusMsg: 'ok'
+      statusMsg: 'add user ok'
     }
   } catch (err) {
     console.log(err)
     return {
       statusCode: 500,
-      statusMsg: 'fail'
+      statusMsg: 'add user fail'
     }
   }
 }
