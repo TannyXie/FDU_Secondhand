@@ -138,7 +138,8 @@ Page({
     wx.cloud.callFunction({
       name: 'addOrder',
       data: {
-        goodId: id
+        goodId: id,
+        userId:"fakeuserid1"
       },
       success(res) {
         console.log('成功', res);

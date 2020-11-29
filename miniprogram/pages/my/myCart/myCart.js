@@ -20,7 +20,7 @@ Page({
         var carts=[]
         for (let i = 0; i < res.result.data.length; i++)
         {
-          carts.push({'_id':res.result.data[i]._id,'title':res.result.data[i].intro,'image':res.result.data[i].coverMiddle,'price':res.result.data[i].price,'selected':true})
+          carts.push({'_id':res.result.data[i]._id,'title':res.result.data[i].intro,'image':res.result.data[i].coverMiddle,'price':res.result.data[i].price,'selected':true,'seller_id':res.result.data[i].sellerId})
         }
         that.setData({
           carts: carts,
@@ -43,6 +43,7 @@ Page({
     let carts = this.data.carts;
     const selected = carts[index].selected;
     carts[index].selected = !selected;
+    console.log(carts[index].seller_id)
     this.setData({
       carts: carts
     });
@@ -121,6 +122,27 @@ Page({
     wx.navigateTo({
       url: '/pages/details/index?key=' + goodId
     })
+},
+// 结算
+addtoOrder(e)
+{
+  let carts = this.data.carts;                  // 获取购物车列表
+  for(let i = 0; i<carts.length; i++) {         // 循环列表得到每个数据
+      if(carts[i].selected) {                     // 判断选中
+        console.log(carts[i]._id)
+        wx.cloud.callFunction({
+          name: 'addOrder',
+          data: {
+            goodId: carts[i]._id,
+            userId:"fakeuserid1"
+          },
+          success(res) {
+            console.log('成功', res);
+          },
+        })
+      }
+    }
+    
 }
 })
 

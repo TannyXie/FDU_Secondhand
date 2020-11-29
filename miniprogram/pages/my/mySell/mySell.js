@@ -16,7 +16,7 @@ Page({
     wx.cloud.callFunction({
       name: 'getOrdersBySellerId',
       data:{
-        userId: 'fakeuserid1'
+        userId: 'fakeuserid3'
       },
       success(res) {
         console.log(res);
