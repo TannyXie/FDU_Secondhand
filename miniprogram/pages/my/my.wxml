@@ -66,7 +66,9 @@
 </view>
 
 <view class="information-box">
+  <navigator url="addressAdmin/addressAdmin" hover-class="navigator-hover">
 <view class="text-title">
   我的地址</view>
+  </navigator>
 </view>
 <!--<button class="btn_quit" bindtap='bindClear'>退出帐号</button>-->
