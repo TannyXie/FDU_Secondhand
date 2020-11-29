@@ -12,6 +12,7 @@ Page({
     wx.cloud.callFunction({
       name: 'getCartByUserId',
       data:{
+        userId: 'fakeuserid1',
       },
       success(res) {
         console.log('成功',res.result.data)
@@ -57,7 +58,8 @@ Page({
     wx.cloud.callFunction({
       name: 'delCart',
       data:{
-        goodId:carts[index]._id
+        goodId:carts[index]._id,
+        userId: 'fakeuserid1',
       },
       success(res) {
         console.log('成功');

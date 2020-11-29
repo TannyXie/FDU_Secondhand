@@ -1,6 +1,10 @@
 <!--miniprogram/pages/my/browseHistory/browseHistory.wxml-->
 <view class="main">
  <view wx:if="{{hasList}}">
+  <view class="information-box" bindtap="deleteHistory">
+<view class="text-title">
+  清空历史</view>
+</view>
 <view class="goods-history">
   <!-- 这没有没有使用数据绑定，因为是练手而且数据比较少 -->
   <view class="history-box">
@@ -12,7 +16,7 @@
       <view class="history-box-text">{{item.intro}}</view>
       <!--价格+收藏数-->
       <view class="goods-des">
-        <view class="goods-price">{{item.price}}</view>
+        <view class="goods-price">￥{{item.price}}</view>
         <view class="goods-wants">{{item.nums}}收藏</view>
       </view>
       <!--卖家+标签-->

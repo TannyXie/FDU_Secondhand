@@ -32,11 +32,23 @@ Page({
     wx.cloud.callFunction({
       name: 'getHistoryByUserId',
       data:{
+        userId: 'fakeuserid1',
       },
       success(res) {
-        console.log('成功', res);
+        console.log('成功', res.result.data);
+        if(res.result.data.length)
+        {
+          res.result.data.sort(function(a, b){return a.time - b.time});
+        }
+        var m =new Array();
+        for(var i=0;i<res.result.data.length;i++)
+        {
+          m[i]=res.result.data[i].data;
+        }
+        console.log(m)
+      
         that.setData({
-          goodsList: res.result.data.reverse(),
+          goodsList: m,
         });
         if(res.result.data)
         {
@@ -58,6 +70,25 @@ Page({
     wx.navigateTo({
       url: '/pages/details/index?key=' + goodId
     })
+},
+deleteHistory(e) {
+  //调用云函数，在后端把所有记录删掉
+  wx.cloud.callFunction({
+    name: 'delHistory',
+    data:{
+      userId: 'fakeuserid1',
+    },
+    success(res) {
+      console.log('成功清空历史');
+      wx.showToast({
+        title: '清空成功',
+        duration: 2000,
+      })
+    },
+  })
+  this.setData({
+    hasList:false,
+  });
 },
 
   /**
