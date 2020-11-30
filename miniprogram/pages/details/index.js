@@ -25,12 +25,23 @@ Page({
       },
       success(res) {
         console.log('成功', res.result.data);
-        that.setData({
-          goodId: key,
-          goodsList: [res.result.data],
-          //commentList: res.result.data.commentList,
-          seller: '卖家',
-        });
+        wx.cloud.callFunction({
+          name: 'getUrlsByPicIds',
+          data: {
+            picIdList: [res.result.data.coverMiddle]
+          },
+          success(newres) {
+            console.log('成功', newres)
+            let newList = res.result.data
+            newList.coverMiddle = newres.result.data.urlList[0]
+            that.setData({
+              goodId: key,
+              goodsList: [newList],
+              //commentList: res.result.data.commentList,
+              seller: '卖家',
+            });
+          }
+        })
       },
     }),
     wx.cloud.callFunction({
