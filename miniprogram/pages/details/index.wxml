@@ -61,7 +61,7 @@
     </view>
     <view style="overflow: hidden">
     <view class="intro-box-text">{{item.userInfo.name}}</view>
-    <view class="intro-box-text" style="float: right; margin-right: 20rpx; color: grey; font-size: 24rpx">{{item.time}}</view>
+    <view class="intro-box-text" style="float: right; margin-right: 20rpx; color: grey; font-size: 24rpx; font-weight: initial">{{item.time}}</view>
     </view>
     <p class="intro-detail-text">{{item.content}}</p>
   </view>
