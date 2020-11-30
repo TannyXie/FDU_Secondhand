@@ -200,7 +200,7 @@
   border-radius: 40rpx;
   font-size: 28rpx;
   color: white;
-  background: linear-gradient(to right, #707070, #92817a);
+  background: linear-gradient(to right, #965d62, #c7956d);
   float: right;
   margin-right: 20rpx;
   margin-bottom: 5rpx;
