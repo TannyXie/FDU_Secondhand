@@ -6,8 +6,10 @@ var utils = require('../../utils/util.js');
 Page({
   data: {
     goodId: '',
+    comment: '',
     goodsList: [],
-    //commentList: [],
+    commentsList: [],
+    cmLen: 0,
     seller: '',
     swiperCurrent: 0,
   },
@@ -24,26 +26,47 @@ Page({
         goodId: key
       },
       success(res) {
-        console.log('成功', res.result.data);
+        console.log('成功加载商品', res.result.data);
         wx.cloud.callFunction({
           name: 'getUrlsByPicIds',
           data: {
             picIdList: [res.result.data.coverMiddle]
           },
           success(newres) {
-            console.log('成功', newres)
+            console.log('成功加载图片', newres)
             let newList = res.result.data
             newList.coverMiddle = newres.result.data.urlList[0]
             that.setData({
               goodId: key,
               goodsList: [newList],
-              //commentList: res.result.data.commentList,
               seller: '卖家',
             });
           }
         })
       },
     }),
+      wx.cloud.callFunction({
+        name: 'getCommentsByGoodId',
+        data: {
+          goodId: key,
+        },
+        success(res) {
+          console.log('成功获取留言', res)
+          const comments = res.result.data
+          const l = comments.length
+          for (let i = 0; i < l; i++) {
+            const t = comments[i].time
+            const date = new Date(t + 8 * 3600 * 1000)
+            const new_t = date.toJSON().substr(0, 19)
+              .replace('T', ' ').replace(/-/g, '.')
+            comments[i].time = new_t
+          }
+          that.setData({
+            commentsList: comments,
+            cmLen: l
+          })
+        }
+      })
     wx.cloud.callFunction({
       name: 'addHistory',
       data: {
@@ -53,52 +76,6 @@ Page({
       success(res) {
         console.log('成功加入历史记录', res);
       },
-    })
-  },
-  /*
-  onLoad: function (options) {
-    var that = this;
-    var url = 'https://mobile.ximalaya.com/mobile/discovery/v3/recommend/hotAndGuess?code=43_310000_3100&device=android&version=5.4.45';
-
-    // 调用自己封装的工具函数，在utils中
-    utils.myRequest({
-      url: url,
-      methods: 'GET',
-      success: function (result) {
-        that.setData({
-          showitem: true,
-          guess: result.data.paidArea.list,
-          xiaoshuocontent: result.data.hotRecommends.list[0].list,
-          xiangshengcontent: result.data.hotRecommends.list[2].list,
-          lishicontent: result.data.hotRecommends.list[3].list
-        })
-      },
-      fail: function () {
-        that.setData({
-          showitem: false
-        })
-      }
-    });
-  },*/
-  /*
-  onShow:function(options)
-  {
-    var that=this;
-    wx.cloud.callFunction({
-      name: 'addHistory',
-      data: {
-        goodId: that.data.goodId
-      },
-      success(res) {
-        console.log('成功', res);
-      },
-    })
-  },
-*/
-  // 宫格导航改变事件
-  goToBangDan: function () {
-    wx.navigateTo({
-      url: '/pages/classification/classification',
     })
   },
 
@@ -150,14 +127,49 @@ Page({
       name: 'addOrder',
       data: {
         goodId: id,
-        userId:"fakeuserid1"
+        userId: "fakeuserid1"
       },
       success(res) {
-        console.log('成功', res);
+        console.log('成功结算', res);
         wx.showToast({
           title: '结算成功',
           duration: 2000,
         })
+      },
+    })
+  },
+
+  descInput: function (e) {
+    this.setData({
+      comment: e.detail.value
+    })
+  },
+
+  // 发布留言
+  doPost: function () {
+    var that = this;
+    const id = that.data.goodId
+    const c = that.data.comment
+    wx.cloud.callFunction({
+      name: 'addComment',
+      data: {
+        userId: 'fakeuserid1',
+        goodId: id,
+        content: c
+      },
+      success: function (res) {
+        console.log('成功发布留言：', res)
+        wx.showToast({
+          title: '发布成功',
+          duration: 2000,
+          success: function() {
+            setTimeout(function() {
+              wx.redirectTo({
+                url: '/pages/details/index?key=' + id
+              })
+            }, 1000)
+          }
+        });
       },
     })
   },
