@@ -167,7 +167,7 @@
 .goods-price{
   font-size: 35rpx;
   font-weight: bold;
-  color: orangered;
+  color: #ff3456;
   float: left;
   margin-bottom: 10rpx;
   margin-top: 10rpx;

@@ -33,7 +33,7 @@
             </block>
             <block wx:else>
                 <view class="loading-wrap">
-                    <image class="img" src="/images/loading.gif"></image>
+                    <image class="img" src="/images/giphy.gif"></image>
                     <view class="text">正在加载...</view>
                 </view>
             </block>
