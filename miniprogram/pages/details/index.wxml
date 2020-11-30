@@ -17,14 +17,13 @@
 </view>
 <view class="title-box">
   <view class="text-title2">物品介绍</view>
-  <view class="small-button" bindtap="setFavor" >收藏</view>
-  <view class="small-button" bindtap="addCart" >加购</view>
-  <view class="small-button" bindtap="addOrder" >结算</view>
+  <view class="small-button" bindtap="setFavor">收藏</view>
+  <view class="small-button" bindtap="addCart">加购</view>
+  <view class="small-button" bindtap="addOrder">结算</view>
 </view>
 <view class="goods-recom">
   <view class="recom-box">
-    <view class="des-box-item" bindtap="gotoDetails" data-title="{{item.intro}}" wx:for="{{goodsList}}"
-      wx:key="{{index}}">
+    <view class="des-box-item" data-title="{{item.intro}}" wx:for="{{goodsList}}" wx:key="{{index}}">
       <view class="goods-des">
         <view class="recom-box-text">{{item.intro}}</view>
         <view class="goods-tag">{{item.tag}}</view>
@@ -39,14 +38,37 @@
     </view>
   </view>
 </view>
-<view class="text-title2">
-  <block>
-    <text>评论区</text>
-  </block>
+
+<view class="title-box">
+  <view class="text-title2">写下留言</view>
+  <view class="small-button" bindtap="doPost">发布</view>
 </view>
 
-<view class="cm-box-item" wx:for="{{commentList}}" wx:key="{{index}}">
-  <image class="profile-img" src="{{item.userImg}}" mode="widthFix"></image>
-  <view class="intro-box-text">{{item.userName}}</view>
-  <p class="intro-detail-text">{{item.comment}}</p>
+<textarea class="textarea" style="height: 5em" placeholder="写下给卖家的留言，然后点击发布按钮" bindinput="descInput"
+  value="{{description}}" />
+
+<view class="title-box">
+  <view class="text-title2">留言区</view>
+</view>
+
+<view wx:if="{{cmLen}}">
+  <view class="cm-box-item" wx:for="{{commentsList}}" wx:key="index">
+    <view wx:if="{{item.userInfo.avatarUrl != 'someurl'}}">
+    <image class="profile-img" src="{{item.userInfo.avatarUrl}}" mode="widthFix"></image>
+    </view>
+    <view wx:else>
+      <image class="profile-img" src="./user-unlogin.png" mode="widthFix"></image>
+    </view>
+    <view style="overflow: hidden">
+    <view class="intro-box-text">{{item.userInfo.name}}</view>
+    <view class="intro-box-text" style="float: right; margin-right: 20rpx; color: grey; font-size: 24rpx">{{item.time}}</view>
+    </view>
+    <p class="intro-detail-text">{{item.content}}</p>
+  </view>
+</view>
+<view wx:else>
+  <view class='img_box'>
+    <image src='/images/my/box.png' mode='widthFix' class='image'></image>
+  </view>
+  <view class="no-data">此商品暂无留言</view>
 </view>
