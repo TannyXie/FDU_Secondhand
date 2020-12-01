@@ -28,6 +28,16 @@ Page({
     });
     console.log('当前卖家：', sellerId);
     wx.cloud.callFunction({
+      name: 'getUserById',
+      data: {
+        userId: this.data.sellerId
+      },
+      success(res){
+        console.log('结果', res)
+        console.log('当前用户名', res.result.data);
+      }
+    });
+    wx.cloud.callFunction({
       name: 'getDateLatest8',
       data:{
       },
@@ -230,6 +240,20 @@ Page({
     console.log(this.data.sellerId)
     wx.navigateTo({
       url: '/pages/message/chatrm/index?sellerId' + this.data.sellerId,
+    })
+  },
+
+  // 上新推荐改变事件
+  gotoDetails(e) {
+    //var url = e.currentTarget.dataset.coverimg;
+    //var title = e.currentTarget.dataset.title;
+    var goodId = e.currentTarget.dataset.id;
+    console.log(goodId)
+    //wx.navigateTo({
+    //  url: '/pages/details/details?url=' + url + '&title=' + title,
+    //})
+    wx.navigateTo({
+      url: '/pages/details/index?key=' + goodId
     })
   }
 })
