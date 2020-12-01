@@ -292,3 +292,18 @@
   font-size: 26rpx;
   color: #999;
 }
+
+.star-icon {
+  width: 28rpx;
+  margin-left: 20rpx;
+  margin-top: 28rpx;
+  float: left;
+}
+
+.star-text {
+  margin-left: 20rpx;
+  margin-top: 15rpx;
+  float: left;
+  font-size: 18rpx;
+  color: #aaa;
+}
