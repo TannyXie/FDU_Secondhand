@@ -18,6 +18,9 @@ const $ = _.aggregate
 exports.main = async (event, context) => {
   // const wxContext = cloud.getWXContext()
   return await db.collection('second-hand-good').aggregate()
+  .match({
+    sold: false
+  })
   .lookup({
     from: "user",
     localField: "sellerId",
@@ -33,7 +36,8 @@ exports.main = async (event, context) => {
     nums:1,
     price:1,
     tag:1,
-    name:"$seller.name"
+    name:"$seller.name",
+    sellerId:"$seller._id"
   })
   .unwind('$name')
   .sort({
