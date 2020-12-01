@@ -30,7 +30,7 @@
       </view>
       <view class="goods-des2">
         <view class="goods-wants">{{item.nums}}收藏</view>
-        <view class="goods-sell">{{seller}}</view>
+        <view class="goods-sell" bindtap="jumpTo">{{seller}}</view>
         <view class="goods-price">￥ {{item.price}}</view>
       </view>
       <view class="intro-box-text2">商品介绍</view>

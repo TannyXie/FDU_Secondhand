@@ -173,4 +173,13 @@ Page({
       },
     })
   },
+
+  // 跳转个人页
+  jumpTo: function() {
+    const that = this
+    const sellerId = that.data.goodsList[0].sellerId
+    wx.navigateTo({
+      url: '/pages/userPage/userPage?sellerId=' + sellerId
+    })
+  }
 })
