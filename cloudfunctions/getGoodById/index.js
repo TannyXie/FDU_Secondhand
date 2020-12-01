@@ -1,3 +1,14 @@
+/**
+ * API
+ *   通过商品ID获取商品信息
+ * 参数
+ *   goodId 商品ID
+ * 返回
+ *   statusCode 状态码
+ *   statusMsg 状态信息
+ *   data 商品信息
+ */
+
 const cloud = require('wx-server-sdk')
 cloud.init()
 const db = cloud.database()

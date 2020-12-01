@@ -12,27 +12,55 @@
 const cloud = require('wx-server-sdk')
 cloud.init()
 const db = cloud.database()
+const _ = db.command
 
 exports.main = async (event, context) => {
-  const userId = event.userId ? event.userId : cloud.getWXContext().OPENID
+  var userId = event.userId;
   if (userId == null) {
-    return {
-      statusCode: 400,
-      statusMsg: 'can not get userid'
+    try {
+      userResult = await db.collection('user').where({
+        openid: _.eq(cloud.getWXContext().OPENID)
+      }).get()
+      console.log(userResult)
+      userId = userResult.data[0]._id
+      if (userId == null) throw 'openid may not exist'
+    } catch (err) {
+      console.log(err)
+      return {
+        statusCode: 500,
+        statusMsg: 'can not get userid'
+      }
     }
   }
   const goodId = event.goodId
-  try {
-    const res = db.collection('favorite').add({
-      data: {
-        userId: userId,
-        goodId: goodId
-      }
-    })
-    console.log(res)
+  if (goodId == null) {
     return {
-      statusCode: 200,
-      statusMsg: 'ok'
+      statusCode: 400,
+      statusMsg: 'no such good'
+    }
+  }
+  try {
+    const checkResult = await db.collection('favorite').where({
+      userId: _.eq(userId),
+      goodId: _.eq(goodId)
+    }).get()
+    if (checkResult.data.length == 0) {
+      const res = await db.collection('favorite').add({
+        data: {
+          userId: userId,
+          goodId: goodId
+        }
+      })
+      console.log(res)
+      return {
+        statusCode: 200,
+        statusMsg: 'ok'
+      }
+    } else {
+      return {
+        statusCode: 300,
+        statusMsg: 'already in favorite'
+      }
     }
   } catch (err) {
     console.log(err)

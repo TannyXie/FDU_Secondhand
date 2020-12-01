@@ -12,29 +12,44 @@
 const cloud = require('wx-server-sdk')
 cloud.init()
 const db = cloud.database()
+const _ = db.command
 
 exports.main = async (event, context) => {
-  const userId = event.userId ? event.userId : cloud.getWXContext().OPENID
+  const openid = cloud.getWXContext().OPENID
+  var userId = event.userId;
   if (userId == null) {
-    return {
-      statusCode: 400,
-      statusMsg: 'can not get userid'
+    try {
+      userResult = await db.collection('user').where({
+        openid: _.eq(openid)
+      }).get()
+      console.log(userResult)
+      userId = userResult.data[0]._id
+      if (userId == null) throw 'openid may not exist'
+    } catch (err) {
+      console.log(err)
+      return {
+        statusCode: 500,
+        statusMsg: 'can not get userid'
+      }
     }
   }
+
   try {
-    const _ = db.command
-    const qres = await db.collection('cart').where({
+    const queryResult = await db.collection('cart').where({
       userId: _.eq(userId)
     }).get()
-    console.log(qres)
-    var res = []
-    for (let i = 0; i < qres.data.length; i++) 
-      res = res.concat(qres.data[i].goodId)
-    console.log(res)
+    console.log(queryResult)
+    
+    var goodList = []
+    for (let i = 0; i < queryResult.data.length; i++) {
+      let good = await db.collection('second-hand-good').doc(queryResult.data[i].goodId).get()
+      goodList = goodList.concat(good.data)
+    }
+    console.log(goodList)
     return {
       statusCode: 200,
       statusMsg: 'ok',
-      data: res
+      data: goodList
     }
   } catch (err) {
     console.log(err)

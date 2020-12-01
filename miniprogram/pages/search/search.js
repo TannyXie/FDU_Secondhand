@@ -13,7 +13,10 @@ Page({
     keyword:'',
     goodsList: [],
     showitem: false,
-    hotData:[]
+    hotData:[],
+    currentSortType: 'default',
+    currentSortOrder: 'desc',
+    salesSortOrder:'desc'
   },
 
   /**
@@ -22,7 +25,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     wx.cloud.callFunction({
-      name: 'keptTop6',
+      name: 'getNumsTop6',
       data:{
       },
       success(res) {
@@ -79,13 +82,22 @@ Page({
 
   getGoodsList: function () {
     let that = this;
+    var sortorder = 'desc';
+    if(this.data.currentSortType == 'price'){
+      sortorder = this.data.currentSortOrder;
+    }
+    else if(this.data.currentSortType == 'nums'){
+      sortorder = this.data.salesSortOrder;
+    }
     wx.cloud.callFunction({
       name: 'search',
       data:{
-        intro: this.data.keyword
+        intro: this.data.keyword,
+        sortType: this.data.currentSortType,
+        sortOrder: sortorder
       },
       success(res) {
-        console.log('成功', res.result.data.list);
+        console.log('search成功', res.result.data.list);
         that.setData({
           showitem: true,
           goodsList: res.result.data.list,
@@ -146,7 +158,44 @@ Page({
     //  url: '/pages/details/details?url=' + url + '&title=' + title,
     //})
     wx.navigateTo({
-      url: '/pages/details/index'
+      url: '/pages/details/index?key=' + goodId
     })
-  }
+  },
+  openSortFilter: function (event) {
+    let currentId = event.currentTarget.id;
+    switch (currentId) {
+        case 'salesSort':
+            let _SortOrder = 'asc';
+            if (this.data.salesSortOrder == 'asc') {
+                _SortOrder = 'desc';
+            }
+            this.setData({
+                'currentSortType': 'nums',
+                'currentSortOrder': 'asc',
+                'salesSortOrder': _SortOrder
+            });
+            this.getGoodsList();
+            break;
+        case 'priceSort':
+            let tmpSortOrder = 'asc';
+            if (this.data.currentSortOrder == 'asc') {
+                tmpSortOrder = 'desc';
+            }
+            this.setData({
+                'currentSortType': 'price',
+                'currentSortOrder': tmpSortOrder,
+                'salesSortOrder': 'asc'
+            });
+            this.getGoodsList();
+            break;
+        default:
+            //综合排序
+            this.setData({
+                'currentSortType': 'default',
+                'currentSortOrder': 'desc',
+                'salesSortOrder': 'desc'
+            });
+            this.getGoodsList();
+    }
+}
 })

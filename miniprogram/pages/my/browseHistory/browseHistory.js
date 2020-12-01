@@ -5,43 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    goodsList: [{
-      coverMiddle: '/images/goods/01.jpg',
-      events: 'goToBangDan',
-      intro: '数字设计',
-      price: '￥15',
-      nums: '3',
-      seller: '草莓屁屁',
-      tag: '二手书籍'
-    },
-    {
-      coverMiddle: '/images/goods/02.jpg',
-      events: 'goToBangDan',
-      intro: '蓝牙耳机',
-      price: '￥360',
-      nums: '8',
-      seller: '奈寒',
-      tag: '数码产品'
-    },
-    {
-      coverMiddle: '/images/goods/03.jpg',
-      events: 'goToBangDan',
-      intro: '美宝莲卸妆水',
-      price: '￥69',
-      nums: '1',
-      seller: '豆',
-      tag: '护肤化妆'
-    },
-    {
-      coverMiddle: '/images/goods/04.jpg',
-      events: 'goToBangDan',
-      intro: '美宝莲口红',
-      price: '￥80',
-      nums: '4',
-      seller: '茜茜子',
-      tag: '护肤美妆'
-    },
+    goodsList: [
   ],
+    hasList:false,
   },
 
   /**
@@ -62,8 +28,68 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that = this
+    wx.cloud.callFunction({
+      name: 'getHistoryByUserId',
+      data:{
+        userId: 'fakeuserid1',
+      },
+      success(res) {
+        console.log('成功', res.result.data);
+        if(res.result.data.length)
+        {
+          res.result.data.sort(function(a, b){return a.time - b.time});
+        }
+        var m =new Array();
+        for(var i=0;i<res.result.data.length;i++)
+        {
+          m[i]=res.result.data[i].data;
+        }
+        console.log(m)
+      
+        that.setData({
+          goodsList: m,
+        });
+        if(res.result.data)
+        {
+          if(res.result.data.length){
+          that.setData({
+            hasList: true,
+          });
+        }
+        }
+      },
+    })
   },
+  gotoDetails(e) {
+    const index = e.currentTarget.dataset.index;
+    let goodsList = this.data.goodsList;
+    console.log(index)
+    var goodId = goodsList[index]._id
+    console.log(goodId)
+    wx.navigateTo({
+      url: '/pages/details/index?key=' + goodId
+    })
+},
+deleteHistory(e) {
+  //调用云函数，在后端把所有记录删掉
+  wx.cloud.callFunction({
+    name: 'delHistory',
+    data:{
+      userId: 'fakeuserid1',
+    },
+    success(res) {
+      console.log('成功清空历史');
+      wx.showToast({
+        title: '清空成功',
+        duration: 2000,
+      })
+    },
+  })
+  this.setData({
+    hasList:false,
+  });
+},
 
   /**
    * 生命周期函数--监听页面隐藏

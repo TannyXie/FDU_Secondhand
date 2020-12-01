@@ -20,7 +20,8 @@
     "pages/post/index",
     "pages/my/my",
     "pages/my/myPost/myPost",
-    "pages/my/browsindexeHistory/browseHistory",
+    "pages/my/mySell/mySell",
+    "pages/my/myBuy/myBuy",
     "pages/my/myFavourite/myFavourite",
     "pages/my/myOrder/myOrder",
     "pages/my/addressAdmin/addressAdmin",
@@ -29,9 +30,12 @@
     "pages/my/mySetting/mySetting",
     "pages/search/search",
     "pages/category/category",
-    "pages/message/chatrm/index"
+    "pages/message/chatrm/index",
+    "pages/userPage/userPage"
   ],
   "tabBar": {
+    "selectedColor": "#000000",
+    "color": "#aaa",
     "list": [{
       "pagePath": "pages/index/index",
       "text": "首页",

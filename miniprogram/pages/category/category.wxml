@@ -10,7 +10,7 @@
             <block wx:if="{{loading == 0}}">          
                 <view class='list-wrap clearfix'>
                     <view class="goods-box {{(index+1)%2 == 0?'no-margin':''}}" wx:for="{{goodsList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
-                        <navigator hover-class='none' class='navi-url' url="/pages/details/index">
+                        <navigator hover-class='none' class='navi-url' url='/pages/details/index?key={{item._id}}'>
                             <view class="box">
                                 <image class="image" src="{{item.coverMiddle}}">
                                     <view wx:if="{{item.is_new == 1}}" class='new-tag'>新品</view>
@@ -33,7 +33,7 @@
             </block>
             <block wx:else>
                 <view class="loading-wrap">
-                    <image class="img" src="/images/loading.gif"></image>
+                    <image class="img" src="/images/giphy.gif"></image>
                     <view class="text">正在加载...</view>
                 </view>
             </block>

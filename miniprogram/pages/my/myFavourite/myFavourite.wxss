@@ -13,13 +13,13 @@
 }
 
 /* 二手上新 */
-.goods-recom{
+.goods-favorite{
   width: 90%;
   margin: 0rpx auto;
   margin-top: 7rpx;
 }
 
-.recom-box{
+.favorite-box{
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -27,7 +27,7 @@
   overflow: hidden;
 }
 
-.recom-box-item{
+.favorite-box-item{
   width: 320rpx;
   height: auto;
   overflow: hidden;
@@ -39,7 +39,7 @@
   box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
 }
 
-.recom-box-img{
+.favorite-box-img{
   width: 320rpx;
   height: 420rpx;
   overflow: hidden;
@@ -48,14 +48,14 @@
   position: relative;
 }
 
-.recom-box-item-icon{
+.favorite-box-item-icon{
   width: 320rpx;
   height: 420rpx;
   border-top-left-radius: 30rpx;
   border-top-right-radius: 30rpx;
 }
 
-.recom-box-text{
+.favorite-box-text{
   font-size: 32rpx;
   font-weight: bold;
   color: #333;
@@ -116,4 +116,15 @@
   float: right;
   margin-right: 10rpx;
   margin-bottom: 5rpx;
+}
+
+.goods-del{
+  margin-left: 10rpx;
+  margin-bottom: 5rpx;
+  float: left;
+}
+.favorite-no-data{
+  padding:30rpx 0;
+  color:black;
+  text-align: center;
 }

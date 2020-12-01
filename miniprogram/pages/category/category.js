@@ -85,7 +85,7 @@ Page({
     if (this.data.name && this.data.name!='更多'){
       console.log('分类');
       wx.cloud.callFunction({
-        name: 'searchByTag',
+        name: 'getGoodByTag',
         data:{
           tag: this.data.name,
         },
