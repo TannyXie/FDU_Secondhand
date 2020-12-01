@@ -94,9 +94,6 @@ Page({
   setFavor(e) {
     var that = this;
     const id = that.data.goodId;
-    that.setData({
-      star: 1
-    })
     wx.cloud.callFunction({
       name: 'setFavorite',
       data: {
@@ -109,6 +106,9 @@ Page({
           title: '收藏成功',
           duration: 2000,
         })
+        that.setData({
+          star: 1
+        })
       },
     })
   },
@@ -117,9 +117,6 @@ Page({
   delFavor(e) {
     var that = this;
     const id = that.data.goodId;
-    that.setData({
-      star: 0
-    })
     wx.cloud.callFunction({
       name: 'delFavorite',
       data: {
@@ -131,6 +128,9 @@ Page({
         wx.showToast({
           title: '取消收藏成功',
           duration: 2000,
+        })
+        that.setData({
+          star: 0
         })
       },
     })
