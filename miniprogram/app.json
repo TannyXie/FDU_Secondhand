@@ -30,7 +30,8 @@
     "pages/my/mySetting/mySetting",
     "pages/search/search",
     "pages/category/category",
-    "pages/message/chatrm/index"
+    "pages/message/chatrm/index",
+    "pages/userPage/userPage"
   ],
   "tabBar": {
     "selectedColor": "#000000",

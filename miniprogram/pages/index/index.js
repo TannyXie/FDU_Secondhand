@@ -69,5 +69,13 @@ Page({
     wx.navigateTo({
       url: '/pages/details/index?key=' + goodId
     })
+  },
+
+  gotoSeller(e) {
+    var sellerId = e.currentTarget.dataset.text;
+    console.log(sellerId)
+    wx.navigateTo({
+      url: '/pages/userPage/userPage?sellerId=' + sellerId
+    })
   }
 })
