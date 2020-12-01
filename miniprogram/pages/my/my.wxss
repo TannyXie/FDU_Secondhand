@@ -1,5 +1,5 @@
 page{
-  background:#fefefe;
+  background:#f6f6f6;
 }
 .container{
   min-height: 100%;
