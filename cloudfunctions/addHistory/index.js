@@ -15,11 +15,22 @@ const db = cloud.database()
 const _ = db.command
 
 exports.main = async (event, context) => {
-  const userId = event.userId ? event.userId : cloud.getWXContext().OPENID
+  const openid = cloud.getWXContext().OPENID
+  var userId = event.userId;
   if (userId == null) {
-    return {
-      statusCode: 400,
-      statusMsg: 'can not get userid'
+    try {
+      userResult = await db.collection('user').where({
+        openid: _.eq(openid)
+      }).get()
+      console.log(userResult)
+      userId = userResult.data[0]._id
+      if (userId == null) throw 'openid may not exist'
+    } catch (err) {
+      console.log(err)
+      return {
+        statusCode: 500,
+        statusMsg: 'can not get userid'
+      }
     }
   }
   const goodId = event.goodId

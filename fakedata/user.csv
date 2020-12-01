@@ -1,8 +1,0 @@
-_id, name, authorized, mail, gender, avatarUrl
-fakeuserid1, Alex, true, 11111111111@fudan.edu.cn, 0,
-fakeuserid2, Bob, true, 22222222222@fudan.edu.cn, 1,
-fakeuserid3, Cathy, true, 33333333333@fudan.edu.cn, 2,
-fakeuserid4, David, false, , 1,
-fakeuserid5, Eric, false, , 0,
-fakeuserid6, Fionna, false, , 0,
-fakeuserid7, Gatsby, false, , 2,

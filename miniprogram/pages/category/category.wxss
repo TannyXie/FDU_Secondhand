@@ -30,7 +30,7 @@
 }
 
 .catalog .nav .item.active {
-  color: #ff3456;
+  color: #000;
   font-size: 32rpx;
   font-weight: 500;
 }
@@ -69,8 +69,8 @@
   
 }
 .catalog .cate .loading-wrap .img{
-  width: 60rpx;
-  height: 60rpx;
+  width: 250rpx;
+  height: 250rpx;
   margin-bottom: 20rpx;
 }
 .catalog .cate .loading-wrap .text{

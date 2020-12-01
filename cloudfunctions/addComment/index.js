@@ -18,21 +18,32 @@ const _ = db.command
 
 exports.main = async (event, context) => {
   // 参数检查
-  const userId = event.userId ? event.userId : cloud.getWXContext().OPENID
+  const openid = cloud.getWXContext().OPENID
+  var userId = event.userId;
   if (userId == null) {
-    return {
-      statusCode: 400,
-      statusMsg: 'can not get userid'
+    try {
+      userResult = await db.collection('user').where({
+        openid: _.eq(openid)
+      }).get()
+      console.log(userResult)
+      userId = userResult.data[0]._id
+      if (userId == null) throw 'openid may not exist'
+    } catch (err) {
+      console.log(err)
+      return {
+        statusCode: 500,
+        statusMsg: 'can not get userid'
+      }
     }
   }
   const goodId = event.goodId
-  if (goodId == null) {
+  const content = event.content
+  if (goodId == null || content == null) {
     return {
       statusCode: 400,
-      statusMsg: 'good id cannot be null'
+      statusMsg: 'goodId, content cannot be null'
     }
   }
-  const content = event.content
   
   // 数据库操作
   try {
