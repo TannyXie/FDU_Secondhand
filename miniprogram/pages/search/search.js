@@ -158,7 +158,7 @@ Page({
     //  url: '/pages/details/details?url=' + url + '&title=' + title,
     //})
     wx.navigateTo({
-      url: '/pages/details/index'
+      url: '/pages/details/index?key=' + goodId
     })
   },
   openSortFilter: function (event) {

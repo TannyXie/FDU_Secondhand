@@ -43,7 +43,7 @@
       </view>
       <!--卖家+标签-->
       <view class="goods-des2">
-        <view class="goods-sell">
+        <view class="goods-sell" bindtap="gotoSeller" data-text="{{item.name}}">
           {{item.name}}
         </view>
         <view class="goods-tag" bindtap="gotoFenlei" data-text="{{item.tag}}">

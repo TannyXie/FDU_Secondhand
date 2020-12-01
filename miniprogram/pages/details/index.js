@@ -6,10 +6,13 @@ var utils = require('../../utils/util.js');
 Page({
   data: {
     goodId: '',
+    comment: '',
     goodsList: [],
-    //commentList: [],
-    seller: '',
+    commentsList: [],
+    cmLen: 0,
+    seller: '卖家',
     swiperCurrent: 0,
+    star: 0,
   },
 
   /**
@@ -24,15 +27,57 @@ Page({
         goodId: key
       },
       success(res) {
-        console.log('成功', res.result.data);
-        that.setData({
-          goodId: key,
-          goodsList: [res.result.data],
-          //commentList: res.result.data.commentList,
-          seller: '卖家',
-        });
+        console.log('成功加载商品', res.result.data);
+        let newList = res.result.data
+        wx.cloud.callFunction({
+          name: 'getUrlsByPicIds',
+          data: {
+            picIdList: [newList.coverMiddle]
+          },
+          success(newres) {
+            console.log('成功加载图片', newres)
+            newList.coverMiddle = newres.result.data.urlList[0]
+            wx.cloud.callFunction({
+              name: 'getUserById',
+              data: {
+                userId: newList.sellerId
+              },
+              success(newres2) {
+                console.log('成功加载用户名', newres2)
+                newList.sellerId = newres2.result.data.name
+                that.setData({
+                  goodId: key,
+                  goodsList: [newList],
+                  seller: newres2.result.data.name,
+                });
+              }
+            })
+          }
+        })
       },
     }),
+      wx.cloud.callFunction({
+        name: 'getCommentsByGoodId',
+        data: {
+          goodId: key,
+        },
+        success(res) {
+          console.log('成功获取留言', res)
+          const comments = res.result.data
+          const l = comments.length
+          for (let i = 0; i < l; i++) {
+            const t = comments[i].time
+            const date = new Date(t + 8 * 3600 * 1000)
+            const new_t = date.toJSON().substr(0, 19)
+              .replace('T', ' ').replace(/-/g, '.')
+            comments[i].time = new_t
+          }
+          that.setData({
+            commentsList: comments,
+            cmLen: l
+          })
+        }
+      })
     wx.cloud.callFunction({
       name: 'addHistory',
       data: {
@@ -42,52 +87,6 @@ Page({
       success(res) {
         console.log('成功加入历史记录', res);
       },
-    })
-  },
-  /*
-  onLoad: function (options) {
-    var that = this;
-    var url = 'https://mobile.ximalaya.com/mobile/discovery/v3/recommend/hotAndGuess?code=43_310000_3100&device=android&version=5.4.45';
-
-    // 调用自己封装的工具函数，在utils中
-    utils.myRequest({
-      url: url,
-      methods: 'GET',
-      success: function (result) {
-        that.setData({
-          showitem: true,
-          guess: result.data.paidArea.list,
-          xiaoshuocontent: result.data.hotRecommends.list[0].list,
-          xiangshengcontent: result.data.hotRecommends.list[2].list,
-          lishicontent: result.data.hotRecommends.list[3].list
-        })
-      },
-      fail: function () {
-        that.setData({
-          showitem: false
-        })
-      }
-    });
-  },*/
-  /*
-  onShow:function(options)
-  {
-    var that=this;
-    wx.cloud.callFunction({
-      name: 'addHistory',
-      data: {
-        goodId: that.data.goodId
-      },
-      success(res) {
-        console.log('成功', res);
-      },
-    })
-  },
-*/
-  // 宫格导航改变事件
-  goToBangDan: function () {
-    wx.navigateTo({
-      url: '/pages/classification/classification',
     })
   },
 
@@ -106,6 +105,32 @@ Page({
         wx.showToast({
           title: '收藏成功',
           duration: 2000,
+        })
+        that.setData({
+          star: 1
+        })
+      },
+    })
+  },
+
+  // 收藏取消
+  delFavor(e) {
+    var that = this;
+    const id = that.data.goodId;
+    wx.cloud.callFunction({
+      name: 'delFavorite',
+      data: {
+        goodId: id,
+        userId: 'fakeuserid1'
+      },
+      success(res) {
+        console.log('成功取消收藏', res);
+        wx.showToast({
+          title: '取消收藏成功',
+          duration: 2000,
+        })
+        that.setData({
+          star: 0
         })
       },
     })
@@ -139,10 +164,10 @@ Page({
       name: 'addOrder',
       data: {
         goodId: id,
-        userId:"fakeuserid1"
+        userId: "fakeuserid1"
       },
       success(res) {
-        console.log('成功', res);
+        console.log('成功结算', res);
         wx.showToast({
           title: '结算成功',
           duration: 2000,
@@ -150,4 +175,48 @@ Page({
       },
     })
   },
+
+  descInput: function (e) {
+    this.setData({
+      comment: e.detail.value
+    })
+  },
+
+  // 发布留言
+  doPost: function () {
+    var that = this;
+    const id = that.data.goodId
+    const c = that.data.comment
+    wx.cloud.callFunction({
+      name: 'addComment',
+      data: {
+        userId: 'fakeuserid1',
+        goodId: id,
+        content: c
+      },
+      success: function (res) {
+        console.log('成功发布留言：', res)
+        wx.showToast({
+          title: '发布成功',
+          duration: 2000,
+          success: function() {
+            setTimeout(function() {
+              wx.redirectTo({
+                url: '/pages/details/index?key=' + id
+              })
+            }, 1000)
+          }
+        });
+      },
+    })
+  },
+
+  // 跳转个人页
+  jumpTo: function() {
+    const that = this
+    const sellerId = that.data.goodsList[0].sellerId
+    wx.navigateTo({
+      url: '/pages/userPage/userPage?sellerId=' + sellerId
+    })
+  }
 })
