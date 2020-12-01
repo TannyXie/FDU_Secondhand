@@ -1,27 +1,36 @@
 <!--miniprogram/pages/my/myPost/myPost.wxml-->
-<view class="goods-recom">
+<view class="main">
+ <view wx:if="{{hasList}}">
+ <view class="goods-release">
   <!-- 这没有没有使用数据绑定，因为是练手而且数据比较少 -->
-  <view class="recom-box">
-    <view class="recom-box-item" bindtap="gotoDetails" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{goodsList}}" wx:key="{{index}}">
-      <view class="recom-box-img">
-        <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
+  <view class="release-box">
+    <view class="release-box-item" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{goodsList}}" wx:key="{{index}}">
+      <view class="release-box-img" bindtap="gotoDetails"data-index="{{index}}" >
+        <image class="release-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
       </view>
       <!--标题-->
-      <view class="recom-box-text">{{item.intro}}</view>
+      <view class="release-box-text">{{item.intro}}</view>
       <!--价格+收藏数-->
       <view class="goods-des">
-        <view class="goods-price">{{item.price}}</view>
+        <view class="goods-price">￥{{item.price}}</view>
         <view class="goods-wants">{{item.nums}}收藏</view>
       </view>
       <!--卖家+标签-->
       <view class="goods-des">
-        <view class="goods-sold">
-          {{item.sold}}
+        <text class="goods-del"bindtap="deleteRelease" data-index="{{index}}">×</text>
+        <view class="goods-sell">
+          {{item.seller}}
         </view>
+        
         <view class="goods-tag">
           {{item.tag}}
         </view>
       </view>
     </view>
   </view>
+</view>
+</view>
+<view wx:else>
+    <view class="release-no-data">暂无发布~</view>
+</view>
 </view>

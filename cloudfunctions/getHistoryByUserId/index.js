@@ -6,33 +6,48 @@
  * 返回
  *   statusCode 状态码
  *   statusMsg 状态信息
- *   data 查询数据，一个goodId的列表
+ *   data 查询数据，每一项是good内容和浏览记录时间time
  */
 
 const cloud = require('wx-server-sdk')
 cloud.init()
 const db = cloud.database()
 const _ = db.command
+const time = require('./util.js')
 
 exports.main = async (event, context) => {
-  const userId = event.userId ? event.userId : cloud.getWXContext().OPENID
+  const openid = cloud.getWXContext().OPENID
+  var userId = event.userId;
   if (userId == null) {
-    return {
-      statusCode: 400,
-      statusMsg: 'can not get userid'
+    try {
+      userResult = await db.collection('user').where({
+        openid: _.eq(openid)
+      }).get()
+      console.log(userResult)
+      userId = userResult.data[0]._id
+      if (userId == null) throw 'openid may not exist'
+    } catch (err) {
+      console.log(err)
+      return {
+        statusCode: 500,
+        statusMsg: 'can not get userid'
+      }
     }
   }
 
   try {
-    const queryResult = await db.collection('history').where({
+    const goodsId = await db.collection('history').where({
       userId: _.eq(userId)
-    }).get()
-    console.log(queryResult)
-    
+    })
+    .orderBy('time','desc').get()
+    console.log(goodsId)
     var goodList = []
-    for (let i = 0; i < queryResult.data.length; i++) {
-      let good = await db.collection('second-hand-good').doc(queryResult.data[i].goodId).get()
-      goodList = goodList.concat(good.data)
+    for (let i = 0; i < goodsId.data.length; i++) {
+      let good = await db.collection('second-hand-good').doc(goodsId.data[i].goodId).get()
+      let _time = time.formatTime(goodsId.data[i].time,'Y/M/D h:m:s')
+      // goodsId.data[i].time=_time
+      good.time=_time
+      goodList = goodList.concat(good)
     }
     console.log(goodList)
     return {

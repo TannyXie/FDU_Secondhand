@@ -37,14 +37,22 @@ Page({
     var that = this;
     wx.cloud.callFunction({
       name: 'getDateLatest8',
-      data:{
-      },
+      data: {},
       success(res) {
         console.log(res)
-        console.log('latest8成功', res.result.data.list);
-        that.setData({
-          goodsList: res.result.data.list,
-        });
+        var glist = res.result.data.list
+        var pics = []
+        glist.forEach((g) => { pics = pics.concat(g.coverMiddle) })
+        wx.cloud.callFunction({
+          name: 'getUrlsByPicIds',
+          data: { picIdList: pics },
+          success: (res) => {
+            for (let i = 0; i < glist.length; i++) 
+              glist[i].coverMiddle = res.result.data.urlList[i]
+            console.log('latest8成功', glist);
+            that.setData({ goodsList: glist });
+          }
+        })
       },
     })
   },
@@ -68,6 +76,14 @@ Page({
     //})
     wx.navigateTo({
       url: '/pages/details/index?key=' + goodId
+    })
+  },
+
+  gotoSeller(e) {
+    var sellerId = e.currentTarget.dataset.text;
+    console.log(sellerId)
+    wx.navigateTo({
+      url: '/pages/userPage/userPage?sellerId=' + sellerId
     })
   }
 })

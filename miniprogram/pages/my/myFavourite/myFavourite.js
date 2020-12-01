@@ -32,6 +32,7 @@ Page({
     wx.cloud.callFunction({
       name: 'getFavoritesByUserId',
       data:{
+        userId: 'fakeuserid1',
       },
       success(res) {
         console.log('成功', res.result.data);
@@ -93,7 +94,8 @@ Page({
       wx.cloud.callFunction({
         name: 'delFavorite',
         data:{
-          goodId:goodsList[index]._id
+          goodId:goodsList[index]._id,
+          userId: 'fakeuserid1',
         },
         success(res) {
           console.log('成功');

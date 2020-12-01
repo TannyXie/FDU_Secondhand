@@ -77,6 +77,18 @@
       width: 50rpx;
       height: 50rpx;
   }
+  .click-icon{
+    position: absolute;
+    left: 7rpx;
+    top: 25rpx;
+    width: 50rpx;
+    height: 50rpx;
+}
+.click-icon image,.click-icon navigator{
+    display: block;
+    width: 50rpx;
+    height: 50rpx;
+  }
   .order-icon image,.order-icon navigator{
     display: block;
     width: 50rpx;

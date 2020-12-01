@@ -2,7 +2,7 @@
  * API
  *   上传文件
  * 参数
- *   base64str 用base64编码的图片
+ *   file 图片文件，类型为ArrayBuffer
  *   name 图片名
  * 返回
  *   statusCode 状态码
@@ -11,9 +11,6 @@
  */
 
 const cloud = require('wx-server-sdk')
-const fs = require('fs')
-const path = require('path')
-const { time } = require('console')
 cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
 })
@@ -27,20 +24,13 @@ function generateRandomStr() {
 }
 
 exports.main = async (event, context) => {
-  // var base64str = fs.readFileSync('test.png', 'base64')
-  const base64str = event.base64str
+  const file = event.file
   const name = event.name
 
-  if (base64str == null) {
-    return {
-      statusCode: 400,
-      statusMsg: 'no such file'
-    }
-  }
   try {
     const res = await cloud.uploadFile({
-      cloudPath: 'pic/' + name + '-' + generateRandomStr() + '-' + (new Date()).getTime().toString(),
-      fileContent: Buffer.from(base64str, 'base64')
+      cloudPath: 'pic/' + name + '-' + generateRandomStr() + '-' + (new Date()).getTime().toString() + '.jpg',
+      fileContent: Buffer.from(file)
     })
     console.log(res);
     return {
@@ -53,7 +43,7 @@ exports.main = async (event, context) => {
   } catch(err) {
     console.log(err);
     return {
-      statusCode: 400,
+      statusCode: 500,
       statusMsg: 'upload picture fail',
     }
   }

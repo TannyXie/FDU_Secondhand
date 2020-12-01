@@ -15,11 +15,22 @@ const db = cloud.database()
 const _ = db.command
 
 exports.main = async (event, context) => {
-  const userId = event.userId ? event.userId : cloud.getWXContext().OPENID
+  const openid = cloud.getWXContext().OPENID
+  var userId = event.userId;
   if (userId == null) {
-    return {
-      statusCode: 400,
-      statusMsg: 'can not get userid'
+    try {
+      userResult = await db.collection('user').where({
+        openid: _.eq(openid)
+      }).get()
+      console.log(userResult)
+      userId = userResult.data[0]._id
+      if (userId == null) throw 'openid may not exist'
+    } catch (err) {
+      console.log(err)
+      return {
+        statusCode: 500,
+        statusMsg: 'can not get userid'
+      }
     }
   }
   const goodId = event.goodId
@@ -30,27 +41,34 @@ exports.main = async (event, context) => {
     }
   }
   try {
+    date=new Date()
+    time=Date.parse(date)
+    console.log("当前时间戳: ",time)
+    begin_time=(new Date().setHours(0,0,0,0)-8*60*60*1000)
+    console.log("当天第一个时间戳：",begin_time)
     checkResult = await db.collection('history').where({
       userId: _.eq(userId),
-      goodId: _.eq(goodId)
+      goodId: _.eq(goodId),
+      time: _.gte(begin_time)
     }).get()
-    let _date=new Date()
+    // console.log(checkResult.data.length)
     if (checkResult.data.length == 0) {
       const res = await db.collection('history').add({
         data: {
           userId: userId,
           goodId: goodId,
-          time:_date
+          time:time
         }
       })
       console.log(res)
     } else {
       db.collection('history').where({
         userId: _.eq(userId),
-        goodId: _.eq(goodId)
+        goodId: _.eq(goodId),
+        time: _.gte(begin_time)
       }).update({
         data:{
-          time:_date
+          time:time
         }
       })
     }

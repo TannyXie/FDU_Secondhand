@@ -41,6 +41,7 @@
   font-size: 32rpx;
   margin: 0rpx auto;
   margin-top: 20rpx;
+  margin-bottom: 40rpx;
   background-color: black;
   color: white;
   border-radius: 90rpx;

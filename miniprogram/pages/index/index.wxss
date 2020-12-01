@@ -102,7 +102,6 @@
   color: #333;
   margin-top: 10rpx;
   margin-left: 10rpx;
-  margin-bottom: 5rpx;
   display: -webkit-box;
   -webkit-line-clamp: 1;/*行数n*/
   -webkit-box-orient: vertical; 
@@ -111,7 +110,6 @@
 }
 
 .goods-des{
-  margin-top: 10rpx;
   margin-bottom: 10rpx;
   width: 100%;
   padding: 20rpx 0rpx;
@@ -129,8 +127,7 @@
 .goods-price{
   font-size: 35rpx;
   font-weight: bold;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  color: orangered;
+  color: #ff3456;
   float: left;
   margin-bottom: 10rpx;
   margin-left: 10rpx;
@@ -157,11 +154,10 @@
   width: 150rpx;
   border-style: solid;
   border-width: 3rpx;
-  border-color: gold;
   border-radius: 40rpx;
   font-size: 28rpx;
   color: white;
-  background-color: gold;
+  background: linear-gradient(to right, #965d62, #c7956d);
   float: left;
   margin-left: 10rpx;
   margin-bottom: 5rpx;

@@ -7,10 +7,9 @@
  * - sortOrder 排序顺序
  * 返回参数：
  * - tag 商品类型
- * - commentList 评论
- * - coverMiddle 图片url(格式为/images/goods/xx.jpg)
+ * - coverMiddle 图片在云存储的url
  * - date 发布日期
- * - desc:商品描述
+ * - desc 商品描述
  * - intro 商品名称
  * - nums 收藏数
  * - price 价格
@@ -46,7 +45,7 @@ exports.main = async (event, context) => {
       $regex:".*"+event.intro+".*",
       $options:'i'
     },
-    sold:false
+    sold: false
   })
   .lookup({
     from: "user",
