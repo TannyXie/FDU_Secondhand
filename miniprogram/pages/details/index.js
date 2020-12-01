@@ -10,7 +10,7 @@ Page({
     goodsList: [],
     commentsList: [],
     cmLen: 0,
-    seller: '',
+    seller: '卖家',
     swiperCurrent: 0,
   },
 
@@ -27,20 +27,30 @@ Page({
       },
       success(res) {
         console.log('成功加载商品', res.result.data);
+        let newList = res.result.data
         wx.cloud.callFunction({
           name: 'getUrlsByPicIds',
           data: {
-            picIdList: [res.result.data.coverMiddle]
+            picIdList: [newList.coverMiddle]
           },
           success(newres) {
             console.log('成功加载图片', newres)
-            let newList = res.result.data
             newList.coverMiddle = newres.result.data.urlList[0]
-            that.setData({
-              goodId: key,
-              goodsList: [newList],
-              seller: '卖家',
-            });
+            wx.cloud.callFunction({
+              name: 'getUserById',
+              data: {
+                userId: newList.sellerId
+              },
+              success(newres2) {
+                console.log('成功加载用户名', newres2)
+                newList.sellerId = newres2.result.data.name
+                that.setData({
+                  goodId: key,
+                  goodsList: [newList],
+                  seller: newres2.result.data.name,
+                });
+              }
+            })
           }
         })
       },

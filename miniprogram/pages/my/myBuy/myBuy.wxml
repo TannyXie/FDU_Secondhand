@@ -1,27 +1,35 @@
 <!--miniprogram/pages/my/myBuy/myBuy.wxml-->
 <view class="text-title-1">已买入商品</view>
-<view wx:if="{{totalNum}}">
-  <view class="goods-recom">
-    <view class="recom-box">
-      <view class="recom-box-item" bindtap="gotoDetails" data-id="{{item._id}}" wx:for="{{goodsList}}" wx:key="index">
-        <view class="recom-box-img">
-          <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
-        </view>
-        <view class="goods-des">
-          <view class="recom-box-text">{{item.intro}}</view>
-          <view class="goods-tag">{{item.tag}}</view>
-          <view class="goods-wants">{{item.nums}}收藏</view>
-        </view>
-        <view class="goods-des">
-          <view class="goods-price">￥{{item.price}}</view>
+<view wx:if="{{loaded == 0}}">
+  <view class="loading-wrap">
+    <image class="img" src="/images/loading2.gif"></image>
+    <view class="text">正在加载...</view>
+  </view>
+</view>
+<view wx:else>
+  <view wx:if="{{totalNum}}">
+    <view class="goods-recom">
+      <view class="recom-box">
+        <view class="recom-box-item" bindtap="gotoDetails" data-id="{{item._id}}" wx:for="{{goodsList}}" wx:key="index">
+          <view class="recom-box-img">
+            <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
+          </view>
+          <view class="goods-des">
+            <view class="recom-box-text">{{item.intro}}</view>
+            <view class="goods-tag">{{item.tag}}</view>
+            <view class="goods-wants">{{item.nums}}收藏</view>
+          </view>
+          <view class="goods-des">
+            <view class="goods-price">￥{{item.price}}</view>
+          </view>
         </view>
       </view>
     </view>
   </view>
-</view>
-<view wx:else style="margin-top: -120rpx">
-  <view>
-    <image src='/images/my/box.png' mode='widthFix'></image>
+  <view wx:else style="margin-top: -120rpx">
+    <view>
+      <image src='/images/my/box.png' mode='widthFix'></image>
+    </view>
+    <view class="no-data">您还没有买入任何商品</view>
   </view>
-  <view class="no-data">您还没有买入任何商品</view>
 </view>

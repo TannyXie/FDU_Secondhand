@@ -273,3 +273,22 @@
   overflow: hidden;
   width: 100%;
 }
+
+.loading-wrap {
+  width: 100%;
+  height: 500rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 200rpx;
+}
+.loading-wrap .img{
+  width: 100rpx;
+  height: 100rpx;
+  margin-bottom: 50rpx;
+}
+.loading-wrap .text{
+  font-size: 26rpx;
+  color: #999;
+}
