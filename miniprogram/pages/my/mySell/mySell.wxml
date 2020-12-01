@@ -1,5 +1,12 @@
 <!--miniprogram/pages/my/mySell/mySell.wxml-->
 <view class="text-title-1">已卖出商品</view>
+<view wx:if="{{loaded == 0}}">
+  <view class="loading-wrap">
+    <image class="img" src="/images/loading2.gif"></image>
+    <view class="text">正在加载...</view>
+  </view>
+</view>
+<view wx:else>
 <view wx:if="{{totalNum}}">
   <view class="goods-recom">
     <view class="recom-box">
@@ -24,4 +31,5 @@
     <image src='/images/my/box.png' mode='widthFix'></image>
   </view>
   <view class="no-data">您还没有卖出任何商品</view>
+</view>
 </view>
