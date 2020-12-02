@@ -12,7 +12,7 @@
 const cloud = require('wx-server-sdk')
 cloud.init()
 const db = cloud.database()
-const _ = db.command
+
 
 exports.main = async (event, context) => {
   // 参数检查
@@ -21,7 +21,7 @@ exports.main = async (event, context) => {
   if (userId == null) {
     try {
       userResult = await db.collection('user').where({
-        openid: _.eq(openid)
+        openid: db.command.eq(openid)
       }).get()
       console.log(userResult)
       userId = userResult.data[0]._id
@@ -48,7 +48,7 @@ exports.main = async (event, context) => {
     var orderList = []
     for (let good of goodQueryResult.result.data) {
       let orderQueryResult = await db.collection('order').where({
-        goodId: _.eq(good._id)
+        goodId: db.command.eq(good._id)
       }).get()
       for (let record of orderQueryResult.data) {
         orderList = orderList.concat({

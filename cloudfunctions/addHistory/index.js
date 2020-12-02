@@ -12,7 +12,7 @@
 const cloud = require('wx-server-sdk')
 cloud.init()
 const db = cloud.database()
-const _ = db.command
+
 
 exports.main = async (event, context) => {
   const openid = cloud.getWXContext().OPENID
@@ -20,7 +20,7 @@ exports.main = async (event, context) => {
   if (userId == null) {
     try {
       userResult = await db.collection('user').where({
-        openid: _.eq(openid)
+        openid: db.command.eq(openid)
       }).get()
       console.log(userResult)
       userId = userResult.data[0]._id
@@ -47,9 +47,9 @@ exports.main = async (event, context) => {
     begin_time=(new Date().setHours(0,0,0,0)-8*60*60*1000)
     console.log("当天第一个时间戳：",begin_time)
     checkResult = await db.collection('history').where({
-      userId: _.eq(userId),
-      goodId: _.eq(goodId),
-      time: _.gte(begin_time)
+      userId: db.command.eq(userId),
+      goodId: db.command.eq(goodId),
+      time: db.command.gte(begin_time)
     }).get()
     // console.log(checkResult.data.length)
     if (checkResult.data.length == 0) {
@@ -63,9 +63,9 @@ exports.main = async (event, context) => {
       console.log(res)
     } else {
       db.collection('history').where({
-        userId: _.eq(userId),
-        goodId: _.eq(goodId),
-        time: _.gte(begin_time)
+        userId: db.command.eq(userId),
+        goodId: db.command.eq(goodId),
+        time: db.command.gte(begin_time)
       }).update({
         data:{
           time:time

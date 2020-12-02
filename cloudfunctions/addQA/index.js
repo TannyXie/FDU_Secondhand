@@ -2,11 +2,13 @@
  * API
  *   添加一对Q&A
  * 参数
+ *   userId 用户ID
  *   question 问题
  *   answer 回答
  * 返回
  *   statusCode 状态码
  *   statusMsg 状态信息
+ *   data 包含QAId
  */
 
 const cloud = require('wx-server-sdk')
@@ -18,8 +20,8 @@ exports.main = async (event, context) => {
   var userId = event.userId;
   if (userId == null) {
     try {
-      userResult = await db.collection('user').where({
-        openid: _.eq(openid)
+      const userResult = await db.collection('user').where({
+        openid: db.command.eq(openid)
       }).get()
       console.log(userResult)
       userId = userResult.data[0]._id
@@ -44,7 +46,10 @@ exports.main = async (event, context) => {
     console.log(res);
     return {
       statusCode: 200,
-      statusMsg: 'add q&a ok'
+      statusMsg: 'add q&a ok',
+      data: {
+        QAId: res._id
+      }
     }
   } catch (err) {
     console.log(err);
