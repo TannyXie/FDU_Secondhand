@@ -28,7 +28,7 @@
 }
 
 .history-box-item{
-  width: 320rpx;
+  width:250rpx;
   height: auto;
   overflow: hidden;
   background: #fff;
@@ -40,8 +40,8 @@
 }
 
 .history-box-img{
-  width: 320rpx;
-  height: 420rpx;
+  width: 250rpx;
+  height: 300rpx;
   overflow: hidden;
   border-top-left-radius: 30rpx;
   border-top-right-radius: 30rpx;
@@ -109,12 +109,12 @@
   width: 150rpx;
   border-style: solid;
   border-width: 3rpx;
-  border-color: rgb(0, 119, 255);
   border-radius: 40rpx;
   font-size: 28rpx;
-  color: rgb(0, 119, 255);
-  float: right;
-  margin-right: 10rpx;
+  color: white;
+  background: linear-gradient(to right, #965d62, #c7956d);
+  float: left;
+  margin-left: 10rpx;
   margin-bottom: 5rpx;
 }
 .history-no-data{
@@ -138,6 +138,8 @@
   align-items: center;
   align-content: center;
   margin-bottom: 20rpx;
+  text-align: center; 
+  justify-content: center;
 }
 .information-box{
   min-height: 100%;
