@@ -34,13 +34,13 @@ Page({
         userId: 'fakeuserid1',
       },
       success(res) {
-        console.log('成功', res.result.data);
+        console.log('成功', res.result.data.unsold.list);
         that.setData({
-          goodsList: res.result.data,
+          goodsList: res.result.data.unsold.list,
         });
-        if(res.result.data)
+        if(res.result.data.unsold.list)
         {
-          if(res.result.data.length){
+          if(res.result.data.unsold.list.length){
           that.setData({
             hasList: true,
           });

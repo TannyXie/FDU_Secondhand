@@ -1,3 +1,4 @@
+
 <!--顶部卡片-->
 <view class="container">
   <!--个人信息卡片-->
@@ -64,11 +65,10 @@
   </view>
 </view>
 </view>
-
+<!--<button class="btn_quit" bindtap='bindClear'>退出帐号</button>-->
 <view class="information-box">
   <navigator url="addressAdmin/addressAdmin" hover-class="navigator-hover">
 <view class="text-title">
   我的地址</view>
   </navigator>
 </view>
-<!--<button class="btn_quit" bindtap='bindClear'>退出帐号</button>-->
