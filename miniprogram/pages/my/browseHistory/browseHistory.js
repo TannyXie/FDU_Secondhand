@@ -8,6 +8,7 @@ Page({
     dateList:[],
     goodsList: [
   ],
+    idx2List:[],
     hasList:false,
   },
 
@@ -56,20 +57,16 @@ Page({
           if(!date2idx.has(date))
           {
           date2idx.set(date,idx)
-          //date2idx.set("2020/12/01",idx+1)
           keys[idx]=date
-          //keys[idx+1]="2020/12/01"
           idx++
           }
           var j=date2idx.get(date)
           if(idx2List[j])
           {idx2List[j]=idx2List[j].concat(arr[i]);
-          //idx2List[j+1]=idx2List[j+1].concat(arr[i]);
           }
           else
           {
             idx2List[j]=[arr[i]];
-            //idx2List[j+1]=[arr[i]];
           }
 
         }
@@ -77,11 +74,13 @@ Page({
         console.log(date2idx)
         console.log(idx2List)
         console.log(keys)
+    
         that.setData({
           dateList:keys,
         });
         that.setData({
           goodsList: arr,
+          idx2List:idx2List
         });
         if(res.result.data)
         {
