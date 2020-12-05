@@ -1,6 +1,7 @@
 /**app.wxss**/
 @import '/style/icons.wxss';
 @import '/style/color.wxss';
+@import '/style/weui.wxss';
 
 .container {
   display: flex;

@@ -4,7 +4,7 @@ Page({
     carts:[],               // 购物车列表
     hasList:false,          // 列表是否有数据
     totalPrice:0,           // 总价，初始为0
-    selectAllStatus:true,    // 全选状态，默认全选
+    selectAllStatus:false,    // 全选状态，默认全选
 
   },
   onShow() {
@@ -20,7 +20,7 @@ Page({
         var carts=[]
         for (let i = 0; i < res.result.data.length; i++)
         {
-          carts.push({'_id':res.result.data[i]._id,'title':res.result.data[i].intro,'image':res.result.data[i].coverMiddle,'price':res.result.data[i].price,'selected':true,'seller_id':res.result.data[i].sellerId})
+          carts.push({'_id':res.result.data[i]._id,'title':res.result.data[i].intro,'image':res.result.data[i].coverMiddle,'price':res.result.data[i].price,'selected':false,'seller_id':res.result.data[i].sellerId})
         }
         that.setData({
           carts: carts,
