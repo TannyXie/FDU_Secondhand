@@ -1,7 +1,7 @@
 <!--pages/message/chatrm/index.wxml-->
 <view class="mess-area">
 <view class="mess-box">
-  <view class="hist-mess" wx:for="{{histMess}}" wx:key="{{index}}">
+  <view class="hist-mess" wx:for="{{messages}}" wx:key="{{index}}">
     <view class="input-box">
       {{item.senderId}}: {{item.content}}
     </view>
