@@ -1,53 +1,67 @@
 <!--pages/details/index.wxml-->
-<view class="text-title">
-  <block>
-    <text>物品图片</text>
-  </block>
+<view wx:if="{{seller == '卖家'}}">
+  <view class="loading-wrap">
+    <image class="img" src="/images/loading2.gif"></image>
+    <view class="text">正在加载...</view>
+  </view>
 </view>
+<view wx:else>
+  <view class="text-title">
+    <block>
+      <text>物品图片</text>
+    </block>
+  </view>
 
-<view class="goods-recom">
-  <view class="recom-box">
-    <view class="recom-box-item" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{goodsList}}"
-      wx:key="{{index}}">
-      <view class="recom-box-img">
-        <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
+  <view class="goods-recom">
+    <view class="recom-box">
+      <view class="recom-box-item" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}"
+        wx:for="{{goodsList}}" wx:key="{{index}}">
+        <view class="recom-box-img">
+          <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
+        </view>
       </view>
     </view>
   </view>
-</view>
-<view class="title-box">
-  <view class="text-title2">物品介绍</view>
-  <view class="small-button" bindtap="setFavor">收藏</view>
-  <view class="small-button" bindtap="addCart">加购</view>
-  <view class="small-button" bindtap="addOrder">结算</view>
-</view>
-<view class="goods-recom">
-  <view class="recom-box">
-    <view class="des-box-item" data-title="{{item.intro}}" wx:for="{{goodsList}}" wx:key="{{index}}">
-      <view class="goods-des">
-        <view class="recom-box-text">{{item.intro}}</view>
-        <view class="goods-tag">{{item.tag}}</view>
+  <view class="title-box">
+    <view class="text-title2">物品介绍</view>
+    <!--<view class="small-button" bindtap="setFavor">收藏</view>-->
+
+    <view class="small-button" bindtap="addCart">加购</view>
+    <view class="small-button" bindtap="addOrder">结算</view>
+  </view>
+  <view class="goods-recom">
+    <view class="recom-box">
+      <view class="des-box-item" data-title="{{item.intro}}" wx:for="{{goodsList}}" wx:key="{{index}}">
+        <view class="goods-des">
+          <view class="recom-box-text">{{item.intro}}</view>
+          <view wx:if="{{star == 0}}">
+            <image class="star-icon" src="/images/star.png" mode="widthFix" bindtap="setFavor"></image>
+          </view>
+          <view wx:else>
+            <image class="star-icon" src="/images/star_after.png" mode="widthFix" bindtap="delFavor"></image>
+          </view>
+          <view class="goods-tag">{{item.tag}}</view>
+        </view>
+        <view class="goods-des2">
+          <view class="goods-wants">{{item.nums}}收藏</view>
+          <view class="goods-sell" bindtap="jumpTo">{{seller}}</view>
+          <view class="goods-price">￥ {{item.price}}</view>
+        </view>
+        <view class="intro-box-text2">商品介绍</view>
+        <p class="intro-detail-text2">{{item.desc}}</p>
       </view>
-      <view class="goods-des2">
-        <view class="goods-wants">{{item.nums}}收藏</view>
-        <view class="goods-sell" bindtap="jumpTo">{{seller}}</view>
-        <view class="goods-price">￥ {{item.price}}</view>
-      </view>
-      <view class="intro-box-text2">商品介绍</view>
-      <p class="intro-detail-text2">{{item.desc}}</p>
     </view>
   </view>
-</view>
 
-<view class="title-box">
-  <view class="text-title2">写下留言</view>
-  <view class="small-button" bindtap="doPost">发布</view>
-</view>
+  <view class="title-box">
+    <view class="text-title2">写下留言</view>
+    <view class="small-button" bindtap="doPost">发布</view>
+  </view>
 
-<textarea class="textarea" style="height: 5em" placeholder="写下给卖家的留言，然后点击发布按钮" bindinput="descInput"
-  value="{{description}}" />
+  <textarea class="textarea" style="height: 5em" placeholder="写下给卖家的留言，然后点击发布按钮" bindinput="descInput"
+    value="{{description}}" />
 
-<view class="title-box">
+  <view class="title-box">
   <view class="text-title2">留言区</view>
 </view>
 
@@ -71,4 +85,5 @@
     <image src='/images/my/box.png' mode='widthFix' class='image'></image>
   </view>
   <view class="no-data">此商品暂无留言</view>
+</view>
 </view>

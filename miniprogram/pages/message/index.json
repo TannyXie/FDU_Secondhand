@@ -2,5 +2,6 @@
   "usingComponents": {
     "msearch":"/components/msearch/msearch",
     "chatroom": "/components/chatroom/chatroom"
-  }
+  },
+  "navigationBarTitleText": "消息"
 }

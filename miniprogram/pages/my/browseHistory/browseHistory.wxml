@@ -2,13 +2,16 @@
 <view class="main">
  <view wx:if="{{hasList}}">
   <view class="information-box" bindtap="deleteHistory">
-<view class="text-title">
+<view class="text-title" >
   清空历史</view>
 </view>
+<view class="information-box" wx:for="{{dateList}}" wx:key="{{index}}">
+  <view class="text-title-1">
+ {{item}}</view>
 <view class="goods-history">
   <!-- 这没有没有使用数据绑定，因为是练手而且数据比较少 -->
   <view class="history-box">
-    <view class="history-box-item" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{goodsList}}" wx:key="{{index}}">
+    <view class="history-box-item" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{idx2List[index]}}" wx:key="{{index}}">
       <view class="history-box-img" bindtap="gotoDetails"data-index="{{index}}" >
         <image class="history-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
       </view>
@@ -29,6 +32,7 @@
         </view>
       </view>
     </view>
+  </view>
   </view>
 </view>
 </view>

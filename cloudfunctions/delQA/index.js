@@ -14,7 +14,7 @@ const db = cloud.database()
 
 exports.main = async (event, context) => {
   try {
-    const res = db.collection('autoreply').doc(event.QAId).remove()
+    const res = await db.collection('autoreply').doc(event.QAId).remove()
     console.log(res)
     return {
       statusCode:200,
@@ -23,7 +23,7 @@ exports.main = async (event, context) => {
   } catch (err) {
     console.log(err)
     return {
-      statusCode: 400,
+      statusCode: 500,
       statusMsg: 'delete q&a fail'
     }
   }

@@ -5,8 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    dateList:[],
     goodsList: [
   ],
+    idx2List:[],
     hasList:false,
   },
 
@@ -40,15 +42,45 @@ Page({
         {
           res.result.data.sort(function(a, b){return a.time - b.time});
         }
-        var m =new Array();
+        var arr =new Array();
+        var date2idx=new Map();
+        var idx2List=new Array();
+        var idx=0;
+        var keys=new Array()
         for(var i=0;i<res.result.data.length;i++)
         {
-          m[i]=res.result.data[i].data;
+          arr[i]=res.result.data[i].data
+          //get the browse date
+          var date=res.result.data[i].time.split(' ')[0]
+          console.log(date)
+          
+          if(!date2idx.has(date))
+          {
+          date2idx.set(date,idx)
+          keys[idx]=date
+          idx++
+          }
+          var j=date2idx.get(date)
+          if(idx2List[j])
+          {idx2List[j]=idx2List[j].concat(arr[i]);
+          }
+          else
+          {
+            idx2List[j]=[arr[i]];
+          }
+
         }
-        console.log(m)
-      
+        console.log(arr)
+        console.log(date2idx)
+        console.log(idx2List)
+        console.log(keys)
+    
         that.setData({
-          goodsList: m,
+          dateList:keys,
+        });
+        that.setData({
+          goodsList: arr,
+          idx2List:idx2List
         });
         if(res.result.data)
         {

@@ -7,6 +7,7 @@ Page({
   data: {
     goodsList: [],
     totalNum: 0,
+    loaded: 0,
   },
   /**
    * 生命周期函数--监听页面加载
@@ -37,7 +38,8 @@ Page({
               goods.push(newres.result.data);
               if (goods.length == names.length) {
                 that.setData({
-                  goodsList: goods
+                  goodsList: goods,
+                  loaded: 1,
                 })
                 console.log(goods)
               }

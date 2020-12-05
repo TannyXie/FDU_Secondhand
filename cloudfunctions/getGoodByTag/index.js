@@ -14,8 +14,8 @@ const cloud = require('wx-server-sdk')
 
 cloud.init()
 const db = cloud.database()
-const _ = db.command
-const $ = _.aggregate
+
+const $ = db.command.aggregate
 
 exports.main = async (event, context) => {
   // const wxContext = cloud.getWXContext()

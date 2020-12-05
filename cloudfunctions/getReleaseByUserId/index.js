@@ -6,7 +6,7 @@
  * 返回
  *   statusCode 状态码
  *   statusMsg 状态信息
- *   data 商品信息(添加了一个sold字段标识是否售出)
+ *   data 商品信息(sold对应已售出商品list，unsold同理)
  */
 
 const cloud = require('wx-server-sdk')
@@ -19,7 +19,7 @@ exports.main = async (event, context) => {
   if (userId == null) {
     try {
       userResult = await db.collection('user').where({
-        openid: _.eq(openid)
+        openid: db.command.eq(openid)
       }).get()
       console.log(userResult)
       userId = userResult.data[0]._id
@@ -34,18 +34,32 @@ exports.main = async (event, context) => {
   }
   
   try {
-    const _ = db.command
-    const res = await db.collection('second-hand-good')
-    .where({
-      sellerId: _.eq(userId)
+    const unsold = await db.collection('second-hand-good').aggregate()
+    .match({
+      sellerId: userId,
+      sold:false
     })
-    .orderBy('date','desc')
-    .get()
+    .sort({
+      date: -1
+    })
+    .end()
+    const sold = await db.collection('second-hand-good').aggregate()
+    .match({
+      sellerId: userId,
+      sold:true
+    })
+    .sort({
+      date: -1
+    })
+    .end()
+    res={'unsold':null,'sold':null}
+    res['unsold']=unsold
+    res['sold']=sold
     console.log(res)
     return {
       statusCode: 200,
       statusMsg: 'ok',
-      data: res.data
+      data: res
     }
   } catch (err) {
     console.log(err)

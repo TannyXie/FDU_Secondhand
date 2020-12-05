@@ -16,7 +16,7 @@ const db = cloud.database()
 exports.main = async (event, context) => {
   // const wxContext = cloud.getWXContext()
   try {
-    const _ = db.command
+    
     const res = await db.collection('second-hand-good').doc(event.goodId).get()
     console.log(res)
     return {

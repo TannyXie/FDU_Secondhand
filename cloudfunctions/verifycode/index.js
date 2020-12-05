@@ -15,14 +15,14 @@ cloud.init({
 })
 
 const db = cloud.database()
-const _ = db.command
+
 
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
   const mail = event.studentMail
   const code = event.enteredCode
 
-  res = await db.collection('verification').where({mail: _.eq(mail)}).orderBy('time', 'desc').get()
+  res = await db.collection('verification').where({mail: db.command.eq(mail)}).orderBy('time', 'desc').get()
   console.log(res.data.length);
   console.log(res.data);
   if (res.data.length == 0) {
