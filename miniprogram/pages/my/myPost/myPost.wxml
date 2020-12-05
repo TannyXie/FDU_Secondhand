@@ -4,7 +4,8 @@
  <view class="goods-release">
   <!-- 这没有没有使用数据绑定，因为是练手而且数据比较少 -->
   <view class="release-box">
-    <view class="release-box-item" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{goodsList}}" wx:key="{{index}}">
+    <!-- 未卖出的商品 -->
+    <view class="release-box-item" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{unsoldList}}" wx:key="{{index}}">
       <view class="release-box-img" bindtap="gotoDetails"data-index="{{index}}" >
         <image class="release-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
       </view>
@@ -22,6 +23,29 @@
           {{item.seller}}
         </view>
         
+        <view class="goods-tag">
+          {{item.tag}}
+        </view>
+      </view>
+    </view>
+     <!-- 已卖出的商品 -->
+    <view class="release-box-item" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{soldList}}" wx:key="{{index}}">
+      <view class="release-box-img" bindtap="gotoDetails"data-index="{{index}}" >
+        <image class="release-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
+      </view>
+      <image class="sold-icon-img" src="/images/my/sold.png" mode="widthFix"></image>
+      <!--标题-->
+      <view class="release-box-text">{{item.intro}}</view>
+      <!--价格+收藏数-->
+      <view class="goods-des">
+        <view class="goods-price">￥{{item.price}}</view>
+        <view class="goods-wants">{{item.nums}}收藏</view>
+      </view>
+      <!--卖家+标签-->
+      <view class="goods-des">
+        <view class="goods-sell">
+          {{item.seller}}
+        </view>  
         <view class="goods-tag">
           {{item.tag}}
         </view>
