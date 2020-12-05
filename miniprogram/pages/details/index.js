@@ -42,14 +42,29 @@ Page({
               data: {
                 userId: newList.sellerId
               },
-              success(newres2) {
-                console.log('成功加载用户名', newres2)
-                newList.sellerId = newres2.result.data.name
-                that.setData({
-                  goodId: key,
-                  goodsList: [newList],
-                  seller: newres2.result.data.name,
-                });
+              success(newres1) {
+                console.log('成功加载用户名', newres1)
+                newList.sellerId = newres1.result.data.name
+                wx.cloud.callFunction({
+                  name: 'checkFavoriteByUserIdAndGoodId',
+                  data: {
+                    userId: 'fakeuserid1',
+                    goodId: key
+                  },
+                  success(newres2) {
+                    console.log('成功加载收藏状态', newres2)
+                    const flag = newres2.result.data.flag
+                    let starStatus = 0
+                    if (flag)
+                      starStatus = 1
+                    that.setData({
+                      goodId: key,
+                      goodsList: [newList],
+                      seller: newres1.result.data.name,
+                      star: starStatus
+                    });
+                  }
+                })
               }
             })
           }

@@ -13,7 +13,7 @@
 const cloud = require('wx-server-sdk')
 cloud.init()
 const db = cloud.database()
-const _ = db.command
+
 
 exports.main = async (event, context) => {
   // 参数检查
@@ -28,7 +28,7 @@ exports.main = async (event, context) => {
   // 数据库操作
   try {
     const queryResult = await db.collection('comment').where({
-      goodId: _.eq(goodId)
+      goodId: db.command.eq(goodId)
     }).get()
     console.log(queryResult)
 

@@ -17,15 +17,15 @@ const cloud = require('wx-server-sdk')
 
 cloud.init()
 const db = cloud.database()
-const _ = db.command
+
 
 exports.main = async (event, context) => {
-  // 参数检查
+  // 若没有传sellerId，则自动获取当前用户的ID
   var sellerId = event.sellerId;
   if (sellerId == null) {
     try {
       userResult = await db.collection('user').where({
-        openid: _.eq(cloud.getWXContext().OPENID)
+        openid: db.command.eq(cloud.getWXContext().OPENID)
       }).get()
       console.log(userResult)
       sellerId = userResult.data[0]._id
@@ -38,14 +38,26 @@ exports.main = async (event, context) => {
       }
     }
   }
+  // 参数不可为空
   if (event.coverMiddle == null || event.desc == null || event.intro == null || event.price == null || event.tag == null) {
     return {
       statusCode: 400,
       statusMsg: 'coverMiddle, desc, intro, price and tag can not be null'
     }
   }
+  // 检查图片已经上传
+  const checkUploadResult = await cloud.getTempFileURL({
+    fileList: [event.coverMiddle]
+  })
+  console.log(checkUploadResult)
+  if (checkUploadResult.fileList[0].status != 0) {
+    return {
+      statusCode: 400,
+      statusMsg: 'picture uploaded can not be found'
+    }
+  }
 
-  // 数据库操作
+  
   try {
     const addResult = await db.collection('second-hand-good').add({
       data: {
@@ -54,6 +66,7 @@ exports.main = async (event, context) => {
         intro: event.intro,
         price: event.price,
         tag: event.tag,
+        
         sellerId: sellerId,
         date: new Date().getTime(),
         nums: 0,

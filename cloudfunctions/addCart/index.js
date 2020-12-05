@@ -12,7 +12,7 @@
 const cloud = require('wx-server-sdk')
 cloud.init()
 const db = cloud.database()
-const _ = db.command
+
 
 exports.main = async (event, context) => {
   // const openid = "oFqwP5Ik4q0dt81_AJX8AWkMWHiI"
@@ -22,8 +22,8 @@ exports.main = async (event, context) => {
   var userId = event.userId;
   if (userId == null) {
     try {
-      userResult = await db.collection('user').where({
-        openid: _.eq(openid)
+      const userResult = await db.collection('user').where({
+        openid: db.command.eq(openid)
       }).get()
       console.log(userResult)
       userId = userResult.data[0]._id
@@ -46,8 +46,8 @@ exports.main = async (event, context) => {
   }
   try {
     checkResult = await db.collection('cart').where({
-      userId: _.eq(userId),
-      goodId: _.eq(goodId)
+      userId: db.command.eq(userId),
+      goodId: db.command.eq(goodId)
     }).get()
     if (checkResult.data.length == 0) {
       const res = await db.collection('cart').add({

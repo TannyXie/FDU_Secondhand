@@ -14,16 +14,17 @@
 const cloud = require('wx-server-sdk')
 cloud.init()
 const db = cloud.database()
-const _ = db.command
+
 
 exports.main = async (event, context) => {
+  console.log(event)
   // 参数检查
   const openid = cloud.getWXContext().OPENID
   var userId = event.userId;
   if (userId == null) {
     try {
       userResult = await db.collection('user').where({
-        openid: _.eq(openid)
+        openid: db.command.eq(openid)
       }).get()
       console.log(userResult)
       userId = userResult.data[0]._id
@@ -52,18 +53,21 @@ exports.main = async (event, context) => {
         userId: userId,
         goodId: goodId,
         content: content,
-        time: db.serverDate()
+        time: new Date().getTime()
       }
     })
     console.log(addResult)
     return {
       statusCode: 200,
-      statusMsg: 'add comment ok'
+      statusMsg: 'add comment ok',
+      data: {
+        commentId: addResult._id
+      }
     }
   } catch (err) {
     console.log(err)
     return {
-      statusCode: 400,
+      statusCode: 500,
       statusMsg: 'add comment fail'
     }
   }

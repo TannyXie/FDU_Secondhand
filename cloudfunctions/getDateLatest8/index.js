@@ -11,8 +11,8 @@ const cloud = require('wx-server-sdk')
 
 cloud.init()
 const db = cloud.database()
-const _ = db.command
-const $ = _.aggregate
+
+const $ = db.command.aggregate
 
 // 云函数入口函数
 exports.main = async (event, context) => {
@@ -20,7 +20,7 @@ exports.main = async (event, context) => {
   return await db.collection('second-hand-good').aggregate()
   .match({
     sold: false
-  })
+  })  
   .lookup({
     from: "user",
     localField: "sellerId",

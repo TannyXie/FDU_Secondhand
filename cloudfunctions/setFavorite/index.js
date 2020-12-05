@@ -12,14 +12,14 @@
 const cloud = require('wx-server-sdk')
 cloud.init()
 const db = cloud.database()
-const _ = db.command
+
 
 exports.main = async (event, context) => {
   var userId = event.userId;
   if (userId == null) {
     try {
       userResult = await db.collection('user').where({
-        openid: _.eq(cloud.getWXContext().OPENID)
+        openid: db.command.eq(cloud.getWXContext().OPENID)
       }).get()
       console.log(userResult)
       userId = userResult.data[0]._id
@@ -41,17 +41,23 @@ exports.main = async (event, context) => {
   }
   try {
     const checkResult = await db.collection('favorite').where({
-      userId: _.eq(userId),
-      goodId: _.eq(goodId)
+      userId: db.command.eq(userId),
+      goodId: db.command.eq(goodId)
     }).get()
     if (checkResult.data.length == 0) {
-      const res = await db.collection('favorite').add({
+      const addResult = await db.collection('favorite').add({
         data: {
           userId: userId,
           goodId: goodId
         }
       })
-      console.log(res)
+      console.log(addResult)
+      const updateResult = await db.collection('second-hand-good').doc(goodId).update({
+        data: {
+          nums: db.command.inc(1)
+        }
+      })
+      console.log(updateResult)
       return {
         statusCode: 200,
         statusMsg: 'ok'

@@ -12,7 +12,7 @@
 const cloud = require('wx-server-sdk')
 cloud.init()
 const db = cloud.database()
-const _ = db.command
+
 const time = require('./util.js')
 
 exports.main = async (event, context) => {
@@ -21,7 +21,7 @@ exports.main = async (event, context) => {
   if (userId == null) {
     try {
       userResult = await db.collection('user').where({
-        openid: _.eq(openid)
+        openid: db.command.eq(openid)
       }).get()
       console.log(userResult)
       userId = userResult.data[0]._id
@@ -37,7 +37,7 @@ exports.main = async (event, context) => {
 
   try {
     const goodsId = await db.collection('history').where({
-      userId: _.eq(userId)
+      userId: db.command.eq(userId)
     })
     .orderBy('time','desc').get()
     console.log(goodsId)

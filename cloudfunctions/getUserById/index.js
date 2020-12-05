@@ -19,7 +19,7 @@ exports.main = async (event, context) => {
   if (userId == null) {
     try {
       userResult = await db.collection('user').where({
-        openid: _.eq(openid)
+        openid: db.command.eq(openid)
       }).get()
       console.log(userResult)
       userId = userResult.data[0]._id
@@ -34,7 +34,7 @@ exports.main = async (event, context) => {
   }
   
   try {
-    const _ = db.command
+    
     const res = await db.collection('user').doc(userId).get()
     console.log(res)
     return {
