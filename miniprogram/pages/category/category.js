@@ -82,23 +82,37 @@ Page({
 
   getGoodsList: function () {
     var that = this;
-    if (this.data.name){
+    if (this.data.name && this.data.name!='更多'){
+      console.log('分类');
       wx.cloud.callFunction({
-        name: 'searchByTag',
+        name: 'getGoodByTag',
         data:{
           tag: this.data.name,
         },
         success(res) {
-          console.log('成功', res.result.data);
+          console.log('成功', res.result.data.list);
           that.setData({
             loading: 0,
-            goodsList: res.result.data,
+            goodsList: res.result.data.list,
           });
         },
       })
     }
     else{
       console.log('全部');
+      wx.cloud.callFunction({
+        name: 'search',
+        data:{
+          intro: ''
+        },
+        success(res) {
+          console.log('成功', res.result.data.list);
+          that.setData({
+            loading: 0,
+            goodsList: res.result.data.list,
+          });
+        },
+      })
     }
   },
 

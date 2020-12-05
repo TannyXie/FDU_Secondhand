@@ -1,0 +1,4 @@
+_id, question, answer, userId
+fakeautoreplyid1, 这是第一个问题, 这是第一个回答, fakeuserid1 
+fakeautoreplyid2, 这是第二个问题, 这是第二个回答, fakeuserid2
+fakeautoreplyid3, 这是第三个问题, 这是第三个回答, fakeuserid3

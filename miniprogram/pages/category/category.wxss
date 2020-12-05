@@ -8,7 +8,6 @@
 .catalog {
   flex: 1;
   width: 100%;
-  background: #fff;
   display: flex;
   border-top: 1px solid #fafafa;
   /* position: fixed; */
@@ -22,17 +21,18 @@
 
 .catalog .nav .item {
   text-align: center;
-  line-height: 90rpx;
+  line-height: 100rpx;
   width: 162rpx;
-  height: 90rpx;
+  height: 100rpx;
   color: #333;
-  font-size: 28rpx;
+  font-size: 29rpx;
 }
 
 .catalog .nav .item.active {
-  color: #ff3456;
+  color: #000;
   font-size: 32rpx;
   font-weight: 500;
+  background: #fff;
 }
 
 .catalog .cate {
@@ -69,9 +69,9 @@
   
 }
 .catalog .cate .loading-wrap .img{
-  width: 60rpx;
-  height: 60rpx;
-  margin-bottom: 20rpx;
+  width: 100rpx;
+  height: 100rpx;
+  margin-bottom: 50rpx;
 }
 .catalog .cate .loading-wrap .text{
   font-size: 26rpx;
@@ -205,25 +205,21 @@
   flex-direction: column;
 }
 
-.goods-box .navi-url .image {
+.goods-box .navi-url .box .image {
   width: 256rpx;
-  height: 256rpx;
-  border-radius: 8rpx;
-  background: #f9f9f9
-}
-
-.goods-box .navi-url .box {
-  height: 256rpx;
-  width: 256rpx;
+  height: 380rpx;
+  border-radius: 10rpx;
+  background: #f9f9f9;
+  object-fit: cover;
+  overflow: hidden;
   position: relative;
-  margin-bottom: 10rpx;
 }
 
 .goods-box .navi-url .box .new-tag {
   height: 36rpx;
-  width: 60rpx;
+  width: auto;
   background: #ca2a1d;
-  position: absolute;
+  position: relative;
   top: 20rpx;
   left: 0;
   line-height: 36rpx;

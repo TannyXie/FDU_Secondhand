@@ -5,18 +5,34 @@ Page({
     hasList:false,          // 列表是否有数据
     totalPrice:0,           // 总价，初始为0
     selectAllStatus:true,    // 全选状态，默认全选
-    obj:{
-        name:"hello"
-    }
+
   },
   onShow() {
-    this.setData({
-      hasList: true,
-      carts:[
-        {id:1,title:'耳机',image:'/images/goods/02.jpg',num:1,price:360,selected:true},
-        {id:2,title:'卸妆水',image:'/images/goods/03.jpg',num:1,price:20,selected:true}
-      ]
-    });
+    var that = this
+    wx.cloud.callFunction({
+      name: 'getCartByUserId',
+      data:{
+        userId: 'fakeuserid1',
+      },
+      success(res) {
+        console.log('成功',res.result.data)
+        if(res.result.data){
+        var carts=[]
+        for (let i = 0; i < res.result.data.length; i++)
+        {
+          carts.push({'_id':res.result.data[i]._id,'title':res.result.data[i].intro,'image':res.result.data[i].coverMiddle,'price':res.result.data[i].price,'selected':true,'seller_id':res.result.data[i].sellerId})
+        }
+        that.setData({
+          carts: carts,
+        });
+          if(res.result.data.length){
+          that.setData({
+            hasList: true,
+          });
+        }
+      }
+      },
+    })
     this.getTotalPrice();
   },
   /**
@@ -27,6 +43,7 @@ Page({
     let carts = this.data.carts;
     const selected = carts[index].selected;
     carts[index].selected = !selected;
+    console.log(carts[index].seller_id)
     this.setData({
       carts: carts
     });
@@ -39,9 +56,19 @@ Page({
   deleteList(e) {
     const index = e.currentTarget.dataset.index;
     let carts = this.data.carts;
+    wx.cloud.callFunction({
+      name: 'delCart',
+      data:{
+        goodId:carts[index]._id,
+        userId: 'fakeuserid1',
+      },
+      success(res) {
+        console.log('成功');
+      },
+    })
     carts.splice(index,1);
     this.setData({
-      carts: carts
+      carts : carts
     });
     if(!carts.length){
       this.setData({
@@ -86,6 +113,36 @@ Page({
       carts: carts,
       totalPrice: total.toFixed(2)
     });
-  }
-
+  },
+  gotoDetails(e) {
+    const index = e.currentTarget.dataset.index;
+    let carts = this.data.carts;
+    var goodId = carts[index]._id
+    console.log(goodId)
+    wx.navigateTo({
+      url: '/pages/details/index?key=' + goodId
+    })
+},
+// 结算
+addtoOrder(e)
+{
+  let carts = this.data.carts;                  // 获取购物车列表
+  for(let i = 0; i<carts.length; i++) {         // 循环列表得到每个数据
+      if(carts[i].selected) {                     // 判断选中
+        console.log(carts[i]._id)
+        wx.cloud.callFunction({
+          name: 'addOrder',
+          data: {
+            goodId: carts[i]._id,
+            userId:"fakeuserid1"
+          },
+          success(res) {
+            console.log('成功', res);
+          },
+        })
+      }
+    }
+    
+}
 })
+

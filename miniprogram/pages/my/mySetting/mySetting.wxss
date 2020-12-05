@@ -30,9 +30,6 @@
   font-weight: bold;
   margin-left:35rpx;
 }
-.student_id::after {
-  color: orange;
-}
 
 .pass_word {
   float: left;

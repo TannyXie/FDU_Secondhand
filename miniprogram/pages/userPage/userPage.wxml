@@ -1,0 +1,96 @@
+<!--pages/userPage/userPage.wxml-->
+<!--顶部卡片-->
+<view class="container">
+  <!--个人信息卡片-->
+	<view class="userinfo">
+    <!--点击头像进入邮箱验证-->
+    <navigator url="userPage" hover-class="navigator-hover">
+    <image wx:if="{{userInfo && userInfo.avatarUrl}}" class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image></navigator>
+    <text class="userinfo-nickname">{{ userInfo.nickName }}</text>
+  </view>
+ <!--小图标-->
+ <view class="icon-bar">
+    <view class="icon-bar-item" bindtap="showPost">
+      <image src='../../images/my/upload.png'></image>
+      <text>发布中：</text>
+    </view>
+    <view class="icon-bar-item" bindtap="showFavo">
+      <image src='../../images/my/favorite.png'></image>
+      <text>被收藏：</text>
+    </view>
+    <view class="icon-bar-item" bindtap="showSold">
+      <image src='../../images/my/history.png'></image>
+      <text>已卖出：</text>
+    </view>
+    <view class="icon-bar-item" bindtap="gotoChat">
+      <image src='../../images/my/message.png'></image>
+      <text>与TA聊天</text>
+    </view>
+  </view> 
+</view>
+
+<!--他的发布-->
+<view class="text-title-1" wx:if="{{showitem=='post'}}">
+  <block>
+    <text>他的发布</text>
+  </block>
+</view>
+<view class="goods-recom" wx:if="{{showitem=='post'}}">
+  <!-- 这没有没有使用数据绑定，因为是练手而且数据比较少 -->
+  <view class="recom-box">
+    <view class="recom-box-item" bindtap="gotoDetails" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" data-id="{{item._id}}" wx:for="{{goodsList}}" wx:key="{{index}}">
+      <view class="recom-box-img">
+        <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
+      </view>
+      <!--标题-->
+      <view class="recom-box-text">{{item.intro}}</view>
+      <!--价格+收藏数-->
+      <view class="goods-des">
+        <view class="goods-price">¥ {{item.price}}</view>
+        <view class="goods-wants">{{item.nums}}收藏</view>
+      </view>
+      <!--卖家+标签-->
+      <view class="goods-des2">
+        <view class="goods-sell" data-text="{{item.name}}">
+          {{item.name}}
+        </view>
+        <view class="goods-tag" bindtap="gotoFenlei" data-text="{{item.tag}}">
+          {{item.tag}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!--他的卖出-->
+<view class="text-title-1" wx:if="{{showitem=='sold'}}">
+  <block>
+    <text>他卖出的</text>
+  </block>
+</view>
+<view class="goods-recom" wx:if="{{showitem=='sold'}}">
+  <!-- 这没有没有使用数据绑定，因为是练手而且数据比较少 -->
+  <view class="recom-box">
+    <view class="recom-box-item" bindtap="gotoDetails" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" data-id="{{item._id}}" wx:for="{{goodsList}}" wx:key="{{index}}">
+      <view class="recom-box-img">
+        <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
+      </view>
+      <!--标题-->
+      <view class="recom-box-text">{{item.intro}}</view>
+      <!--价格+收藏数-->
+      <view class="goods-des">
+        <view class="goods-price">¥ {{item.price}}</view>
+        <view class="goods-wants">{{item.nums}}收藏</view>
+      </view>
+      <!--卖家+标签-->
+      <view class="goods-des2">
+        <view class="goods-sell" data-text="{{item.name}}">
+          {{item.name}}
+        </view>
+        <view class="goods-tag" bindtap="gotoFenlei" data-text="{{item.tag}}">
+          {{item.tag}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

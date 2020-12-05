@@ -8,11 +8,26 @@
   <view class="hmly-search-right" bindtap="goBack">取消</view>
 </view>
 
-<!--热门搜索-->
-<view class="hmly-hot">
+<!--搜索历史-->
+<view class="hmly-history" wx:if="{{!showitem}}">
   <!--提示标题-->
   <view class="hmly-title">
-    <view class="title-text">热门商品</view>
+    <view class="hmly-title-text">搜索历史</view>
+    <image src="/images/trash-9.png" class="clearicon" bindtap="clearHistory"></image>
+  </view>
+  <!--内容-->
+  <view class="hmly-history-content">
+    <view wx:for="{{getSearch}}" wx:key="index">
+      <view class="hmly-content-item bg-gray text-black" data-search="{{item}}" bindtap="historySearch">{{item}}</view>
+    </view>
+  </view>
+</view>
+
+<!--热门搜索-->
+<view class="hmly-hot" wx:if="{{!showitem}}">
+  <!--提示标题-->
+  <view class="hmly-title">
+    <view class="hmly-title-text">热门商品</view>
   </view>
   <view class="hmly-hot-content">
     <view class="hmly-hot-items" wx:for="{{hotData}}" wx:key="index">
@@ -24,11 +39,36 @@
   </view>
 </view>
 
+<!--搜索结果-->
 <view class="search-result" wx:if="{{ showitem && goodsList.length}}">
+  <view class="sort">
+            <view class="sort-box">
+                <view class="item {{currentSortType == 'default' ? 'active' : ''}}" bindtap="openSortFilter" id="defaultSort">
+                    <view class="txt">综合</view>
+                </view>
+                <view class="item {{currentSortType == 'price' ? 'active' : ''}}" bindtap="openSortFilter" id="priceSort">
+                    <view class="txt">价格</view>
+                    <image class="icon" src="/images/order-by.png" wx:if="{{currentSortType == 'default' || currentSortType == 'nums'}}"></image>
+                    <block wx:else>
+                        <image class="icon" wx:if="{{currentSortOrder == 'asc'}}" src='/images/asc.png'></image>
+                        <image class="icon" wx:elif="{{currentSortOrder == 'desc'}}" src='/images/desc.png'></image>
+                    </block>
+                </view>
+                <view class="item {{currentSortType == 'sales' ? 'active' : ''}}" bindtap="openSortFilter" id="salesSort">
+                    <view class="txt">收藏</view>
+                    <image class="icon" src="/images/order-by.png" wx:if="{{currentSortType == 'default' || currentSortType == 'price'}}"></image>
+                    <block wx:else>
+                        <image class="icon" wx:if="{{salesSortOrder == 'asc'}}" src='/images/asc.png'></image>
+                        <image class="icon" wx:elif="{{salesSortOrder == 'desc'}}" src='/images/desc.png'></image>
+                    </block>
+                </view>
+            </view>
+        </view>
+
   <view class="cate-item">
     <view class="b">
-      <navigator class="item {{(iindex + 1) % 2 == 0 ? 'item-b' : ''}}" url="/pages/goods/goods?id={{iitem.id}}" wx:for="{{goodsList}}" wx:for-item="iitem" wx:for-index="iindex">
-        <image class="img" src="{{iitem.middleCover}}" background-size="cover"></image>
+      <navigator class="item {{(iindex + 1) % 2 == 0 ? 'item-b' : ''}}" url='/pages/details/index?key={{iitem._id}}' wx:for="{{goodsList}}" wx:for-item="iitem" wx:for-index="iindex"  wx:key="id">
+        <image class="img" src="{{iitem.coverMiddle}}" background-size="cover"></image>
         <text class="name">{{iitem.intro}}</text>
         <text class="price">￥{{iitem.price}}</text>
       </navigator>

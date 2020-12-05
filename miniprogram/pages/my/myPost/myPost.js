@@ -5,43 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    goodsList: [{
-      coverMiddle: '/images/goods/01.jpg',
-      events: 'goToBangDan',
-      intro: '数字设计',
-      price: '￥15',
-      nums: '3',
-      sold: 'yes',
-      tag: '二手书籍'
-    },
-    {
-      coverMiddle: '/images/goods/02.jpg',
-      events: 'goToBangDan',
-      intro: '蓝牙耳机',
-      price: '￥360',
-      nums: '8',
-      sold: 'no',
-      tag: '数码产品'
-    },
-    {
-      coverMiddle: '/images/goods/03.jpg',
-      events: 'goToBangDan',
-      intro: '美宝莲卸妆水',
-      price: '￥69',
-      nums: '1',
-      sold: 'yes',
-      tag: '护肤化妆'
-    },
-    {
-      coverMiddle: '/images/goods/04.jpg',
-      events: 'goToBangDan',
-      intro: '美宝莲口红',
-      price: '￥80',
-      nums: '4',
-      sold: 'no',
-      tag: '护肤美妆'
-    },
+    goodsList: [
   ],
+  hasList:false,
   },
   /**
    * 生命周期函数--监听页面加载
@@ -61,9 +27,67 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that = this
+    wx.cloud.callFunction({
+      name: 'getReleaseByUserId',
+      data:{
+        userId: 'fakeuserid1',
+      },
+      success(res) {
+        console.log('成功', res.result.data.unsold.list);
+        that.setData({
+          goodsList: res.result.data.unsold.list,
+        });
+        if(res.result.data.unsold.list)
+        {
+          if(res.result.data.unsold.list.length){
+          that.setData({
+            hasList: true,
+          });
+        }
+        }
+      },
+    })
   },
-
+  //卖家主动下架商品
+  deleteRelease(e) {
+    const index = e.currentTarget.dataset.index;
+    let goodsList = this.data.goodsList;
+    //调用云函数，在后端也把记录删掉
+    wx.cloud.callFunction({
+      name: 'delGood',
+      data:{
+        goodId:goodsList[index]._id,
+      },
+      success(res) {
+        console.log('下架成功');
+        wx.showToast({
+          title: '下架成功',
+          duration: 2000,
+        })
+      },
+    })
+    goodsList.splice(index,1);
+    this.setData({
+      goodsList : goodsList 
+    });
+    if(this.data.goodsList.length==0)
+    {
+      this.setData({
+        hasList : false
+      });
+    }
+},
+gotoDetails(e) {
+  const index = e.currentTarget.dataset.index;
+  let goodsList = this.data.goodsList;
+  console.log(index)
+  var goodId = goodsList[index]._id
+  console.log(goodId)
+  wx.navigateTo({
+    url: '/pages/details/index?key=' + goodId
+  })
+},
   /**
    * 生命周期函数--监听页面隐藏
    */

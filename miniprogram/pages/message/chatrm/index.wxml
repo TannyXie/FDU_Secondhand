@@ -3,11 +3,8 @@
 <view class="mess-box">
   <view class="hist-mess" wx:for="{{histMess}}" wx:key="{{index}}">
     <view class="input-box">
-        {{item.message}}
-      </view>
-      <view class="input-box2">
-        {{item.response}}
-      </view>
+      {{item.senderId}}: {{item.content}}
+    </view>
   </view>
 </view>
 </view>

@@ -13,7 +13,10 @@ Page({
     keyword:'',
     goodsList: [],
     showitem: false,
-    hotData:[]
+    hotData:[],
+    currentSortType: 'default',
+    currentSortOrder: 'desc',
+    salesSortOrder:'desc'
   },
 
   /**
@@ -22,13 +25,13 @@ Page({
   onLoad: function (options) {
     var that = this;
     wx.cloud.callFunction({
-      name: 'keptTop6',
+      name: 'getNumsTop6',
       data:{
       },
       success(res) {
-        console.log('成功', res.result.data);
+        console.log('成功', res.result.data.list);
         that.setData({
-          hotData: res.result.data,
+          hotData: res.result.data.list,
         });
       },
     })
@@ -58,6 +61,13 @@ Page({
   onShareAppMessage: function () {
 
   },
+  clearHistory: function () {
+    wx.clearStorageSync('getSearch')
+    this.setData({
+      getSearch: []
+    })
+
+  },
 
   bindInput:function(e){
     this.setData({
@@ -72,28 +82,49 @@ Page({
 
   getGoodsList: function () {
     let that = this;
-    let url = 'https://mobile.ximalaya.com/mobile/discovery/v3/recommend/hotAndGuess?code=43_310000_3100&device=android&version=5.4.45';
-    utils.myRequest({
-      url: url,
-      data: this.data.keyword,
-      methods: 'GET',
-      success: function(res){
+    var sortorder = 'desc';
+    if(this.data.currentSortType == 'price'){
+      sortorder = this.data.currentSortOrder;
+    }
+    else if(this.data.currentSortType == 'nums'){
+      sortorder = this.data.salesSortOrder;
+    }
+    wx.cloud.callFunction({
+      name: 'search',
+      data:{
+        intro: this.data.keyword,
+        sortType: this.data.currentSortType,
+        sortOrder: sortorder
+      },
+      success(res) {
+        console.log('search成功', res.result.data.list);
         that.setData({
           showitem: true,
-          goodsList: res.data.goods
-        })
+          goodsList: res.result.data.list,
+        });
       },
-      fail: function() {
-        that.setData({
-          showitem: false
-        })
-      }
-    });
+    })
+  
+    // utils.myRequest({
+    //   url: url,
+    //   data: this.data.keyword,
+    //   methods: 'GET',
+    //   success: function(res){
+    //     that.setData({
+    //       showitem: true,
+    //       goodsList: res.data.goods
+    //     })
+    //   },
+    //   fail: function() {
+    //     that.setData({
+    //       showitem: false
+    //     })
+    //   }
+    // });
+  
   },
 
   bindConfirm:function(e){
-    let data;
-    let localStorageValue = [];
     if(this.data.inputValue != ''){
       //调用API从本地缓存中获取数据
       var searchData = wx.getStorageSync('searchData') || []
@@ -111,6 +142,14 @@ Page({
     }
   },
 
+  historySearch(e){
+    this.setData({
+      keyword: e.currentTarget.dataset.search,
+      goodsList: []
+    });
+    this.getGoodsList();  
+  },
+
   // 上新推荐改变事件
   gotoDetails(e) {
     var url = e.currentTarget.dataset.coverimg;
@@ -119,7 +158,44 @@ Page({
     //  url: '/pages/details/details?url=' + url + '&title=' + title,
     //})
     wx.navigateTo({
-      url: '/pages/details/index'
+      url: '/pages/details/index?key=' + goodId
     })
-  }
+  },
+  openSortFilter: function (event) {
+    let currentId = event.currentTarget.id;
+    switch (currentId) {
+        case 'salesSort':
+            let _SortOrder = 'asc';
+            if (this.data.salesSortOrder == 'asc') {
+                _SortOrder = 'desc';
+            }
+            this.setData({
+                'currentSortType': 'nums',
+                'currentSortOrder': 'asc',
+                'salesSortOrder': _SortOrder
+            });
+            this.getGoodsList();
+            break;
+        case 'priceSort':
+            let tmpSortOrder = 'asc';
+            if (this.data.currentSortOrder == 'asc') {
+                tmpSortOrder = 'desc';
+            }
+            this.setData({
+                'currentSortType': 'price',
+                'currentSortOrder': tmpSortOrder,
+                'salesSortOrder': 'asc'
+            });
+            this.getGoodsList();
+            break;
+        default:
+            //综合排序
+            this.setData({
+                'currentSortType': 'default',
+                'currentSortOrder': 'desc',
+                'salesSortOrder': 'desc'
+            });
+            this.getGoodsList();
+    }
+}
 })

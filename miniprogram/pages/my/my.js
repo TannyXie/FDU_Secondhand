@@ -1,8 +1,7 @@
 //my.js
-var StudentId = './mySetting/mySetting.js'
 var app = getApp()
+var StudentId = './addressAdmin/addressAdmin.js'
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -10,7 +9,7 @@ Page({
     //判断小程序的API，回调，参数，组件等是否在当前版本可用。
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     userInfo: {
-      nickName: '个人信息',
+      nickName: '',
       avatarUrl: '', 
     },
    
@@ -20,19 +19,33 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    // 查看是否授权
-    wx.getSetting({
-      success: function (res) {
-        if (res.authSetting['scope.userInfo']) {
-          wx.getUserInfo({
-            success: function (res) {
-              
-              //用户已经授权过
-            }
+    if (app.globalData.userInfo) {
+      console.log(app.globalData.userInfo)
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true
+      })
+    } else if (this.data.canIUse){
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    } else {
+      // 在没有 open-type=getUserInfo 版本的兼容处理
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
           })
         }
-      }
-    })
+      })
+    }
   },
 
   /**
@@ -47,17 +60,10 @@ Page({
    */
   onShow: function() {
     var that = this;
-    var studentId = that.data.studentId;
+    var studentId = that.data.name;
+    console.log(studentId)
     var nickName = 'userInfo.nickName';
     var avatarUrl = 'userInfo.avatarUrl';
-    wx.getStorage({  //异步获取缓存值studentId
-      key: 'studentId',
-      success: function (res) { 
-        that.setData({
-          studentId: res.data
-        })
-      }
-    })
     //get缓存值用户名字，并设置
     try {
       var value = wx.getStorageSync('nickName')
@@ -113,7 +119,6 @@ Page({
     if (e.detail.userInfo) {
        //用户按了允许授权按钮
        var userInfo = e.detail.userInfo;
-       console.log(userInfo)
       that.setData({
         nickName: userInfo.nickName
       })
@@ -160,14 +165,6 @@ Page({
       wx.setStorageSync('nickName', '')
     } catch (e) {
     }
-    wx.setStorage({
-      key: 'studentId',
-      data: '',
-    })
-    wx.setStorage({
-      key: 'passWord',
-      data: '',
-    })
     wx.setStorage({
       key: 'avatarUrl',
       data: '',

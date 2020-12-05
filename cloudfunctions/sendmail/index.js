@@ -42,24 +42,31 @@ function sendMail(mail, code) {
   })
 }
 
-exports.main = async (event, context) => {
+exports.main = (event, context) => {
   const mail = event.studentMail
   const code = generateVerificationCode()
   const wxContext = cloud.getWXContext()
-
-  sendMail(mail, code).then((res) => {
+  
+  return sendMail(mail, code)
+  .then((res) => {
     console.log(res)
-    db.collection('verification').add({
+    return db.collection('verification').add({
       data: {
-        _id: wxContext.OPENID,
+        // _id: wxContext.OPENID,
         mail: mail,
         code: code
       }
+    }).then(() => {
+      return {
+        statusCode: 200,
+        statusMsg: code
+      }
+    }).catch(() => {
+      return {
+        statusCode: 500,
+        statusMsg: 'fail to create verification'
+      }
     })
-    return {
-      statusCode: 200,
-      statusMsg: code
-    }
   })
   .catch((err) => {
     console.log(err)
