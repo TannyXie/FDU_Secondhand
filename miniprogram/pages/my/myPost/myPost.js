@@ -5,9 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    goodsList: [
+    unsoldList: [
   ],
-  hasList:false,
+    soldList:[],
+    hasList:false,
   },
   /**
    * 生命周期函数--监听页面加载
@@ -31,16 +32,18 @@ Page({
     wx.cloud.callFunction({
       name: 'getReleaseByUserId',
       data:{
-        userId: 'fakeuserid1',
+        userId: 'fakeuserid3',
       },
       success(res) {
-        console.log('成功', res.result.data.unsold.list);
+        console.log('成功获得未卖出', res.result.data.unsold.list);
+        console.log('成功获得已卖出', res.result.data.sold.list);
         that.setData({
-          goodsList: res.result.data.unsold.list,
+          unsoldList: res.result.data.unsold.list,
+          soldList: res.result.data.sold.list,
         });
         if(res.result.data.unsold.list)
         {
-          if(res.result.data.unsold.list.length){
+          if(res.result.data.unsold.list.length||res.result.data.sold.list.length){
           that.setData({
             hasList: true,
           });
@@ -52,12 +55,12 @@ Page({
   //卖家主动下架商品
   deleteRelease(e) {
     const index = e.currentTarget.dataset.index;
-    let goodsList = this.data.goodsList;
+    let unsoldList = this.data.unsoldList;
     //调用云函数，在后端也把记录删掉
     wx.cloud.callFunction({
       name: 'delGood',
       data:{
-        goodId:goodsList[index]._id,
+        goodId:unsoldList[index]._id,
       },
       success(res) {
         console.log('下架成功');
@@ -67,11 +70,11 @@ Page({
         })
       },
     })
-    goodsList.splice(index,1);
+    unsoldList.splice(index,1);
     this.setData({
-      goodsList : goodsList 
+      unsoldList : unsoldList 
     });
-    if(this.data.goodsList.length==0)
+    if(this.data.unsoldList.length==0&&this.data.soldList.length==0)
     {
       this.setData({
         hasList : false
@@ -80,9 +83,9 @@ Page({
 },
 gotoDetails(e) {
   const index = e.currentTarget.dataset.index;
-  let goodsList = this.data.goodsList;
+  let unsoldList = this.data.unsoldList;
   console.log(index)
-  var goodId = goodsList[index]._id
+  var goodId = unsoldList[index]._id
   console.log(goodId)
   wx.navigateTo({
     url: '/pages/details/index?key=' + goodId
