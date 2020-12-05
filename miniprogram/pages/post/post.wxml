@@ -25,13 +25,12 @@
 
 <textarea class="textarea" style="height:5em" placeholder="写下该物品的简介，建议不超过500字" bindinput="descInput" value="{{description}}" />
 
-<view class="text-subtitle">
-  <block>
-    <text>选择种类</text>
-  </block>
-</view>
-
-<textarea class="textarea" style="height:2em" placeholder="输入种类" bindinput="tagInput" value="{{tag}}" />
+<view class="text-subtitle">选择种类</view>
+<picker placeholder="请滑动选择商品种类" bindchange="bindPickerChange" value="{{tagIndex}}" range="{{tagArray}}">
+    <view class="picker">
+      {{tagArray[tagIndex]}}
+    </view>
+  </picker>
 
 <view class="text-subtitle">
   <block>

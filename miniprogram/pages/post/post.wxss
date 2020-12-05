@@ -21,6 +21,20 @@
   align-items: center;
   align-content: center;
 }
+.picker{
+  width: 88%;
+  overflow: hidden;
+  background: #fff;
+  color: #333;
+  margin: 30rpx;
+  margin-top: 10rpx;
+  border-radius: 30rpx;
+  box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
+  padding-top: 30rpx;
+  padding-bottom: 30rpx;
+  padding-left: 30rpx;
+  font-size: 35rpx;
+}
 
 .left-button{
   left:-250rpx;
