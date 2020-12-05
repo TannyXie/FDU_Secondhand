@@ -237,7 +237,7 @@ Page({
 
   // 去聊天室
   gotoChat(e){
-    console.log(this.data.sellerId)
+    console.log("即将聊天的卖家:", this.data.sellerId)
     wx.navigateTo({
       url: '/pages/message/chatrm/index?sellerId' + this.data.sellerId,
     })
