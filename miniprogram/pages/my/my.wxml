@@ -10,10 +10,6 @@
   </view>
  <!--小图标-->
  <view class="icon-bar">
-    <view class="icon-bar-item" bindtap="postTap">
-      <image src='../../images/my/upload.png'></image>
-      <text>我的发布</text>
-    </view>
   <navigator url="myFavourite/myFavourite" hover-class="navigator-hover">
     <view class="icon-bar-item">
       <image src='../../images/my/favorite.png'></image>
@@ -29,6 +25,14 @@
     <view class="icon-bar-item" bindtap="cartTap">
       <image src='../../images/my/shopcar.png'></image>
       <text>购物车</text>
+    </view>
+    <view class="icon-bar-item">
+      <image src='../../images/my/love.png'></image>
+      <text>我的关注</text>
+    </view>
+    <view class="icon-bar-item">
+      <image src='../../images/my/follower.png'></image>
+      <text>我的粉丝</text>
     </view>
   </view> 
 </view>
