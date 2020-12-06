@@ -288,4 +288,21 @@ else
   })
 }
 },
+mailTap(e){
+  var that=this;
+  if(that.data.authorized==false)
+  {wx.navigateTo({
+
+      url:'mailCheck/mailCheck'
+  })
+}
+else
+{
+  wx.showToast({
+    title: '已认证',
+    icon:'success',
+    duration: 3000,
+  })
+}
+},
 })

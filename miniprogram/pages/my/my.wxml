@@ -43,12 +43,10 @@
 
 <view class="box-item">
   <view class="board-bar">
-    <navigator url="mailCheck/mailCheck" hover-class="navigator-hover">
-    <view class="board-bar-item">
+    <view class="board-bar-item" bindtap="mailTap">
       <image src='/images/my/envelope.png'></image>
       <text style="margin-left: 20rpx">邮箱认证</text>
     </view>
-  </navigator>
     <view class="board-bar-item" bindtap="addressTap">
       <image src='/images/my/home.png'></image>
       <text style="margin-left: 20rpx">我的地址</text>
