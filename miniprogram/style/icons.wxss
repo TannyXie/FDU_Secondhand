@@ -15,6 +15,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+[class*="icon1-"] {
+  font-family: "iconfont" !important;
+  font-size: inherit;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .icon-jiantouUp:before {
   content: "\e6a5";
 }
