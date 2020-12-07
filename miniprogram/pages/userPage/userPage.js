@@ -12,9 +12,13 @@ Page({
       nickName: '',
       avatarUrl: '', 
     },
-    goodsList: [],
-    showitem: 'none', //none: 刚开始和收藏，post：正发布，sold：已卖出
-    sellerId: ''
+    soldList: [],
+    unsoldList: [],
+    showitem: '', //post：正发布，sold：已卖出
+    sellerId: '',
+    soldnum: 0,
+    favonum: 0,
+    unsoldnum: 0,
   },
  
   /**
@@ -38,15 +42,33 @@ Page({
       }
     });
     wx.cloud.callFunction({
-      name: 'getDateLatest8',
+      name: 'getReleaseByUserId',
       data:{
+        userId: this.data.sellerId,
       },
       success(res) {
-        console.log(res)
-        console.log('latest8成功', res.result.data.list);
+        console.log('成功获得未卖出', res.result.data.unsold.list);
+        console.log('成功获得已卖出', res.result.data.sold.list);
         that.setData({
-          goodsList: res.result.data.list,
+          unsoldList: res.result.data.unsold.list,
+          soldList: res.result.data.sold.list,
         });
+      },
+    });
+    wx.cloud.callFunction({
+      name: 'userAnalyze',
+      data:{
+        userId: this.data.sellerId,
+      },
+      success(res) {
+        console.log('个人主页', res.result.data);
+        if (res.result.data){
+          that.setData({
+            unsoldnum: res.result.data.unsold,
+            soldnum: res.result.data.sold,
+            favonum: res.result.data.nums
+          });
+        }
       },
     });
     if (app.globalData.userInfo) {
@@ -226,6 +248,7 @@ Page({
     this.setData({
       showitem: 'sold'
     });
+    
   },
 
   // 隐藏内容
