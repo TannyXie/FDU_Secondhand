@@ -130,7 +130,7 @@ Page({
     wx.cloud.callFunction({
       name: 'checkOrderAsSeller',
       data: {
-        buyerId: 'fakeuserid1',
+        sellerId: 'fakeuserid1',
         orderId: orderId
       },
       success(res) {
