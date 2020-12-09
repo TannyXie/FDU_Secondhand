@@ -55,6 +55,9 @@
 </view>
 </view>
 <view wx:else>
+  <view>
+    <image src='/images/my/box.png' mode='widthFix'></image>
+  </view>
     <view class="release-no-data">暂无发布~</view>
 </view>
 </view>

@@ -23,6 +23,25 @@
         </view>
     </view>
     <view wx:else>
+        <view>
+        <image src='/images/my/box.png' mode='widthFix'></image>
+        </view>
         <view class="cart-no-data">购物车是空的哦~</view>
     </view>
+    <view class="text-title-1">失效商品</view>
+    <view class="goods-recom">
+    <view class="recom-box">
+      <view class="recom-box-item" bindtap="gotoDetails" data-id="{{item._id}}" wx:for="{{invalid}}" wx:key="index">
+        <view class="recom-box-img">
+          <image class="recom-box-item-icon" src="{{item.image}}" mode="widthFix"></image>
+        </view>
+        <view class="goods-des">
+          <view class="recom-box-text">{{item.title}}</view>
+        </view>
+        <view class="goods-des">
+          <view class="goods-price">￥{{item.price}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

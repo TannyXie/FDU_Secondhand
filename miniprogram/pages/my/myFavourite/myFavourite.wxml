@@ -32,6 +32,9 @@
 </view>
 </view>
 <view wx:else>
+  <view>
+    <image src='/images/my/box.png' mode='widthFix'></image>
+  </view>
     <view class="favorite-no-data">收藏夹是空的哦~</view>
 </view>
 </view>
