@@ -93,4 +93,83 @@
       color:black;
       text-align: center;
   }
- 
+  .goods-recom {
+    width: 100%;
+    margin: 0rpx auto;
+    margin-top: 7rpx;
+  }
+  
+  .recom-box {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+  
+  .recom-box-item {
+    width: 90%;
+    height: auto;
+    overflow: hidden;
+    background: #fff;
+    color: #333;
+    margin-bottom: 30rpx;
+    margin-left: 35rpx;
+    border-radius: 30rpx;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .recom-box-img {
+    width: 100rpx;
+    height: 100rpx;
+    margin-left: 20rpx;
+    margin-top: 20rpx;
+    margin-bottom: 20rpx;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    position: relative;
+    float: left;
+  }
+  
+  .recom-box-item-icon {
+    width: 100rpx;
+    height: 100rpx;
+  }
+  
+  .recom-box-text {
+    float: left;
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #333;
+    margin-left: 20rpx;
+  }
+  
+  .goods-des {
+    margin-bottom: 20rpx;
+    width: 100%;
+    padding: 20rpx 0rpx;
+    text-align: center;
+  }
+  
+  .goods-price {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #ff3456;
+    float: left;
+    margin-bottom: 10rpx;
+    margin-left: 10rpx;
+  }
+  
+
+  .text-title-1 {
+    width: 90%;
+    height: 70rpx;
+    margin: 0rpx auto;
+    margin-top: 35rpx;
+    margin-bottom: 30rpx;
+    font-size: 38rpx;
+    font-weight: bolder;
+    display: flex;
+    align-items: center;
+    align-content: center;
+  }

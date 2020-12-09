@@ -37,6 +37,9 @@
 </view>
 </view>
 <view wx:else>
+  <view>
+    <image src='/images/my/box.png' mode='widthFix'></image>
+  </view>
     <view class="history-no-data">历史浏览是空的哦~</view>
 </view>
 </view>
