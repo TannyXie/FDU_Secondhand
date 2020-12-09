@@ -4,9 +4,8 @@
   <!--个人信息卡片-->
 	<view class="userinfo">
     <!--点击头像进入邮箱验证-->
-    <navigator url="userPage" hover-class="navigator-hover">
-    <image wx:if="{{userInfo && userInfo.avatarUrl}}" class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image></navigator>
-    <text class="userinfo-nickname">{{ userInfo.nickName }}</text>
+    <image wx:if="{{userName && userAvatar}}" class="userinfo-avatar" src="{{ userAvatar }}" background-size="cover"></image>
+    <text class="userinfo-nickname">{{ userName }}</text>
   </view>
  <!--小图标-->
  <view class="icon-bar">
