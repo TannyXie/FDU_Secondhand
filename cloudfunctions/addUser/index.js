@@ -15,7 +15,7 @@ const db = cloud.database()
 exports.main = async (event, context) => {
   const openid = cloud.getWXContext().OPENID
   const name = event.name
-  const avatarUrl = event.avatarUrl
+  // const avatarUrl = event.avatarUrl
   const gender = event.gender
 
   try {
@@ -23,7 +23,7 @@ exports.main = async (event, context) => {
       data: {
         openid: openid,
         name: name,
-        avatarUrl: avatarUrl,
+        avatarUrl: "cloud://dev-7gam9jnrd4ee6910.6465-dev-7gam9jnrd4ee6910-1303912949/profile/default.jpg",
         gender: gender,
         authorized: false,
         mail: ""
