@@ -47,18 +47,6 @@ Page({
         }
       })
     }
-    wx.cloud.callFunction({
-      name: 'getUserById',
-      data:{
-        userId: 'fakeuserid1',
-      },
-      success(res) {
-        console.log('成功', res.result.data);
-        that.setData({
-          authorized: res.result.data.authorized,
-        });
-      },
-    })
   },
 
   /**
@@ -73,9 +61,9 @@ Page({
    */
   onShow: function() {
     var that = this;
-    var nickName = 'userInfo.nickName';
-    var avatarUrl = 'userInfo.avatarUrl';
+   console.log(that.data)
     //get缓存值用户名字，并设置
+    /*
     try {
       var value = wx.getStorageSync('nickName')
       console.log(value);
@@ -87,7 +75,6 @@ Page({
     } catch (e) {
       // Do something when catch error
     }
-
    //get缓存值用户头像，并设置
    wx.getStorage({
      key: 'avatarUrl',
@@ -97,6 +84,28 @@ Page({
        })
      },
    })
+   //update default value
+   console.log(that.data.userInfo)
+  */
+ //更新用户自定义头像昵称
+ wx.cloud.callFunction({
+  name: 'getUserById',
+  data:{
+    userId: 'fakeuserid1',
+  },
+  success(res) {
+    console.log('成功获取用户信息', res.result.data);
+    var nickName = 'userInfo.nickName';
+    var avatarUrl='userInfo.avatarUrl';
+    that.setData({
+      [nickName]: res.result.data.name,
+      [avatarUrl]: res.result.data.avatarUrl,
+      authorized: res.result.data.authorized,
+    });
+    console.log(that.data.userInfo)
+  },
+  fail: console.error,
+})
   },
 
   /**
@@ -305,4 +314,58 @@ else
   })
 }
 },
-})
+uploadPic(e)
+{
+  var that=this;
+  var nickName = that.data.userInfo.nickName;
+  wx.chooseImage({
+    count: 1,
+    sizeType: ['compressed'],
+    sourceType: ['album', 'camera'],
+    success: function (res) {
+      wx.showLoading({
+        title: '上传中',
+      })
+      wx.getFileSystemManager().readFile({
+        filePath: res.tempFilePaths[0],
+        success: (res) => {
+          console.log(res)
+          wx.cloud.callFunction({
+            name: 'modifyByUserId',
+            data: {
+              file: res.data,
+              name: nickName,
+              userId:"fakeuserid1",
+            },
+            success: function(res) {
+              console.log(res.result)
+              if (res.result.statusCode==200)
+              {
+                console.log('[上传文件] 成功：', res.result.data.profileId)
+                wx.showToast({
+                  icon: 'none',
+                  title: '上传成功'+ res.result.data.profileId,
+                })
+              }
+              else
+              {
+                console.error('[上传文件] 失败')
+                wx.showToast({
+                  icon: 'none',
+                  title: '上传失败',
+                })
+              }
+            },
+            fail: console.error,
+            complete: () => {
+              wx.hideLoading()
+            }
+          })
+        }
+      })
+    },
+    fail: console.error
+  })
+}
+}
+)

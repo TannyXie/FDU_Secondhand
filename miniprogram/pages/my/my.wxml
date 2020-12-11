@@ -4,9 +4,10 @@
   <!--个人信息卡片-->
 	<view class="userinfo">
     <!--点击头像进入邮箱验证-->
-    <image wx:if="{{userInfo && userInfo.avatarUrl}}" class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image>
+    <image wx:if="{{userInfo && userInfo.avatarUrl}}" class="userinfo-avatar" bindtap="uploadPic"  src="{{ userInfo.avatarUrl }}" background-size="cover" ></image>
+    <image class="setting-icon-img1" src="/images/my/renzheng.png" mode="widthFix"></image>
     <text class="userinfo-nickname">{{ userInfo.nickName }}</text>
-    <image class="setting-icon-img" src="/images/my/renzheng.png" mode="widthFix" ></image>
+    <image class="setting-icon-img" src="/images/my/edit.png" mode="widthFix" bindtap="uploadPic"></image>
   </view>
  <!--小图标-->
  <view class="icon-bar">
@@ -22,17 +23,9 @@
       <text>历史浏览</text>
     </view>
   </navigator>
-    <view class="icon-bar-item" bindtap="cartTap">
+    <view class="icon-bar-item"  bindtap="buyTap">
       <image src='../../images/my/shopcar.png'></image>
       <text>购物车</text>
-    </view>
-    <view class="icon-bar-item">
-      <image src='../../images/my/love.png'></image>
-      <text>我的关注</text>
-    </view>
-    <view class="icon-bar-item">
-      <image src='../../images/my/follower.png'></image>
-      <text>我的粉丝</text>
     </view>
   </view> 
 </view>
