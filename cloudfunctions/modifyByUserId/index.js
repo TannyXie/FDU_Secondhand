@@ -15,6 +15,9 @@ const cloud = require('wx-server-sdk')
 cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
 })
+const db = cloud.database()
+const _ = db.command
+
 function generateRandomStr() {
   const charset = '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM'
   var s = ''
@@ -28,18 +31,20 @@ exports.main = async (event, context) => {
   const userId = event.userId
 
   try {
+    // console.log(file,name,userId)
     cloudpath='profile/' + userId + '-' + generateRandomStr() + '-' + (new Date()).getTime().toString() + '.jpg'
     const res = await cloud.uploadFile({
       cloudPath: cloudpath,
       fileContent: Buffer.from(file)
     })
-    console.log(res)
     await db.collection('user').where({
       _id: _.eq(userId)
     })
     .update({
-      name:name,
-      avatarUrl:res.fileID
+      data:{
+        name:name,
+        avatarUrl:res.fileID
+      }
     })
     console.log(res);
     return {
