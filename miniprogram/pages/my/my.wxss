@@ -65,7 +65,17 @@ page{
   z-index: 100;/*bigger z-index placed aboves*/
   float:right;
   padding-left: 60px;
-  padding-top:78px;
+  padding-top:8px;
+}
+.setting-icon-img2{
+  width: 50rpx;
+  height: 50rpx;
+  overflow: hidden;
+  position: absolute;
+  z-index: 100;/*bigger z-index placed aboves*/
+  float:right;
+  padding-left: 60px;
+  padding-top:80px;
 }
 .version {
   width:100%;

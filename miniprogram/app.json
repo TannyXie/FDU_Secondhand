@@ -30,7 +30,8 @@
     "pages/category/category",
     "pages/message/chatrm/index",
     "pages/userPage/userPage",
-    "pages/my/mailCheck/mailCheck"
+    "pages/my/mailCheck/mailCheck",
+    "pages/my/modifyUser/modifyUser"
   ],
   "tabBar": {
     "selectedColor": "#000000",
