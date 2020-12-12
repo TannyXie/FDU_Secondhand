@@ -6,10 +6,10 @@ page{
   overflow: hidden;
   background:white;
   color: #333;
-  margin: 30rpx auto;
-  margin-top: 10rpx;
-  border-radius: 30rpx;
+  border-bottom-left-radius: 30rpx;
+  border-bottom-right-radius: 30rpx;
   box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
+  margin-bottom: 20rpx;
 }
 .information-box{
   min-height: 100%;
@@ -21,15 +21,15 @@ page{
   box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
 }
 .userinfo {
+  margin-top: -20rpx;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
   padding-bottom:14rpx;
-	background:black;
+	background:#222429;
   width: 750rpx;
   height:250rpx;
   z-index:50;
-  position: relative;
 }
 
 .userinfo-avatar {
@@ -42,7 +42,7 @@ page{
 
 .userinfo-nickname {
   display:inline-block;
-  background-color: black;
+  background-color: #222429;
   color:white;
   font-size:30rpx;
 }
@@ -157,7 +157,7 @@ page{
 }
 .btn_log {
   border: 0;
-  color:black;
+  color:#222429;
   background-color:white;
   margin-top: 10rpx;
   border-radius: 5rpx;
@@ -171,7 +171,7 @@ page{
 }
 .auth{
   border: 0;
-  color: black;
+  color: #222429;
   background-color:white;
   border-radius: 90rpx;
   font-size:30rpx;

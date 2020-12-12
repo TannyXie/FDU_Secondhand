@@ -1,5 +1,6 @@
 .text-title{
   width: 90%;
+  color: #222429;
   height: 70rpx;
   margin: 0rpx auto;
   margin-top: 25rpx;
@@ -12,6 +13,7 @@
 
 .text-subtitle{
   width: 90%;
+  color: #222429;
   height: 70rpx;
   margin: 0rpx auto;
   margin-top: 15rpx;
@@ -41,7 +43,7 @@
   font-size: 32rpx;
   margin: 0rpx auto;
   margin-top: 25rpx;
-  background-color: black;
+  background-color: #222429;
   color: white;
   border-radius: 90rpx;
   display: flex;
@@ -56,7 +58,7 @@
   margin: 0rpx auto;
   margin-top: 20rpx;
   margin-bottom: 40rpx;
-  background-color: black;
+  background-color: #222429;
   color: white;
   border-radius: 90rpx;
   display: flex;

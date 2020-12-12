@@ -17,7 +17,6 @@ Page({
     wx.cloud.callFunction({
       name: 'getOrdersBySellerId',
       data:{
-        userId: 'fakeuserid1'
       },
       success(res) {
         console.log('成功拿到订单', res);
@@ -130,7 +129,6 @@ Page({
     wx.cloud.callFunction({
       name: 'checkOrderAsSeller',
       data: {
-        sellerId: 'fakeuserid1',
         orderId: orderId
       },
       success(res) {

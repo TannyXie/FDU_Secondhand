@@ -91,7 +91,6 @@ Page({
  wx.cloud.callFunction({
   name: 'getUserById',
   data:{
-    userId:"fakeuserid1",
   },
   success(res) {
     console.log('成功获取用户信息', res.result.data);
@@ -341,7 +340,6 @@ uploadPic(e)
             data: {
               file: res.data,
               name: nickName,
-              userId:"fakeuserid1",
             },
             success: function(res) {
               console.log(res.result)
