@@ -106,7 +106,8 @@
   border-radius: 40rpx;
   font-size: 28rpx;
   color: white;
-  background: linear-gradient(to right, #965d62, #c7956d);
+  font-weight: bold;
+  background: #63CCDA;
   float: left;
   margin-left: 10rpx;
   margin-bottom: 5rpx;
@@ -139,7 +140,7 @@
 }
 
 .small-button{
-  color: #333;
+  color: #63CCDA;
   border-radius: 40rpx;
   width: 150rpx;
   height: 40rpx;
@@ -148,12 +149,12 @@
   float: right;
   text-align: center;
   background-color: white;
-  border: 1px solid #333;
+  border: 1px solid #63CCDA;
 }
 
 .checkout {
   font-size: 28rpx;
   float: right;
   margin-right: 20rpx;
-  color: #333;
+  color: #aaa;
 }
