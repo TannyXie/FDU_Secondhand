@@ -80,8 +80,7 @@
 .goods-price{
   font-size: 35rpx;
   font-weight: bold;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  color: red;
+  color: #333;
   float: left;
   margin-bottom: 10rpx;
   margin-left: 10rpx;
@@ -112,14 +111,15 @@
   border-radius: 40rpx;
   font-size: 28rpx;
   color: white;
-  background: linear-gradient(to right, #965d62, #c7956d);
+  font-weight: bold;
+  background: #63CCDA;
   float: left;
   margin-left: 10rpx;
   margin-bottom: 5rpx;
 }
 .history-no-data{
   padding:30rpx 0;
-  color:black;
+  color:#222429;
   text-align: center;
 }
 .delete-icon{

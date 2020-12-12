@@ -32,7 +32,6 @@ Page({
     wx.cloud.callFunction({
       name: 'getReleaseByUserId',
       data:{
-        userId: 'fakeuserid3',
       },
       success(res) {
         console.log('成功获得未卖出', res.result.data.unsold.list);

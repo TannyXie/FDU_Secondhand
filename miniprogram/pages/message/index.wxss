@@ -1,4 +1,5 @@
 .text-title{
+  color: #222429;
   width: 90%;
   height: 70rpx;
   margin: 0rpx auto;
@@ -40,6 +41,7 @@
 
 /* 二手上新 */
 .text-title-1{
+  color: #222429;
   width: 90%;
   height: 70rpx;
   margin: 0rpx auto;

@@ -8,7 +8,7 @@
 .text-title{
   width: 90%;
   height: 70rpx;
-  margin-left: 250rpx;
+  margin-left: 290rpx;
   margin-top: 100rpx;
   margin-bottom: 100rpx;
   font-size: 48rpx;
@@ -18,7 +18,7 @@
   align-content: center;
 }
 .des-block{
-  margin-left: 80rpx;
+  margin-left: 50rpx;
   overflow: hidden;
   width: 100%;
   height: 150rpx;
@@ -29,7 +29,7 @@
   margin-top: 120rpx;
   width: 270rpx;
   height: 90rpx;
-  background-color: black;
+  background-color:#222429;
   color: white;
   border-radius: 90rpx;
   display: flex;
@@ -67,16 +67,16 @@ input {
 }
 
 .userinfo {
+  margin-top: -20rpx;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
   padding-bottom:14rpx;
-	background:black;
+	background:#222429;
   width: 750rpx;
   height:250rpx;
   z-index:50;
   position: relative;
-  border-radius: 10rpx;
   box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
 }
 
@@ -90,7 +90,7 @@ input {
 
 .userinfo-nickname {
   display:inline-block;
-  background-color: black;
+  background-color: #222429;
   color:white;
   font-size:30rpx;
 }
