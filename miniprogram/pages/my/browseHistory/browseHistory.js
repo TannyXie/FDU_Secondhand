@@ -34,6 +34,7 @@ Page({
     wx.cloud.callFunction({
       name: 'getHistoryByUserId',
       data:{
+        userId:"fakeuserid1",
       },
       success(res) {
         console.log('成功', res.result.data);
