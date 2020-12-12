@@ -27,6 +27,13 @@ Page({
       nickName:e.detail.value
     })
   },
+  profileInput(e)
+  {
+    this.setData
+    ({
+      avatarUrl:e.detail.avatarUrl
+    })
+  },
   uploadPic(e)
   {
     var that=this;
@@ -74,6 +81,11 @@ Page({
               fail: console.error,
               complete: () => {
                 wx.hideLoading()
+                setTimeout(function() {
+                  wx.redirectTo({
+                    url: 'modifyUser/modifyUser' 
+                  })
+                }, 1000)
               }
             })
           }
