@@ -5,9 +5,8 @@
 	<view class="userinfo">
     <!--点击头像进入邮箱验证-->
     <image wx:if="{{userInfo && userInfo.avatarUrl}}" class="userinfo-avatar" bindtap="uploadPic"  src="{{ userInfo.avatarUrl }}" background-size="cover" ></image>
-    <image class="setting-icon-img1" src="/images/my/renzheng.png" mode="widthFix"></image>
     <text class="userinfo-nickname">{{ userInfo.nickName }}</text>
-    <image class="setting-icon-img" src="/images/my/edit.png" mode="widthFix" bindtap="uploadPic"></image>
+    <image class="setting-icon-img" src="/images/my/renzheng.png" mode="widthFix" bindtap="uploadPic"></image>
   </view>
  <!--小图标-->
  <view class="icon-bar">
@@ -36,6 +35,10 @@
 
 <view class="box-item">
   <view class="board-bar">
+    <view class="board-bar-item" >
+      <image src='/images/my/edit.png' bindtap="modifyTap"></image>
+      <text style="margin-left: 20rpx">修改信息</text>
+    </view>
     <view class="board-bar-item" bindtap="mailTap">
       <image src='/images/my/envelope.png'></image>
       <text style="margin-left: 20rpx">邮箱认证</text>

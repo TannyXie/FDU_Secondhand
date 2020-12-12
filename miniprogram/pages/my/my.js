@@ -91,7 +91,7 @@ Page({
  wx.cloud.callFunction({
   name: 'getUserById',
   data:{
-    userId: 'fakeuserid1',
+    userId:"fakeuserid1",
   },
   success(res) {
     console.log('成功获取用户信息', res.result.data);
@@ -296,6 +296,12 @@ else
     duration: 3000,
   })
 }
+},
+modifyTap(e){
+  var that=this;
+  wx.navigateTo({
+      url:'modifyUser/modifyUser'
+  })
 },
 mailTap(e){
   var that=this;
