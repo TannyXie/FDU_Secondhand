@@ -7,7 +7,8 @@ Page({
   data: {
     goodsList: [
   ],
-  hasList:false,
+  totalNum:0,
+  loaded:0,
   },
 
   /**
@@ -32,7 +33,7 @@ Page({
     wx.cloud.callFunction({
       name: 'getFavoritesByUserId',
       data:{
-        userId: 'fakeuserid1',
+        userId:"fakeuserid1",
       },
       success(res) {
         console.log('成功', res.result.data);
@@ -46,6 +47,29 @@ Page({
             hasList: true,
           });
         }
+        }
+      },
+    })
+    wx.cloud.callFunction({
+      name: 'getFavoritesByUserId',
+      data:{
+        userId:"fakeuserid1",
+      },
+      success(res) {
+        console.log('成功获取收藏夹', res);
+        that.setData({
+          totalNum: res.result.data.length,
+        });
+        if (that.data.totalNum == 0) {
+          that.setData({
+            loaded: 1,
+          })
+        } else {
+          that.setData({
+            goodsList: res.result.data,
+            loaded:1,
+          });
+        
         }
       },
     })
@@ -95,7 +119,6 @@ Page({
         name: 'delFavorite',
         data:{
           goodId:goodsList[index]._id,
-          userId: 'fakeuserid1',
         },
         success(res) {
           console.log('成功');
@@ -113,13 +136,10 @@ Page({
       }
   },
   gotoDetails(e) {
-    const index = e.currentTarget.dataset.index;
-    let goodsList = this.data.goodsList;
-    console.log(index)
-    var goodId = goodsList[index]._id
+    var goodId = e.currentTarget.dataset.id;
     console.log(goodId)
     wx.navigateTo({
       url: '/pages/details/index?key=' + goodId
     })
-}
+  },
 })

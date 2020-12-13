@@ -17,10 +17,29 @@
           <view class="goods-des">
             <view class="recom-box-text">{{item.intro}}</view>
             <view class="goods-tag">{{item.tag}}</view>
-            <view class="goods-wants">{{item.nums}}收藏</view>
+            <!--sold为true表明完成订单-->
+            <view wx:if="{{item.sold}}">
+              <view class="checkout">订单已完成</view>
+            </view>
+            <!--sold为false，且买家已签收，等待卖家收款-->
+            <view wx:elif="{{item.buyerCheck}}">
+              <view class="checkout">买家已签收</view>
+            </view>
+            <!--sold为false，且卖家已收款，等待买家签收-->
+            <view wx:elif="{{item.sellerCheck}}">
+              <view class="checkout">卖家已收款</view>
+            </view>
+            <view wx:else>
+              <view class="checkout">买家已下单</view>
+            </view>
           </view>
           <view class="goods-des">
             <view class="goods-price">￥{{item.price}}</view>
+            <view wx:if="{{item.buyerCheck}}">
+            </view>
+            <view wx:else>
+              <view class="small-button" catchtap="buyerCheckout" data-id="{{item.orderId}}">确认签收</view>
+            </view>
           </view>
         </view>
       </view>

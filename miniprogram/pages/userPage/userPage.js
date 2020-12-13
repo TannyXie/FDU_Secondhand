@@ -12,9 +12,15 @@ Page({
       nickName: '',
       avatarUrl: '', 
     },
-    goodsList: [],
-    showitem: 'none', //none: 刚开始和收藏，post：正发布，sold：已卖出
-    sellerId: ''
+    userName: '',
+    userAvatar: '',
+    soldList: [],
+    unsoldList: [],
+    showitem: '', //post：正发布，sold：已卖出
+    sellerId: '',
+    soldnum: 0,
+    favonum: 0,
+    unsoldnum: 0,
   },
  
   /**
@@ -35,47 +41,42 @@ Page({
       success(res){
         console.log('结果', res)
         console.log('当前用户名', res.result.data);
+        that.setData({
+          userName: res.result.data.name,
+          userAvatar: res.result.data.avatarUrl
+        });
       }
     });
     wx.cloud.callFunction({
-      name: 'getDateLatest8',
+      name: 'getReleaseByUserId',
       data:{
+        userId: this.data.sellerId,
       },
       success(res) {
-        console.log(res)
-        console.log('latest8成功', res.result.data.list);
+        console.log('成功获得未卖出', res.result.data.unsold.list);
+        console.log('成功获得已卖出', res.result.data.sold.list);
         that.setData({
-          goodsList: res.result.data.list,
+          unsoldList: res.result.data.unsold.list,
+          soldList: res.result.data.sold.list,
         });
       },
     });
-    if (app.globalData.userInfo) {
-      console.log(app.globalData.userInfo)
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
+    wx.cloud.callFunction({
+      name: 'userAnalyze',
+      data:{
+        userId: this.data.sellerId,
+      },
+      success(res) {
+        console.log('个人主页', res.result.data);
+        if (res.result.data){
+          that.setData({
+            unsoldnum: res.result.data.unsold,
+            soldnum: res.result.data.sold,
+            favonum: res.result.data.nums
+          });
         }
-      })
-    }
+      },
+    });
   },
 
   /**
@@ -141,78 +142,6 @@ Page({
       wx.hideNavigationBarLoading(); //隐藏加载icon
     }, 2000)
   },
-  bindGetUserInfo: function(e) {
-    var that = this;
-    var nickName = that.data.userInfo.nickName;
-    var avatarUrl = that.data.userInfo.avatarUrl;
-    
-    if (e.detail.userInfo) {
-       //用户按了允许授权按钮
-       var userInfo = e.detail.userInfo;
-      that.setData({
-        nickName: userInfo.nickName
-      })
-      that.setData({
-        avatarUrl : userInfo.avatarUrl
-      })
-      try {//同步设置nickName
-        wx.setStorageSync('nickName', userInfo.nickName)
-      } catch (e) {
-      }
-      
-      wx.setStorage({
-        key: 'avatarUrl',
-        data: userInfo.avatarUrl,
-      })
-    } else {
-      //用户按了拒绝按钮
-      wx.showModal({
-        title: '提示',
-        content: '请授权登录',
-        success: function (res) {
-          if (res.confirm) {
-            console.log('用户点击确定')
-            wx.navigateBack({
-              delta: 1
-            })
-          } else {
-            console.log('用户点击取消')
-            wx.navigateBack({
-              delta: 1
-            })
-          }
-          
-        }
-      })
-    }
-  },
-  bindClear: function (e) {
-    var that = this;
-    var nickName = 'userInfo.nickName';
-    var avatarUrl = 'userInfo.avatarUrl';
-   
-    try {//同步设置nickName
-      wx.setStorageSync('nickName', '')
-    } catch (e) {
-    }
-    wx.setStorage({
-      key: 'avatarUrl',
-      data: '',
-    })
-    that.setData({
-      [nickName]: '个人信息',
-      [avatarUrl]: ''
-    })
-    wx.showModal({
-      title: '提示',
-      content: '退出账号成功',
-      success: function(){
-        wx.switchTab({
-          url: '/pages/index/index',
-        })
-      }
-    })
-  },
 
   // 显示发布内容
   showPost(e) {
@@ -226,6 +155,7 @@ Page({
     this.setData({
       showitem: 'sold'
     });
+    
   },
 
   // 隐藏内容

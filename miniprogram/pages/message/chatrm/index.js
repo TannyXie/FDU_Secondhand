@@ -25,16 +25,9 @@ Page({
     this.setData({
       speakee: options.sellerId
     })
-  }, 
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
     var that = this;
     that.data.setInter = setInterval(
-      function(){
-        console.log('here');
+      function() {
         var result = '';
         wx.cloud.callFunction({
           name: 'getMessages',
@@ -43,7 +36,6 @@ Page({
             anotherUserId: 'fakeuser2'
           },
           success(res) {
-            console.log(res);
             if(res.result.statusMsg=='wrong code')
             {
               wx.showModal({
@@ -60,6 +52,13 @@ Page({
         })
       },500
     )
+  }, 
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+    
   },
 
   renewMess(e){

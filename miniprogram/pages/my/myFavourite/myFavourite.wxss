@@ -1,10 +1,11 @@
 /* miniprogram/pages/my/myFavourite/myFavourite.wxss */
 /* 二手上新 */
-.text-title-1{
+.text-title-1 {
   width: 90%;
   height: 70rpx;
   margin: 0rpx auto;
   margin-top: 35rpx;
+  margin-bottom: 30rpx;
   font-size: 38rpx;
   font-weight: bolder;
   display: flex;
@@ -13,13 +14,13 @@
 }
 
 /* 二手上新 */
-.goods-favorite{
-  width: 90%;
+.goods-recom {
+  width: 100%;
   margin: 0rpx auto;
   margin-top: 7rpx;
 }
 
-.favorite-box{
+.recom-box {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -27,104 +28,113 @@
   overflow: hidden;
 }
 
-.favorite-box-item{
-  width: 320rpx;
+.recom-box-item {
+  width: 90%;
   height: auto;
   overflow: hidden;
   background: #fff;
   color: #333;
-  margin: 30rpx auto;
-  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+  margin-left: 35rpx;
   border-radius: 30rpx;
-  box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
 }
 
-.favorite-box-img{
-  width: 320rpx;
-  height: 420rpx;
+.recom-box-img {
+  width: 100rpx;
+  height: 100rpx;
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  border-top-left-radius: 30rpx;
-  border-top-right-radius: 30rpx;
   position: relative;
+  float: left;
 }
 
-.favorite-box-item-icon{
-  width: 320rpx;
-  height: 420rpx;
-  border-top-left-radius: 30rpx;
-  border-top-right-radius: 30rpx;
+.recom-box-item-icon {
+  width: 100rpx;
+  height: 100rpx;
 }
 
-.favorite-box-text{
+.recom-box-text {
+  float: left;
   font-size: 32rpx;
   font-weight: bold;
   color: #333;
-  margin-top: 10rpx;
-  margin-left: 10rpx;
-  margin-bottom: 5rpx;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;/*行数n*/
-  -webkit-box-orient: vertical; 
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin-left: 20rpx;
 }
 
-.goods-des{
-  margin-top: 10rpx;
-  margin-bottom: 10rpx;
+.goods-des {
+  margin-bottom: 20rpx;
   width: 100%;
   padding: 20rpx 0rpx;
   text-align: center;
 }
 
-.goods-price{
-  font-size: 35rpx;
+.goods-price {
+  font-size: 32rpx;
   font-weight: bold;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  color: red;
+  color: #ff3456;
   float: left;
   margin-bottom: 10rpx;
   margin-left: 10rpx;
 }
 
-.goods-wants{
+.goods-wants {
   font-size: 28rpx;
   float: right;
   color: #aaa;
-  margin-right: 10rpx;
+  margin-right: 20rpx;
   margin-bottom: 10rpx;
 }
 
-.goods-sell{
+.goods-sold {
   font-size: 30rpx;
-  float: left;
+  float: right;
   color: #aaa;
   margin-bottom: 10rpx;
-  margin-left: 10rpx;
+  margin-right: 20rpx;
   margin-top: 5rpx;
   text-decoration: underline;
 }
 
-.goods-tag{
+.goods-tag {
   width: 150rpx;
   border-style: solid;
   border-width: 3rpx;
   border-radius: 40rpx;
   font-size: 28rpx;
   color: white;
-  background: linear-gradient(to right, #965d62, #c7956d);
+  font-weight: bold;
+  background: #63CCDA;
   float: left;
   margin-left: 10rpx;
   margin-bottom: 5rpx;
 }
 
-.goods-del{
-  margin-left: 10rpx;
-  margin-bottom: 5rpx;
-  float: left;
-}
-.favorite-no-data{
-  padding:30rpx 0;
-  color:black;
+.no-data{
+  font-size: 32rpx;
+  color:grey;
   text-align: center;
+  margin-top: -120rpx;
+}
+
+.loading-wrap {
+  width: 100%;
+  height: 500rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 150rpx;
+}
+.loading-wrap .img{
+  width: 100rpx;
+  height: 100rpx;
+  margin-bottom: 50rpx;
+}
+.loading-wrap .text{
+  font-size: 26rpx;
+  color: #999;
 }
