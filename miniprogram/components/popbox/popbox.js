@@ -4,9 +4,25 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    text:{
-      type:String,
-      inputMessage:''
+    showmess:{
+      type: Boolean,
+      ifshow: false,
+      observer: function(newVal,oldVal){
+        var that = this;
+        that.setData({
+          isShowConfirm : true
+        })
+      }
+    },
+    idmess:{
+      type: String,
+      delId: '',
+      observer: function(newVal,oldVal,changedPath){
+        var that = this;
+        that.setData({
+          delId : newVal
+        })
+      }
     }
   },
 
@@ -15,7 +31,8 @@ Component({
    */
   data: {
     //data
-    isShowConfirm:true
+    isShowConfirm:false,
+    delId: 'hi',
   },
 
   /**
@@ -33,36 +50,66 @@ Component({
         isShowConfirm: false,
       })
     },
-    confirmAcceptance:function(){
-      var that = this
+    confirmAcceptance(){
+      console.log('inaccept');
+      var that = this;
+      var delIdStr = this.properties.delId;
       that.setData({
         isShowConfirm: false,
       })
+      console.log(this.properties.delId);
+      console.log(typeof(delIdStr));
+      wx.cloud.callFunction({
+        name: 'delMessage',
+        data: {
+          messageId: that.properties.delId,
+        },
+        success(res) {
+          console.log(res);
+          if(res.result.statusMsg=='wrong code')
+          {
+            console.log('fail');
+            wx.showModal({
+              title: '消息提示',
+              content: '添加消息失败',
+            })
+          }
+          else{
+            console.log('delete succeed');
+          }
+        },
+      })
+      this.triggerEvent('renewMess', {});
+    },
+    tapDelete(){
+      wx.cloud.callFunction({
+        name: 'delMessages',
+        data: {
+          messageID: this.properties.delId,
+        },
+        success(res) {
+          console.log(res);
+          if(res.result.statusCode==200)
+          {
+            wx.showModal({
+              title: '消息提示',
+              content: '添加消息失败',
+            })
+          }
+          else{
+            console.log('delete succeed');
+            console.log(this.properties.delId);
+          }
+        },
+      })
     },
   },
-
-  tapDelete: function(e){
-    wx.cloud.callFunction({
-      name: 'delMessages',
-      data: {
-        messageID: 'fakeuser1',
-      },
-      success(res) {
-        console.log(res);
-        if(res.result.statusMsg=='wrong code')
-        {
-          wx.showModal({
-            title: '消息提示',
-            content: '添加消息失败',
-          })
-        }
-        else{
-          console.log('delete succeed');
-        }
-      },
-    })
-  },
-   
-
-
 })
+
+/*
+      <view class='toast-main'>
+        <view class='toast-input'>
+          <input type='password' placeholder='输入支付密码' bindinput='setValue' data-name='stuEidtName'></input>
+        </view>
+      </view>
+*/
