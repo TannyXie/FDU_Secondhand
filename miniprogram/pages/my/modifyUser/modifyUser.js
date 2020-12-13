@@ -1,8 +1,8 @@
 Page({
   data:{
-    nickName:'',
-    picId:'',
-    file:'',
+    nickName:null,
+    picId:null,
+    file:null,
   },
   onLoad(){
     var that = this;
@@ -56,7 +56,6 @@ Page({
               icon: 'none',
               title: '上传成功',
             })
-            that.onLoad();//刷新头像
             console.log('刷新成功')
           }
         })
@@ -64,47 +63,42 @@ Page({
       fail: console.error
     })
   },
+
   formSubmit(e){
     var that =this;
     var nickName=that.data.nickName;
     var file=that.data.file;
-      wx.cloud.callFunction({
-        name: 'updateUserInfo',
-        data: {
-          file: file,
-          name: nickName
-        },
-        success: function(res) {
-          //console.log(res.result)
-          if (res.result.statusCode==200)
-          {
-            console.log(res)
-            wx.showToast({
-              icon: 'none',
-              title: '保存成功',
-            })
-          }
-          else
-          {
-            console.error('[上传文件] 失败')
-            wx.showToast({
-              icon: 'none',
-              title: '上传失败',
-            })
-          }
-        },
-        fail: console.error,
-        complete: () => {
-          wx.hideLoading()
+    wx.cloud.callFunction({
+      name: 'updateUserInfo',
+      data: {
+        file: file,
+        name: nickName
+      },
+      success: function(res) {
+        //console.log(res.result)
+        if (res.result.statusCode==200)
+        {
+          console.log(res)
+          that.onLoad();//刷新头像
+          wx.showToast({
+            icon: 'none',
+            title: '保存成功',
+            duration:5000,
+          })
         }
-      })
-    
-    
-    wx.showToast({
-      icon: 'none',
-      title: '保存成功',
-      duration:5000
-    })      
-    wx.navigateBack();
+        else
+        {
+          console.error('[上传文件] 失败')
+          wx.showToast({
+            icon: 'none',
+            title: '上传失败',
+          })
+        }
+      },
+      fail: console.error,
+      complete: () => {
+        wx.hideLoading()
+      }
+    })  
   }
 })
