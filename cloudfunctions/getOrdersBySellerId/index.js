@@ -37,28 +37,20 @@ exports.main = async (event, context) => {
 
   // 数据库操作
   try {
+    // 查询这个卖家发布的所有商品
     const goodQueryResult = await cloud.callFunction({
       name: 'getGoodBySellerId',
-      data: {
-        userId: userId 
-      }
+      data: { userId: userId }
     })
     console.log(goodQueryResult.result)
 
-    var orderList = []
+    // 对每个商品，都查询已经生成的订单
+    let orderList = []
     for (let good of goodQueryResult.result.data) {
       let orderQueryResult = await db.collection('order').where({
         goodId: db.command.eq(good._id)
       }).get()
-      for (let record of orderQueryResult.data) {
-        orderList = orderList.concat({
-          orderId: record._id,
-          userId: record.userId,
-          goodId: record.goodId,
-          createTime: new Date(record.createTime),
-          finishTime: record.finishTime ? new Date(record.finishTime) : null
-        })
-      }
+      orderList = orderList.concat(orderQueryResult.data)
     }
     console.log(orderList)
 
