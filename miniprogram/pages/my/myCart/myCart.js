@@ -133,6 +133,16 @@ Page({
       url: '/pages/details/index?key=' + goodId
     })
 },
+gotoDetails2(e) {
+  var goodId = e.currentTarget.dataset.id;
+  console.log(goodId)
+  //wx.navigateTo({
+  //  url: '/pages/details/details?url=' + url + '&title=' + title,
+  //})
+  wx.navigateTo({
+    url: '/pages/details/index?key=' + goodId
+  })
+},
 // 结算
 addtoOrder(e)
 {

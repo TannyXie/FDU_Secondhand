@@ -33,27 +33,6 @@ Page({
     wx.cloud.callFunction({
       name: 'getFavoritesByUserId',
       data:{
-        userId:"fakeuserid1",
-      },
-      success(res) {
-        console.log('成功', res.result.data);
-        that.setData({
-          goodsList: res.result.data,
-        });
-        if(res.result.data)
-        {
-          if(res.result.data.length){
-          that.setData({
-            hasList: true,
-          });
-        }
-        }
-      },
-    })
-    wx.cloud.callFunction({
-      name: 'getFavoritesByUserId',
-      data:{
-        userId:"fakeuserid1",
       },
       success(res) {
         console.log('成功获取收藏夹', res);
@@ -135,11 +114,13 @@ Page({
         });
       }
   },
-  gotoDetails(e) {
-    var goodId = e.currentTarget.dataset.id;
-    console.log(goodId)
-    wx.navigateTo({
-      url: '/pages/details/index?key=' + goodId
-    })
-  },
+gotoDetails(e) {
+  const index = e.currentTarget.dataset.index;
+  let goods = this.data.goodsList;
+  var goodId = goods[index]._id
+  console.log(goodId)
+  wx.navigateTo({
+    url: '/pages/details/index?key=' + goodId
+  })
+},
 })

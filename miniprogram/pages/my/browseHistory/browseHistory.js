@@ -38,7 +38,7 @@ Page({
         userId:"fakeuserid1",
       },
       success(res) {
-        console.log('成功', res.result.data);
+        console.log('成功', res);
         if(res.result.data.length)
         {
           res.result.data.sort(function(a, b){return a.time - b.time});
@@ -112,7 +112,6 @@ deleteHistory(e) {
   wx.cloud.callFunction({
     name: 'delHistory',
     data:{
-      userId:"fakeuserid1",
     },
     success(res) {
       console.log('成功清空历史');
