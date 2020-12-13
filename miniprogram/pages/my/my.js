@@ -12,6 +12,7 @@ Page({
       picId: '', 
     },
     authorized:false,
+    loaded:0,
   },
  
   /**
@@ -116,6 +117,7 @@ Page({
       [nickName]: res.result.data.name,
       [picId]: res.result.data.picId,
       authorized: res.result.data.authorized,
+      loaded:1,
     });
     console.log(that.data.userInfo)
   },
@@ -218,19 +220,14 @@ Page({
       }
     })
   },
-  imageTap(e){
-
-    wx.navigateTo({
-
-        url:'mailCheck/mailCheck'
-
-    })
-
-},
 cartTap(e){
   var that=this;
   if(that.data.authorized==true)
-  {wx.navigateTo({
+  {
+    that.setData({
+      loaded:0,
+    })
+    wx.navigateTo({
 
       url:'myCart/myCart'
   })
@@ -247,8 +244,11 @@ else
 addressTap(e){
   var that=this;
   if(that.data.authorized==true)
-  {wx.navigateTo({
-
+  {
+    that.setData({
+      loaded:0,
+    })
+    wx.navigateTo({
       url:'addressAdmin/addressAdmin'
   })
 }
@@ -264,7 +264,11 @@ else
 postTap(e){
   var that=this;
   if(that.data.authorized==true)
-  {wx.navigateTo({
+  {
+    that.setData({
+      loaded:0,
+    })
+    wx.navigateTo({
 
       url:'myPost/myPost'
   })
@@ -281,7 +285,11 @@ else
 sellTap(e){
   var that=this;
   if(that.data.authorized==true)
-  {wx.navigateTo({
+  {
+    that.setData({
+      loaded:0,
+    })
+    wx.navigateTo({
 
       url:'mySell/mySell'
   })
@@ -298,7 +306,12 @@ else
 buyTap(e){
   var that=this;
   if(that.data.authorized==true)
-  {wx.navigateTo({
+  {
+    
+    that.setData({
+      loaded:0,
+    })
+    wx.navigateTo({
 
       url:'myBuy/myBuy'
   })
@@ -314,6 +327,9 @@ else
 },
 modifyTap(e){
   var that=this;
+    that.setData({
+      loaded:0,
+    })
   wx.navigateTo({
       url:'modifyUser/modifyUser'
   })
@@ -321,7 +337,11 @@ modifyTap(e){
 mailTap(e){
   var that=this;
   if(that.data.authorized==false)
-  {wx.navigateTo({
+  {
+    that.setData({
+      loaded:0,
+    })
+    wx.navigateTo({
 
       url:'mailCheck/mailCheck'
   })
