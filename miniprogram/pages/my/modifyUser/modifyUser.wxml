@@ -2,7 +2,7 @@
 <!--个人信息卡片-->
 <view class="userinfo">
     <!--点击头像进入邮箱验证-->
-    <image class="userinfo-avatar" src="{{avatarUrl}}" background-size="cover" ></image>
+    <image class="userinfo-avatar" src="{{picId}}" background-size="cover" ></image>
     <text class="userinfo-nickname">{{nickName}}</text>
 </view>
 <view class='text-title'>修改资料</view>
@@ -13,7 +13,7 @@
     </view>
     <view class='des-block'>
     <view class='profile'>头像</view>
-    <input value="{{avatarUrl}}" name="profile" bindinput="profileInput"bindtap="uploadPic"placeholder="选择文件"/>
+    <input value="{{picId}}" name="profile" bindinput="profileInput"bindtap="uploadPic"placeholder="选择文件"/>
     </view>
     <button class='btn' disabled="{{studentId == ''||buttonLoading ? true : false}}" loading="{{buttonLoading}}" bindtap="bindSubmit" form-type="submit">保存</button>
 </form>

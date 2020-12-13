@@ -1,7 +1,7 @@
 Page({
   data:{
     nickName:'',
-    avatarUrl:'',
+    picId:'',
     profileId:'',
   },
   onLoad(){
@@ -9,13 +9,12 @@ Page({
     wx.cloud.callFunction({
       name: 'getUserById',
       data:{
-        userId:"fakeuserid1",
       },
       success(res) {
         console.log('成功获取用户信息', res.result.data);
         that.setData({
           nickName: res.result.data.name,
-          avatarUrl: res.result.data.avatarUrl,
+          picId: res.result.data.picId,
         });
       },
       fail: console.error,
@@ -32,16 +31,13 @@ Page({
   {
     this.setData
     ({
-      avatarUrl:e.detail.avatarUrl
+      picId:e.detail.picId
     })
   },
   uploadPic(e)
   {
     var that=this;
-    const value = e;
-    console.log(value)
-    var nickName=that.data.nickName;
-    console.log(nickName)
+    var nickName = that.data.nickName;
     wx.chooseImage({
       count: 1,
       sizeType: ['compressed'],
@@ -58,19 +54,19 @@ Page({
               name: 'updateUserInfo',
               data: {
                 file: res.data,
-                name: nickName,
-                userId:"fakeuserid1",
+                name: nickName
               },
               success: function(res) {
-                console.log(res.result)
+                //console.log(res.result)
                 if (res.result.statusCode==200)
                 {
-                  console.log('[上传文件] 成功：', res.result.data.profileId)
+                  console.log(res)
                   wx.showToast({
                     icon: 'none',
-                    title: '上传成功'+ res.result.data.profileId,
+                    title: '上传成功',
                   })
-                  that.onLoad();
+                  that.onLoad();//刷新头像
+                  console.log('刷新成功')
                 }
                 else
                 {
