@@ -9,6 +9,7 @@ Page({
     wx.cloud.callFunction({
       name: 'getUserById',
       data:{
+        userId:"fakeuserid1",
       },
       success(res) {
         console.log('成功获取用户信息', res.result.data);
@@ -58,6 +59,7 @@ Page({
               data: {
                 file: res.data,
                 name: nickName,
+                userId:"fakeuserid1",
               },
               success: function(res) {
                 console.log(res.result)
@@ -68,6 +70,7 @@ Page({
                     icon: 'none',
                     title: '上传成功'+ res.result.data.profileId,
                   })
+                  that.onLoad();
                 }
                 else
                 {
@@ -81,11 +84,6 @@ Page({
               fail: console.error,
               complete: () => {
                 wx.hideLoading()
-                setTimeout(function() {
-                  wx.redirectTo({
-                    url: 'modifyUser/modifyUser' 
-                  })
-                }, 1000)
               }
             })
           }
