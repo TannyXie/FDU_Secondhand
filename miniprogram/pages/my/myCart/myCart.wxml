@@ -1,6 +1,13 @@
 <!--pages/my/myCart/myCart.wxml-->
 <view class="main">
-    <view wx:if="{{hasList}}">
+  <view wx:if="{{loaded == 0}}">
+  <view class="loading-wrap">
+    <image class="img" src="/images/loading2.gif"></image>
+    <view class="text">正在加载...</view>
+  </view>
+</view>
+<view wx:else>
+  <view wx:if="{{hasList}}">
         <view class="cart-box">
             <view class="cart-list" wx:for="{{carts}}" wx:key="{{index}}">
                 <icon wx:if="{{item.selected}}" type="success_circle" color="black" data-index="{{index}}"class="cart-pro-select" bindtap="selectList"/>
@@ -44,4 +51,6 @@
       </view>
     </view>
   </view>
+</view>
+   
 </view>
