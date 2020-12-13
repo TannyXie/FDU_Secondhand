@@ -43,7 +43,7 @@ page{
 
 .userinfo-nickname {
   display:inline-block;
-  background-color: black;
+  background-color: #222429;
   color:white;
   font-size:30rpx;
 }

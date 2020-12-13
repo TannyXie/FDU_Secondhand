@@ -34,3 +34,7 @@
 .icon-search:before {
   content: "\e8b9";
 }
+
+.icon1-search:before {
+  content: "\e8b9";
+}
