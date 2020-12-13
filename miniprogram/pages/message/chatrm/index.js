@@ -12,7 +12,10 @@ Page({
     Mess : [],
     timer : '',
     messages: '',
-    speakee: ''
+    speakee: '',
+    setInter: '',
+    touchStart: '',
+    touchEnd: ''
   },
 
   /**
@@ -92,14 +95,14 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    clearInterval(this.data.setInter);
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    clearInterval(this.data.setInter);
   },
 
   /**
@@ -139,6 +142,28 @@ Page({
     });
   },
 
+  touchStart: function(e){
+    var that = this;
+    this.setData({
+      touchStart : e.timeStamp
+    })
+  },
+
+  touchEnd: function(e){
+    var that = this;
+    this.setData({
+      touchEnd : e.timeStamp
+    })
+  },
+
+  longtapDelete:function(e){
+    var that = this;
+    var touchTime = this.Data.touchEnd - this.Data.touchStart;
+    if(touchTime>1000){
+
+    }
+  },
+
   inputRenew(e){
     var history = this.data.histMess;
     history.push({
@@ -171,7 +196,11 @@ Page({
       histMess : history
     });
   },
+
+  
 })
+
+
 /*
 
     <view class="input-box2">
