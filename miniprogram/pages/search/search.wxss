@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   margin: 0rpx auto;
+  margin-top: 40rpx;
 }
 
 .hmly-search-left{
