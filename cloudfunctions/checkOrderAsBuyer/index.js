@@ -75,7 +75,7 @@ exports.main = async (event, context) => {
       console.log(callResult)
       return makeResponse(200, 'buyer checked, order completed')
     } else {
-      return makeResponse(200, 'buyer checked, seller has not checked')
+      return makeResponse(201, 'buyer checked, seller has not checked')
     }
      
   } catch (err) {

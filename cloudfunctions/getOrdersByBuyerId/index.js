@@ -37,27 +37,15 @@ exports.main = async (event, context) => {
 
   // 数据库操作
   try {
-    const queryResult = await db.collection('order').where({
+    const orderResult = await db.collection('order').where({
       userId: db.command.eq(userId)
     }).get()
-    console.log(queryResult)
-
-    var returnList = []
-    for (let record of queryResult.data) { 
-      returnList = returnList.concat({
-        orderId: record._id,
-        userId: record.userId,
-        goodId: record.goodId,
-        createTime: record.createTime ? new Date(record.createTime) : null,
-        finishTime: record.finishTime ? new Date(record.finishTime) : null
-      })
-    }
-    console.log(returnList)
+    console.log(orderResult)
 
     return {
       statusCode: 200,
       statusMsg: 'get orders ok',
-      data: returnList 
+      data: orderResult.data
     }
   } catch (err) {
     console.log(err)
