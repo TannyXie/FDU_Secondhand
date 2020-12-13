@@ -10,7 +10,6 @@ Page({
     userInfo: {
       nickName: '',
       picId: '', 
-      gender:0,
     },
     authorized:false,
   },
@@ -38,7 +37,6 @@ Page({
         that.setData({
           [nickName]: tmp.nickName,
           [picId]: tmp.avatarUrl,
-          [gender]:tmp.gender,
         });
       }
       wx.cloud.callFunction({
@@ -46,7 +44,7 @@ Page({
         data:{
           name:that.data.userInfo.nickName,
           picId:that.data.userInfo.picId,
-          gender:that.data.userInfo.gender,
+          gender:0,
         },
         success(res) {
           console.log('成功添加用户', res);

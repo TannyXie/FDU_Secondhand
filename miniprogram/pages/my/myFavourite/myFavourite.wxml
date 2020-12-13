@@ -10,7 +10,7 @@
 <view wx:else>
 <view wx:if="{{totalNum}}">
   <view class="goods-recom">
-    <view class="recom-box">
+    <!-- <view class="recom-box">
       <view class="recom-box-item" bindtap="gotoDetails" data-id="{{item._id}}" wx:for="{{goodsList}}" wx:key="index">
         <view class="recom-box-img">
           <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
@@ -22,8 +22,27 @@
         <view class="goods-des">
           <view class="goods-price">￥{{item.price}}</view>
         </view>
+        <view class="delete" bindtap="deleteFavorite"data-index="{{index}}">取消收藏</view>
+      </view>
+    </view>-->
+    <view class="goods-history">
+  <!-- 这没有没有使用数据绑定，因为是练手而且数据比较少 -->
+<view class="recom-box">
+    <view class="recom-box-item" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{goodsList}}" wx:key="{{index}}">
+      <view class="recom-box-img" bindtap="gotoDetails"data-index="{{index}}" >
+        <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
+      </view>
+        <view class="goods-des">
+          <view class="recom-box-text">{{item.intro}}</view>
+          <view class="goods-tag">{{item.tag}}</view>
+        </view>
+        <view class="goods-des">
+          <view class="goods-price">￥{{item.price}}</view>
+        </view>
+        <view class="delete" bindtap="deleteFavorite" data-index="{{index}}">取消收藏</view>
       </view>
     </view>
+  </view>
   </view>
 </view>
 <view wx:else style="margin-top: -120rpx">
