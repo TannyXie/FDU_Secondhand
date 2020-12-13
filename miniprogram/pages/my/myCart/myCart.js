@@ -2,9 +2,11 @@
 Page({
   data: {
     carts:[],               // 购物车列表
+    invalid:[],             //失效宝贝
     hasList:false,          // 列表是否有数据
     totalPrice:0,           // 总价，初始为0
-    selectAllStatus:true,    // 全选状态，默认全选
+    selectAllStatus:false,    // 全选状态，默认全选
+    loaded:0,
 
   },
   onShow() {
@@ -12,18 +14,27 @@ Page({
     wx.cloud.callFunction({
       name: 'getCartByUserId',
       data:{
-        userId: 'fakeuserid1',
+        userId:"fakeuserid1",
       },
       success(res) {
-        console.log('成功',res.result.data)
+        console.log('成功获取购物车',res.result.data)
         if(res.result.data){
         var carts=[]
+        var invalid=[]
         for (let i = 0; i < res.result.data.length; i++)
         {
-          carts.push({'_id':res.result.data[i]._id,'title':res.result.data[i].intro,'image':res.result.data[i].coverMiddle,'price':res.result.data[i].price,'selected':true,'seller_id':res.result.data[i].sellerId})
+          if(res.result.data[i].sold==false)
+         {carts.push({'_id':res.result.data[i]._id,'title':res.result.data[i].intro,'image':res.result.data[i].coverMiddle,'price':res.result.data[i].price,'selected':false,'seller_id':res.result.data[i].sellerId})
+          }
+          else
+          {
+            invalid.push({'_id':res.result.data[i]._id,'title':res.result.data[i].intro,'image':res.result.data[i].coverMiddle,'price':res.result.data[i].price,'selected':false,'seller_id':res.result.data[i].sellerId})
+          }
         }
         that.setData({
           carts: carts,
+          invalid:invalid,
+          loaded:1,
         });
           if(res.result.data.length){
           that.setData({
@@ -60,7 +71,6 @@ Page({
       name: 'delCart',
       data:{
         goodId:carts[index]._id,
-        userId: 'fakeuserid1',
       },
       success(res) {
         console.log('成功');
@@ -134,10 +144,13 @@ addtoOrder(e)
           name: 'addOrder',
           data: {
             goodId: carts[i]._id,
-            userId:"fakeuserid1"
           },
           success(res) {
             console.log('成功', res);
+            wx.showToast({
+              title: '等待卖家确认',
+              duration: 2000,
+            })
           },
         })
       }

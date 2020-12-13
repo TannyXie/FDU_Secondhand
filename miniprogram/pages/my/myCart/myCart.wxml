@@ -1,19 +1,26 @@
 <!--pages/my/myCart/myCart.wxml-->
 <view class="main">
-    <view wx:if="{{hasList}}">
+  <view wx:if="{{loaded == 0}}">
+  <view class="loading-wrap">
+    <image class="img" src="/images/loading2.gif"></image>
+    <view class="text">正在加载...</view>
+  </view>
+</view>
+<view wx:else>
+  <view wx:if="{{hasList}}">
         <view class="cart-box">
             <view class="cart-list" wx:for="{{carts}}" wx:key="{{index}}">
-                <icon wx:if="{{item.selected}}" type="success_circle" color="green" data-index="{{index}}"class="cart-pro-select" bindtap="selectList"/>
+                <icon wx:if="{{item.selected}}" type="success_circle" color="black" data-index="{{index}}"class="cart-pro-select" bindtap="selectList"/>
                 <icon wx:else type="circle" class="cart-pro-select" data-index="{{index}}" bindtap="selectList"/>
                 <image class="cart-thumb" src="{{item.image}}" bindtap="gotoDetails"data-index="{{index}}"></image>
-                <text class="cart-pro-name">{{item.title}}</text>
+                <text class="recom-box-text">{{item.title}}</text>
                 <text class="cart-pro-price">￥{{item.price}}</text>
                 <text class="cart-del" bindtap="deleteList" data-index="{{index}}">×</text>
             </view>
         </view>
 
         <view class="cart-footer">
-            <icon wx:if="{{selectAllStatus}}" type="success_circle"  class="total-select" bindtap="selectAll"/>
+            <icon wx:if="{{selectAllStatus}}" type="success_circle"  color="white" class="total-select" bindtap="selectAll"/>
             <icon wx:else type="circle"  class="total-select" bindtap="selectAll"/>
             <view class="order-icon">
                 <image src="/images/cart/icon0.png" bindtap="addtoOrder"></image>
@@ -23,6 +30,27 @@
         </view>
     </view>
     <view wx:else>
+        <view>
+        <image src='/images/my/box.png' mode='widthFix'></image>
+        </view>
         <view class="cart-no-data">购物车是空的哦~</view>
     </view>
+    <view class="text-title-1">失效商品</view>
+    <view class="goods-recom">
+    <view class="recom-box">
+      <view class="recom-box-item" bindtap="gotoDetails" data-id="{{item._id}}" wx:for="{{invalid}}" wx:key="index">
+        <view class="recom-box-img">
+          <image class="recom-box-item-icon" src="{{item.image}}" mode="widthFix"></image>
+        </view>
+        <view class="goods-des">
+          <view class="recom-box-text">{{item.title}}</view>
+        </view>
+        <view class="goods-des">
+          <view class="goods-price">￥{{item.price}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+   
 </view>

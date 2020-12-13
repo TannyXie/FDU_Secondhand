@@ -48,10 +48,15 @@ exports.main = async (event, context) => {
       nums: $.sum('$nums')
     })
     .end()
+    console.log("test",tmp)
     res={'unsold':null,'sold':null,'nums':null}
-    res['unsold']=tmp.list[0].count
-    res['sold']=tmp.list[1].count
-    res['nums']=tmp.list[0].nums+tmp.list[1].nums
+    if(tmp.list.length==0)
+      res['usold']=res['sold']=res['nums']=0
+    else{
+      res['unsold']=tmp.list[0]._id==false?tmp.list[0].count:0
+      res['sold']=tmp.list[0]._id==false?(tmp.list.length==1?0:tmp.list[1].count):tmp.list[0].count
+      res['nums']=tmp.list[0].nums+(tmp.list.length==1?0:tmp.list[1].nums)
+    }
     console.log(res)
     return {
       statusCode: 200,

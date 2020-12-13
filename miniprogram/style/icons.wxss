@@ -7,7 +7,15 @@
   url('//at.alicdn.com/t/font_1720933_ksuq6sv6hkc.svg?t=1585401843465#iconfont') format('svg'); /* iOS 4.1- */
 }
 
-[class*="icon-"] {
+[class^="icon-"] {
+  font-family: "iconfont" !important;
+  font-size: inherit;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class*="icon1-"] {
   font-family: "iconfont" !important;
   font-size: inherit;
   font-style: normal;

@@ -18,7 +18,7 @@ exports.main = async (event, context) => {
   var userId = event.userId;
   if (userId == null) {
     try {
-      userResult = await db.collection('user').where({
+      const userResult = await db.collection('user').where({
         openid: db.command.eq(openid)
       }).get()
       console.log(userResult)

@@ -23,7 +23,7 @@
 .button{
   outline: none;
   color: white;
-  background: black;
+  background: #222429;
   border-radius: 90rpx;
   box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
 }
@@ -65,7 +65,7 @@
   margin-top: 25rpx;
   margin-left: 40rpx;
   margin-right: 25rpx;
-  background: #000;
+  background: #222429;
   color: #fff;
   font-size: 40rpx;
   border-radius: 30rpx;
@@ -84,7 +84,7 @@
   margin-left: 40rpx;
   margin-right: 25rpx;
   background: #fff;
-  color: #000;
+  color: #222429;
   font-size: 40rpx;
   border-radius: 30rpx;
   padding-left: 20rpx;

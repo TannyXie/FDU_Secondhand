@@ -50,6 +50,8 @@ exports.main = async (event, context) => {
       data: {
         userId: userId,
         goodId: goodId,
+        buyerCheck: false,
+        sellerCheck: false,
         createTime: new Date().getTime(),
         finishTime: null
       }

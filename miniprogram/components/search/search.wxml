@@ -1,6 +1,6 @@
 <view class="search marginTopBottom" bindtap="goToSearch">
 	<view class="search-left">
-		<text class="icon-search"></text>
+		<text class="icon1-search"></text>
 		<input placeholder="搜索二手物品" disabled="{{disabled}}"></input>
 	</view>
 	<view class="search-right" wx:if="{{isshow}}">取消</view>

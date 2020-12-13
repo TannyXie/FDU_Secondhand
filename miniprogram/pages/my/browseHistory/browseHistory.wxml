@@ -1,6 +1,13 @@
 <!--miniprogram/pages/my/browseHistory/browseHistory.wxml-->
 <view class="main">
- <view wx:if="{{hasList}}">
+  <view wx:if="{{loaded == 0}}">
+  <view class="loading-wrap">
+    <image class="img" src="/images/loading2.gif"></image>
+    <view class="text">正在加载...</view>
+  </view>
+</view>
+<view wx:else>
+  <view wx:if="{{hasList}}">
   <view class="information-box" bindtap="deleteHistory">
 <view class="text-title" >
   清空历史</view>
@@ -10,33 +17,29 @@
  {{item}}</view>
 <view class="goods-history">
   <!-- 这没有没有使用数据绑定，因为是练手而且数据比较少 -->
-  <view class="history-box">
-    <view class="history-box-item" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{idx2List[index]}}" wx:key="{{index}}">
-      <view class="history-box-img" bindtap="gotoDetails"data-index="{{index}}" >
-        <image class="history-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
+<view class="recom-box">
+    <view class="recom-box-item" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{idx2List[index]}}" wx:key="{{index}}">
+      <view class="recom-box-img" bindtap="gotoDetails"data-index="{{index}}" >
+        <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
       </view>
-      <!--标题-->
-      <view class="history-box-text">{{item.intro}}</view>
-      <!--价格+收藏数-->
-      <view class="goods-des">
-        <view class="goods-price">￥{{item.price}}</view>
-        <view class="goods-wants">{{item.nums}}收藏</view>
-      </view>
-      <!--卖家+标签-->
-      <view class="goods-des">
-        <view class="goods-sell">
-          {{item.seller}}
+        <view class="goods-des">
+          <view class="recom-box-text">{{item.intro}}</view>
+          <view class="goods-tag">{{item.tag}}</view>
         </view>
-        <view class="goods-tag">
-          {{item.tag}}
+        <view class="goods-des">
+          <view class="goods-price">￥{{item.price}}</view>
         </view>
       </view>
     </view>
   </view>
-  </view>
 </view>
 </view>
 <view wx:else>
+  <view>
+    <image src='/images/my/box.png' mode='widthFix'></image>
+  </view>
     <view class="history-no-data">历史浏览是空的哦~</view>
 </view>
+</view>
+ 
 </view>

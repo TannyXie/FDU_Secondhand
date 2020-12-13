@@ -1,6 +1,5 @@
 //my.js
 var app = getApp()
-var StudentId = './addressAdmin/addressAdmin.js'
 Page({
   /**
    * 页面的初始数据
@@ -10,38 +9,37 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     userInfo: {
       nickName: '',
-      avatarUrl: '', 
+      picId: '', 
     },
-   
+    authorized:false,
   },
  
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
+    var that=this
     if (app.globalData.userInfo) {
       console.log(app.globalData.userInfo)
-      this.setData({
+      that.setData({
         userInfo: app.globalData.userInfo,
-        hasUserInfo: true
       })
     } else if (this.data.canIUse){
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
-        this.setData({
+        console.log(res)
+        that.setData({
           userInfo: res.userInfo,
-          hasUserInfo: true
         })
       }
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
       wx.getUserInfo({
         success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
+          app.globalData.userInfo = res.userInfos
+          that.setData({
             userInfo: res.userInfo,
-            hasUserInfo: true
           })
         }
       })
@@ -60,11 +58,9 @@ Page({
    */
   onShow: function() {
     var that = this;
-    var studentId = that.data.name;
-    console.log(studentId)
-    var nickName = 'userInfo.nickName';
-    var avatarUrl = 'userInfo.avatarUrl';
+   console.log(that.data)
     //get缓存值用户名字，并设置
+    /*
     try {
       var value = wx.getStorageSync('nickName')
       console.log(value);
@@ -76,16 +72,37 @@ Page({
     } catch (e) {
       // Do something when catch error
     }
-
    //get缓存值用户头像，并设置
    wx.getStorage({
-     key: 'avatarUrl',
+     key: 'picId',
      success: function(res) {  
        that.setData({
-        [avatarUrl]: res.data
+        [picId]: res.data
        })
      },
    })
+   //update default value
+   console.log(that.data.userInfo)
+  */
+ //更新用户自定义头像昵称
+ wx.cloud.callFunction({
+  name: 'getUserById',
+  data:{
+    // userId:"fakeuserid1",
+  },
+  success(res) {
+    console.log('成功获取用户信息', res.result.data);
+    var nickName = 'userInfo.nickName';
+    var picId='userInfo.picId';
+    that.setData({
+      [nickName]: res.result.data.name,
+      [picId]: res.result.data.picId,
+      authorized: res.result.data.authorized,
+    });
+    console.log(that.data.userInfo)
+  },
+  fail: console.error,
+})
   },
 
   /**
@@ -114,7 +131,7 @@ Page({
   bindGetUserInfo: function(e) {
     var that = this;
     var nickName = that.data.userInfo.nickName;
-    var avatarUrl = that.data.userInfo.avatarUrl;
+    var picId = that.data.userInfo.picId;
     
     if (e.detail.userInfo) {
        //用户按了允许授权按钮
@@ -123,7 +140,7 @@ Page({
         nickName: userInfo.nickName
       })
       that.setData({
-        avatarUrl : userInfo.avatarUrl
+        picId : userInfo.picId
       })
       try {//同步设置nickName
         wx.setStorageSync('nickName', userInfo.nickName)
@@ -131,8 +148,8 @@ Page({
       }
       
       wx.setStorage({
-        key: 'avatarUrl',
-        data: userInfo.avatarUrl,
+        key: 'picId',
+        data: userInfo.picId,
       })
     } else {
       //用户按了拒绝按钮
@@ -159,19 +176,19 @@ Page({
   bindClear: function (e) {
     var that = this;
     var nickName = 'userInfo.nickName';
-    var avatarUrl = 'userInfo.avatarUrl';
+    var picId = 'userInfo.picId';
    
     try {//同步设置nickName
       wx.setStorageSync('nickName', '')
     } catch (e) {
     }
     wx.setStorage({
-      key: 'avatarUrl',
+      key: 'picId',
       data: '',
     })
     that.setData({
       [nickName]: '个人信息',
-      [avatarUrl]: ''
+      [picId]: ''
     })
     wx.showModal({
       title: '提示',
@@ -183,6 +200,176 @@ Page({
       }
     })
   },
+  imageTap(e){
 
+    wx.navigateTo({
 
-})
+        url:'mailCheck/mailCheck'
+
+    })
+
+},
+cartTap(e){
+  var that=this;
+  if(that.data.authorized==true)
+  {wx.navigateTo({
+
+      url:'myCart/myCart'
+  })
+}
+else
+{
+  wx.showToast({
+    title: '认证用户才能查看',
+    icon:'none',
+    duration: 3000,
+  })
+}
+},
+addressTap(e){
+  var that=this;
+  if(that.data.authorized==true)
+  {wx.navigateTo({
+
+      url:'addressAdmin/addressAdmin'
+  })
+}
+else
+{
+  wx.showToast({
+    title: '认证用户才能修改',
+    icon:'none',
+    duration: 3000,
+  })
+}
+},
+postTap(e){
+  var that=this;
+  if(that.data.authorized==true)
+  {wx.navigateTo({
+
+      url:'myPost/myPost'
+  })
+}
+else
+{
+  wx.showToast({
+    title: '认证用户才能查看',
+    icon:'none',
+    duration: 3000,
+  })
+}
+},
+sellTap(e){
+  var that=this;
+  if(that.data.authorized==true)
+  {wx.navigateTo({
+
+      url:'mySell/mySell'
+  })
+}
+else
+{
+  wx.showToast({
+    title: '认证用户才能查看',
+    icon:'none',
+    duration: 3000,
+  })
+}
+},
+buyTap(e){
+  var that=this;
+  if(that.data.authorized==true)
+  {wx.navigateTo({
+
+      url:'myBuy/myBuy'
+  })
+}
+else
+{
+  wx.showToast({
+    title: '认证用户才能查看',
+    icon:'none',
+    duration: 3000,
+  })
+}
+},
+modifyTap(e){
+  var that=this;
+  wx.navigateTo({
+      url:'modifyUser/modifyUser'
+  })
+},
+mailTap(e){
+  var that=this;
+  if(that.data.authorized==false)
+  {wx.navigateTo({
+
+      url:'mailCheck/mailCheck'
+  })
+}
+else
+{
+  wx.showToast({
+    title: '已认证',
+    icon:'success',
+    duration: 3000,
+  })
+}
+},
+uploadPic(e)
+{
+  var that=this;
+  var nickName = that.data.userInfo.nickName;
+  wx.chooseImage({
+    count: 1,
+    sizeType: ['compressed'],
+    sourceType: ['album', 'camera'],
+    success: function (res) {
+      wx.showLoading({
+        title: '上传中',
+      })
+      wx.getFileSystemManager().readFile({
+        filePath: res.tempFilePaths[0],
+        success: (res) => {
+          console.log(res)
+          wx.cloud.callFunction({
+            name: 'updateUserInfo',
+            data: {
+              file: res.data,
+              name: nickName
+            },
+            success: function(res) {
+              //console.log(res.result)
+              if (res.result.statusCode==200)
+              {
+                console.log(res)
+                wx.showToast({
+                  icon: 'none',
+                  title: '上传成功',
+                })
+                that.onShow();//刷新头像
+                console.log('刷新成功')
+              }
+              else
+              {
+                console.error('[上传文件] 失败')
+                wx.showToast({
+                  icon: 'none',
+                  title: '上传失败',
+                })
+              }
+            },
+            fail: console.error,
+            complete: () => {
+              wx.hideLoading()
+            }
+          })
+        }
+      })
+    },
+    fail: console.error
+  })
+}
+}
+)
