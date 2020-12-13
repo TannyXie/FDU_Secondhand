@@ -352,6 +352,8 @@ uploadPic(e)
                   icon: 'none',
                   title: '上传成功'+ res.result.data.profileId,
                 })
+                that.onShow();//刷新头像
+                console.log('刷新成功')
               }
               else
               {

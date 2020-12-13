@@ -10,6 +10,7 @@ Page({
   ],
     idx2List:[],
     hasList:false,
+    loaded:0,
   },
 
   /**
@@ -90,6 +91,9 @@ Page({
           });
         }
         }
+        that.setData({
+          loaded:1,
+        })
       },
     })
   },
@@ -108,6 +112,7 @@ deleteHistory(e) {
   wx.cloud.callFunction({
     name: 'delHistory',
     data:{
+      userId:"fakeuserid1",
     },
     success(res) {
       console.log('成功清空历史');

@@ -6,6 +6,7 @@ Page({
     hasList:false,          // 列表是否有数据
     totalPrice:0,           // 总价，初始为0
     selectAllStatus:false,    // 全选状态，默认全选
+    loaded:0,
 
   },
   onShow() {
@@ -33,6 +34,7 @@ Page({
         that.setData({
           carts: carts,
           invalid:invalid,
+          loaded:1,
         });
           if(res.result.data.length){
           that.setData({

@@ -19,6 +19,9 @@
           <view class="recom-box-text">{{item.intro}}</view>
           <view class="goods-tag">{{item.tag}}</view>
         </view>
+        <view class="goods-des">
+          <view class="goods-price">￥{{item.price}}</view>
+        </view>
       </view>
     </view>
   </view>
