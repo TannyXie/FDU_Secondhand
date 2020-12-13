@@ -10,6 +10,7 @@ Page({
     userInfo: {
       nickName: '',
       picId: '', 
+      gender:0,
     },
     authorized:false,
   },
@@ -27,12 +28,31 @@ Page({
     } else if (this.data.canIUse){
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
+      console.log('授权')
       app.userInfoReadyCallback = res => {
         console.log(res)
+        var tmp=res.userInfo
+        console.log(tmp)
+        var nickName = 'userInfo.nickName';
+        var picId='userInfo.picId';
         that.setData({
-          userInfo: res.userInfo,
-        })
+          [nickName]: tmp.nickName,
+          [picId]: tmp.avatarUrl,
+          [gender]:tmp.gender,
+        });
       }
+      wx.cloud.callFunction({
+        name: 'addUser',
+        data:{
+          name:that.data.userInfo.nickName,
+          picId:that.data.userInfo.picId,
+          gender:that.data.userInfo.gender,
+        },
+        success(res) {
+          console.log('成功添加用户', res);
+        },
+        fail: console.error,
+      })
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
       wx.getUserInfo({
