@@ -48,6 +48,7 @@ exports.main = async (event, context) => {
 
   try {
     if (file != null) {
+      console.log(file)
       const uploadResult = await cloud.uploadFile({
         cloudPath: 'profile/' + userId + '-' + generateRandomStr() + '-' + (new Date()).getTime().toString() + '.jpg',
         fileContent: Buffer.from(file)
