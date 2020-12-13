@@ -94,6 +94,7 @@ Page({
               data: {
                 file: res.data,
                 name: "imagePost",
+                dir: "pic"
               },
               success: function(res) {
                 console.log(res.result)

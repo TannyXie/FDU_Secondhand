@@ -54,7 +54,7 @@ Page({
           success: (res) => {
             console.log(res)
             wx.cloud.callFunction({
-              name: 'modifyByUserId',
+              name: 'updateUserInfo',
               data: {
                 file: res.data,
                 name: nickName,
