@@ -4,7 +4,7 @@
   <!--个人信息卡片-->
 	<view class="userinfo">
     <!--点击头像进入邮箱验证-->
-    <image wx:if="{{userInfo && userInfo.avatarUrl}}" class="userinfo-avatar" bindtap="uploadPic"  src="{{ userInfo.avatarUrl }}" background-size="cover" ></image>
+    <image wx:if="{{userInfo && userInfo.picId}}" class="userinfo-avatar" bindtap="uploadPic"  src="{{ userInfo.picId }}" background-size="cover" ></image>
     <text class="userinfo-nickname">{{ userInfo.nickName }}</text>
     <image class="setting-icon-img" src="/images/my/renzheng.png" mode="widthFix" bindtap="uploadPic"></image>
   </view>

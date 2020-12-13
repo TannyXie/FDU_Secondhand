@@ -9,7 +9,7 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     userInfo: {
       nickName: '',
-      avatarUrl: '', 
+      picId: '', 
     },
     authorized:false,
   },
@@ -23,7 +23,6 @@ Page({
       console.log(app.globalData.userInfo)
       that.setData({
         userInfo: app.globalData.userInfo,
-        hasUserInfo: true
       })
     } else if (this.data.canIUse){
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
@@ -32,7 +31,6 @@ Page({
         console.log(res)
         that.setData({
           userInfo: res.userInfo,
-          hasUserInfo: true
         })
       }
     } else {
@@ -42,7 +40,6 @@ Page({
           app.globalData.userInfo = res.userInfos
           that.setData({
             userInfo: res.userInfo,
-            hasUserInfo: true
           })
         }
       })
@@ -77,10 +74,10 @@ Page({
     }
    //get缓存值用户头像，并设置
    wx.getStorage({
-     key: 'avatarUrl',
+     key: 'picId',
      success: function(res) {  
        that.setData({
-        [avatarUrl]: res.data
+        [picId]: res.data
        })
      },
    })
@@ -96,10 +93,10 @@ Page({
   success(res) {
     console.log('成功获取用户信息', res.result.data);
     var nickName = 'userInfo.nickName';
-    var avatarUrl='userInfo.avatarUrl';
+    var picId='userInfo.picId';
     that.setData({
       [nickName]: res.result.data.name,
-      [avatarUrl]: res.result.data.avatarUrl,
+      [picId]: res.result.data.picId,
       authorized: res.result.data.authorized,
     });
     console.log(that.data.userInfo)
@@ -134,7 +131,7 @@ Page({
   bindGetUserInfo: function(e) {
     var that = this;
     var nickName = that.data.userInfo.nickName;
-    var avatarUrl = that.data.userInfo.avatarUrl;
+    var picId = that.data.userInfo.picId;
     
     if (e.detail.userInfo) {
        //用户按了允许授权按钮
@@ -143,7 +140,7 @@ Page({
         nickName: userInfo.nickName
       })
       that.setData({
-        avatarUrl : userInfo.avatarUrl
+        picId : userInfo.picId
       })
       try {//同步设置nickName
         wx.setStorageSync('nickName', userInfo.nickName)
@@ -151,8 +148,8 @@ Page({
       }
       
       wx.setStorage({
-        key: 'avatarUrl',
-        data: userInfo.avatarUrl,
+        key: 'picId',
+        data: userInfo.picId,
       })
     } else {
       //用户按了拒绝按钮
@@ -179,19 +176,19 @@ Page({
   bindClear: function (e) {
     var that = this;
     var nickName = 'userInfo.nickName';
-    var avatarUrl = 'userInfo.avatarUrl';
+    var picId = 'userInfo.picId';
    
     try {//同步设置nickName
       wx.setStorageSync('nickName', '')
     } catch (e) {
     }
     wx.setStorage({
-      key: 'avatarUrl',
+      key: 'picId',
       data: '',
     })
     that.setData({
       [nickName]: '个人信息',
-      [avatarUrl]: ''
+      [picId]: ''
     })
     wx.showModal({
       title: '提示',
@@ -337,19 +334,19 @@ uploadPic(e)
         success: (res) => {
           console.log(res)
           wx.cloud.callFunction({
-            name: 'modifyByUserId',
+            name: 'updateUserInfo',
             data: {
               file: res.data,
               name: nickName
             },
             success: function(res) {
-              console.log(res.result)
+              //console.log(res.result)
               if (res.result.statusCode==200)
               {
-                console.log('[上传文件] 成功：', res.result.data.profileId)
+                console.log(res)
                 wx.showToast({
                   icon: 'none',
-                  title: '上传成功'+ res.result.data.profileId,
+                  title: '上传成功',
                 })
                 that.onShow();//刷新头像
                 console.log('刷新成功')
