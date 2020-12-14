@@ -12,7 +12,12 @@ Page({
     Mess : [],
     timer : '',
     messages: '',
-    speakee: ''
+    speakee: '',
+    setInter: '',
+    touchStart: 0,
+    touchEnd: 0,
+    ifshow: false,
+    delId: ''
   },
 
   /**
@@ -41,6 +46,7 @@ Page({
               })
             }
             else{
+              console.log(res);
               that.setData({
                 messages: res.result.data
               })
@@ -59,14 +65,15 @@ Page({
   },
 
   renewMess(e){
+    var result = '';
+    var that = this;
     wx.cloud.callFunction({
       name: 'getMessages',
       data: {
-        receiver: '',
-        content: this.data.inputMessage
+        thisUserId: 'fakeuser1',
+        anotherUserId: 'fakeuser2'
       },
       success(res) {
-        console.log(res);
         if(res.result.statusMsg=='wrong code')
         {
           wx.showModal({
@@ -75,8 +82,19 @@ Page({
           })
         }
         else{
+          that.setData({
+            messages: res.result.data,
+            ifshow: false,
+          })
         }
       },
+    });
+    this.notShow();
+  },
+
+  notShow: function(){
+    this.setData({
+      ifshow: false
     })
   },
 
@@ -91,14 +109,14 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    clearInterval(this.data.setInter);
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    clearInterval(this.data.setInter);
   },
 
   /**
@@ -127,15 +145,34 @@ Page({
   },
 
   formSubmit(e){
-    if(e.target.id=="sub"){
-
-    }
   },
 
   textChange(e){
     this.setData({
       inputMessage : e.detail.value,
     });
+  },
+
+  touchStart: function(e){
+    var that = this;
+    this.setData({
+      touchStart : e.timeStamp
+    })
+  },
+
+  touchEnd: function(e){
+    var that = this;
+    this.setData({
+      touchEnd : e.timeStamp
+    })
+  },
+
+  longtapDelete:function(e){
+    var that = this;
+    that.setData({
+      ifshow: true,
+      delId: e.currentTarget.dataset.index
+    })
   },
 
   inputRenew(e){
@@ -171,6 +208,8 @@ Page({
     });
   },
 })
+
+
 /*
 
     <view class="input-box2">
