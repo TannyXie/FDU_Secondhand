@@ -13,14 +13,10 @@
   </view>
 
   <view class="goods-recom">
-    <view class="recom-box">
-      <view class="recom-box-item" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}"
+      <view data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}"
         wx:for="{{goodsList}}" wx:key="{{index}}">
-        <view class="recom-box-img">
-          <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
-        </view>
+          <image class="recom-box-img" src="{{item.coverMiddle}}" mode="widthFix"></image>
       </view>
-    </view>
   </view>
   <view class="title-box">
     <view class="text-title2">物品介绍</view>
@@ -40,7 +36,7 @@
           <view wx:else>
             <image class="star-icon" src="/images/star_after.png" mode="widthFix" bindtap="delFavor"></image>
           </view>
-          <view class="goods-tag">{{item.tag}}</view>
+          <view class="goods-tag" bindtap="gotoFenlei" data-text="{{item.tag}}">{{item.tag}}</view>
         </view>
         <view class="goods-des2">
           <view class="goods-wants">{{item.nums}}收藏</view>
