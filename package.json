@@ -1,0 +1,27 @@
+{
+  "name": "FDU_Secondhand",
+  "version": "1.0.0",
+  "description": "这是复旦软工2020的项目，其中演示了如何上手使用云开发的三大基础能力：",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TannyXie/FDU_Secondhand.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TannyXie/FDU_Secondhand/issues"
+  },
+  "homepage": "https://github.com/TannyXie/FDU_Secondhand#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^26.6.3",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^26.6.3",
+    "regenerator-runtime": "^0.13.7"
+  }
+}

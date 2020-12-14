@@ -1,4 +1,6 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "popbox": "/components/popbox/popbox"
+  },
   "navigationBarTitleText": "聊天"
 }
