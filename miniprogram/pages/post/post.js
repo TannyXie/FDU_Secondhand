@@ -5,47 +5,13 @@ const app = getApp()
 Page({
   data: {
     tagArray: ['二手书籍', '数码家电', '生活用品', '护肤美妆', '学习用品','服装鞋子','食品药品','其他'],
-    tagObjectArray: [
-      {
-        id: 0,
-        name: '二手书籍'
-      },
-      {
-        id: 1,
-        name: '数码家电'
-      },
-      {
-        id: 2,
-        name: '生活用品'
-      },
-      {
-        id: 3,
-        name: '护肤美妆'
-      },
-      {
-        id: 4,
-        name: '学习用品'
-      },
-      {
-        id: 5,
-        name: '服装鞋子'
-      },
-      {
-        id: 6,
-        name: '食品药品'
-      },
-      {
-        id: 7,
-        name: '其他'
-      }
-    ],
     tagIndex: 0,
     name:"",
     description:"",
     tag:"",
     price:"",
-    question:"",
-    answer:"",
+    qaArray: [{id: 0, question: '', answer: ''}],
+    numQA: 1,
     picId:""
   },
   bindPickerChange: function (e) {
@@ -72,7 +38,31 @@ Page({
       price: e.detail.value
     })
   },
-
+  questionInput: function(e){
+    console.log(e)
+    var curQue = e.detail.value;
+    const curid = e.currentTarget.dataset.index;
+    this.data.qaArray[curid].question = curQue;
+    this.setData({
+      qaArray: this.data.qaArray
+    })
+  },
+  answerInput: function(e){
+    var curAns = e.detail.value;
+    const curid = e.currentTarget.dataset.index;
+    this.data.qaArray[curid].answer = curAns;
+    this.setData({
+      qaArray: this.data.qaArray
+    })
+  },
+  moreQA: function (){
+    const length = this.data.qaArray.length
+    this.data.qaArray.push({ id: length, question: "", answer:"" });
+    this.setData({
+      qaArray: this.data.qaArray
+    })
+    console.log('moreqa: qaArray length: '+this.data.qaArray.length)
+  },
    // 上传图片
    doUpload: function () {
      var that = this;
@@ -94,7 +84,6 @@ Page({
               data: {
                 file: res.data,
                 name: "imagePost",
-                dir: "pic"
               },
               success: function(res) {
                 console.log(res.result)
@@ -128,6 +117,61 @@ Page({
       
     })
   },
+  // 发布自动回复
+  doPostQA: function () {
+    console.log('post qa: qaArray length: '+this.data.qaArray.length)
+    var that=this;
+    var i;
+    var errorflag = 0;
+    for (i = 0; i < this.data.qaArray.length; i++) {
+      var curque = that.data.qaArray[i].question;
+      var curans = that.data.qaArray[i].answer;
+      if(curque=="" && curans=="")
+      {
+        wx.showToast({
+          icon: 'none',
+          title: "存在信息未填写完整",
+        })
+        continue;
+      }
+      wx.cloud.callFunction({
+        // 云函数名称
+        name: 'addQA',
+        // 传给云函数的参数
+        data: {
+          question: curque,
+          answer: curans,
+        },
+        success: function(res) {
+          if (res.result.statusCode==200)
+          {
+            console.log('[发布自动回复] 成功：', res)
+          }
+          else
+          {
+            flag=1;
+            console.error('[发布自动回复] 失败', res)
+            wx.showToast({
+              icon: 'none',
+              title: '发布自动回复失败',
+            })
+          }
+        },
+        fail: console.error,
+      })
+    }
+    if(errorflag!=1)
+      {
+        this.setData({
+          qaArray: [{id: 0, question: '', answer: ''}]
+        })
+        wx.showToast({
+          icon: 'none',
+          title: '[发布自动回复]成功',
+        })
+      }
+   
+ },
    // 发布商品
    doPost: function () {
      var that=this;
@@ -140,37 +184,41 @@ Page({
       })
     }
       else
-    wx.cloud.callFunction({
-      // 云函数名称
-      name: 'addGood',
-      // 传给云函数的参数
-      data: {
-        coverMiddle: that.data.picId,
-        desc: that.data.description,
-        intro: that.data.name,
-        price: Number(that.data.price),
-        tag: that.data.tag,
-      },
-      success: function(res) {
-        if (res.result.statusCode==200)
-        {
-          console.log('[发布商品] 成功：', res)
-          wx.showToast({
-            icon: 'none',
-            title: '['+that.data.name+']'+'发布成功',
-          })
-        }
-        else
-        {
-          console.error('[发布商品] 失败', res)
-          wx.showToast({
-            icon: 'none',
-            title: '['+that.data.name+']'+'发布失败',
-          })
-        }
-      },
-      fail: console.error,
-    })
-   
+      {
+        //发布自动回复
+        this.doPostQA();
+        wx.cloud.callFunction({
+          // 云函数名称
+          name: 'addGood',
+          // 传给云函数的参数
+          data: {
+            coverMiddle: that.data.picId,
+            desc: that.data.description,
+            intro: that.data.name,
+            price: Number(that.data.price),
+            tag: that.data.tag,
+          },
+          success: function(res) {
+            if (res.result.statusCode==200)
+            {
+              console.log('[发布商品] 成功：', res)
+              wx.showToast({
+                icon: 'none',
+                title: '['+that.data.name+']'+'发布成功',
+              })
+            }
+            else
+            {
+              console.error('[发布商品] 失败', res)
+              wx.showToast({
+                icon: 'none',
+                title: '['+that.data.name+']'+'发布失败',
+              })
+            }
+          },
+          fail: console.error,
+        })
+      }
+    
   }
 })

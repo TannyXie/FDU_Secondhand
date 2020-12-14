@@ -86,10 +86,25 @@ Page({
               .replace('T', ' ').replace(/-/g, '.')
             comments[i].time = new_t
           }
-          that.setData({
-            commentsList: comments,
-            cmLen: l
-          })
+          for (let i = 0; i < l; i++) {
+            const picId = comments[i].userInfo.picId
+            wx.cloud.callFunction({
+              name: 'getUrlsByPicIds',
+              data: {
+                picIdList: [picId]
+              },
+              success(res) {
+                console.log('成功加载评论头像', res.result.data.urlList)
+                comments[i].userInfo.picId = res.result.data.urlList[0]
+              }
+            })
+            if (i == l - 1) {
+              that.setData({
+                commentsList: comments,
+                cmLen: l
+              })
+            }
+          }
         }
       })
     wx.cloud.callFunction({

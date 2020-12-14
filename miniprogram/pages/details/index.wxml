@@ -45,7 +45,7 @@
         <view class="goods-des2">
           <view class="goods-wants">{{item.nums}}收藏</view>
           <view class="goods-sell" bindtap="jumpTo">{{seller}}</view>
-          <view class="goods-price">￥ {{item.price}}</view>
+          <view class="goods-price">￥{{item.price}}</view>
         </view>
         <view class="intro-box-text2">商品介绍</view>
         <p class="intro-detail-text2">{{item.desc}}</p>
@@ -67,8 +67,8 @@
 
 <view wx:if="{{cmLen}}">
   <view class="cm-box-item" wx:for="{{commentsList}}" wx:key="index">
-    <view wx:if="{{item.userInfo.avatarUrl != 'someurl'}}">
-    <image class="profile-img" src="{{item.userInfo.avatarUrl}}" mode="widthFix"></image>
+    <view wx:if="{{item.userInfo.picId != 'someurl'}}">
+    <image class="profile-img" src="{{item.userInfo.picId}}" mode="widthFix"></image>
     </view>
     <view wx:else>
       <image class="profile-img" src="./user-unlogin.png" mode="widthFix"></image>
