@@ -126,7 +126,7 @@
 }
 
 .intro-detail-text{
-  font-size: 24rpx;
+  font-size: 30rpx;
   color: #333;
   margin-left: 20rpx;
   margin-right: 20rpx;
@@ -256,7 +256,7 @@
   box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
   padding-top: 30rpx;
   padding-left: 30rpx;
-  font-size: 24rpx;
+  font-size: 30rpx;
 }
 
 .no-data{
