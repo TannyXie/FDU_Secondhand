@@ -5,15 +5,15 @@
   height: 1px;    /* 分隔线粗细 */
   text-align: center;
   font-size: 30rpx;
-  color: #63CCDA;
-  background: #63CCDA;
+  color: #ccc;
+  background: #ccc;
   margin-top: 20rpx;
   margin-bottom: 30rpx;
 }
 .line span{
   position: relative;
   top: -8px;
-  color: #63CCDA;
+  color: #aaa;
   background: #F6F6F6;
   padding: 0rpx 10rpx;
 }
