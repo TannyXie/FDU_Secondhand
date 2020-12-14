@@ -5,19 +5,21 @@
   height: 1px;    /* 分隔线粗细 */
   text-align: center;
   font-size: 30rpx;
-  color: #aaa;
-  background: #ccc;
-  margin-top: 5px;
-  margin-bottom: 22px;
+  color: #63CCDA;
+  background: #63CCDA;
+  margin-top: 20rpx;
+  margin-bottom: 30rpx;
 }
 .line span{
   position: relative;
   top: -8px;
-  background: #fff;
-  padding: 0px 10px;
+  color: #63CCDA;
+  background: #F6F6F6;
+  padding: 0rpx 10rpx;
 }
  
 .text-title{
+  color: #222429;
   width: 90%;
   height: 70rpx;
   margin: 0rpx auto;
@@ -30,6 +32,7 @@
 }
 
 .text-subtitle{
+  color: #222429;
   width: 90%;
   height: 70rpx;
   margin: 0rpx auto;
@@ -60,7 +63,7 @@
   font-size: 32rpx;
   margin: 0rpx auto;
   margin-top: 25rpx;
-  background-color: black;
+  background-color: #222429;
   color: white;
   border-radius: 90rpx;
   display: flex;
@@ -74,7 +77,7 @@
   left:250rpx;
   font-size: 24rpx;
   background-color: white;
-  color: black;
+  color: #222429;
   font-weight:lighter;
 }
 
@@ -83,7 +86,7 @@
   margin: 0rpx auto;
   margin-top: 20rpx;
   margin-bottom: 40rpx;
-  background-color: black;
+  background-color: #222429;
   color: white;
   border-radius: 90rpx;
   display: flex;
