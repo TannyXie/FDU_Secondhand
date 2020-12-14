@@ -6,11 +6,12 @@ page{
   overflow: hidden;
   background:white;
   color: #333;
-  margin: 30rpx auto;
-  margin-top: 10rpx;
-  border-radius: 30rpx;
+  border-bottom-left-radius: 30rpx;
+  border-bottom-right-radius: 30rpx;
   box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
+  margin-bottom: 20rpx;
 }
+
 .information-box{
   min-height: 100%;
   background:white;
@@ -21,13 +22,15 @@ page{
   box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
 }
 .userinfo {
+  margin-top: -20rpx;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
   padding-bottom:14rpx;
-	background:black;
+	background:#222429;
   width: 750rpx;
   height:250rpx;
+  z-index:50;
 }
 
 .userinfo-avatar {
@@ -40,7 +43,7 @@ page{
 
 .userinfo-nickname {
   display:inline-block;
-  background-color: black;
+  background-color: #222429;
   color:white;
   font-size:30rpx;
 }
@@ -269,7 +272,7 @@ page{
   border-radius: 40rpx;
   font-size: 28rpx;
   color: white;
-  background: linear-gradient(to right, #965d62, #c7956d);
+  background: #63CCDA;
   float: left;
   margin-left: 10rpx;
   margin-bottom: 5rpx;
