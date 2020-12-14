@@ -8,7 +8,7 @@
 </view>
 <view wx:else>
   <view wx:if="{{hasList}}">
-  <view class="information-box" bindtap="deleteHistory">
+  <view class="center-button" bindtap="deleteHistory">
 <view class="text-title" >
   清空历史</view>
 </view>

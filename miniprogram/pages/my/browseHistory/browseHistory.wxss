@@ -30,13 +30,13 @@
 }
 
 .recom-box-item {
-  width: 90%;
+  width: 100%;
   height: auto;
   overflow: hidden;
   background: #fff;
   color: #333;
   margin-bottom: 30rpx;
-  margin-left: 35rpx;
+  margin-left: 6rpx;
   border-radius: 30rpx;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
 }
@@ -76,7 +76,7 @@
 .goods-price {
   font-size: 32rpx;
   font-weight: bold;
-  color: #ff3456;
+  color: #E5818D;
   float: left;
   margin-bottom: 10rpx;
   margin-left: 10rpx;
@@ -132,11 +132,10 @@
 }
 .information-box{
   min-height: 100%;
-  background:white;
-  color: #333;
+  background:#222429;
+  color: white;
   margin: 30rpx;
   margin-top: 10rpx;
-  border-radius: 30rpx;
   box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
 }
 .loading-wrap {
@@ -156,4 +155,16 @@
 .loading-wrap .text{
   font-size: 26rpx;
   color: #999;
+}
+
+.center-button {
+  margin: 0rpx auto;
+  width: 40%;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+  background-color: #63CCDA;
+  color: white;
+  border-radius: 90rpx;
+  display: flex;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2);
 }

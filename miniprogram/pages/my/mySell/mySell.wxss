@@ -75,7 +75,7 @@
 .goods-price {
   font-size: 32rpx;
   font-weight: bold;
-  color: #ff3456;
+  color: #e5818d;
   float: left;
   margin-bottom: 10rpx;
   margin-left: 10rpx;
