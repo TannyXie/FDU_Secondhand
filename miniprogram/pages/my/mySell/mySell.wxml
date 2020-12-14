@@ -16,7 +16,7 @@
         </view>
         <view class="goods-des">
           <view class="recom-box-text">{{item.intro}}</view>
-          <view class="goods-tag">{{item.tag}}</view>
+          <view class="goods-tag" bindtap="gotoFenlei" data-text="{{item.tag}}">{{item.tag}}</view>
           <view wx:if="{{item.sold}}">
               <view class="checkout">订单已完成</view>
             </view>

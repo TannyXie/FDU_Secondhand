@@ -46,7 +46,7 @@ Page({
                 goods.push(item);
                 if (goods.length == names.length) {
                   goods.sort(function(a, b) {
-                    return a.time - b.time
+                    return b.time - a.time
                   })
                   that.setData({
                     goodsList: goods,
@@ -146,6 +146,15 @@ Page({
         })
 
       }
+    })
+  },
+
+  gotoFenlei(e) {
+    var text=e.currentTarget.dataset.text;
+    let str = JSON.stringify(text)
+    console.log('goto: '+ str);
+    wx.navigateTo({
+      url: '/pages/category/category?str=' + str,
     })
   }
 })

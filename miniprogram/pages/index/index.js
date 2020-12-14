@@ -28,6 +28,7 @@ Page({
     ],
     goodsList: [],
     swiperCurrent: 0,
+    loaded: 0
   },
 
   /**
@@ -50,7 +51,7 @@ Page({
             for (let i = 0; i < glist.length; i++) 
               glist[i].coverMiddle = res.result.data.urlList[i]
             console.log('latest8成功', glist);
-            that.setData({ goodsList: glist });
+            that.setData({ goodsList: glist, loaded: 1 });
           }
         })
       },
