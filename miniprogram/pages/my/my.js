@@ -12,6 +12,7 @@ Page({
       picId: '', 
     },
     authorized:false,
+    loaded:0,
   },
  
   /**
@@ -27,12 +28,30 @@ Page({
     } else if (this.data.canIUse){
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
+      console.log('授权')
       app.userInfoReadyCallback = res => {
         console.log(res)
+        var tmp=res.userInfo
+        console.log(tmp)
+        var nickName = 'userInfo.nickName';
+        var picId='userInfo.picId';
         that.setData({
-          userInfo: res.userInfo,
-        })
+          [nickName]: tmp.nickName,
+          [picId]: tmp.avatarUrl,
+        });
       }
+      wx.cloud.callFunction({
+        name: 'addUser',
+        data:{
+          name:that.data.userInfo.nickName,
+          picId:that.data.userInfo.picId,
+          gender:0,
+        },
+        success(res) {
+          console.log('成功添加用户', res);
+        },
+        fail: console.error,
+      })
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
       wx.getUserInfo({
@@ -98,6 +117,7 @@ Page({
       [nickName]: res.result.data.name,
       [picId]: res.result.data.picId,
       authorized: res.result.data.authorized,
+      loaded:1,
     });
     console.log(that.data.userInfo)
   },
@@ -200,19 +220,14 @@ Page({
       }
     })
   },
-  imageTap(e){
-
-    wx.navigateTo({
-
-        url:'mailCheck/mailCheck'
-
-    })
-
-},
 cartTap(e){
   var that=this;
   if(that.data.authorized==true)
-  {wx.navigateTo({
+  {
+    that.setData({
+      loaded:0,
+    })
+    wx.navigateTo({
 
       url:'myCart/myCart'
   })
@@ -229,8 +244,11 @@ else
 addressTap(e){
   var that=this;
   if(that.data.authorized==true)
-  {wx.navigateTo({
-
+  {
+    that.setData({
+      loaded:0,
+    })
+    wx.navigateTo({
       url:'addressAdmin/addressAdmin'
   })
 }
@@ -246,7 +264,11 @@ else
 postTap(e){
   var that=this;
   if(that.data.authorized==true)
-  {wx.navigateTo({
+  {
+    that.setData({
+      loaded:0,
+    })
+    wx.navigateTo({
 
       url:'myPost/myPost'
   })
@@ -263,7 +285,11 @@ else
 sellTap(e){
   var that=this;
   if(that.data.authorized==true)
-  {wx.navigateTo({
+  {
+    that.setData({
+      loaded:0,
+    })
+    wx.navigateTo({
 
       url:'mySell/mySell'
   })
@@ -280,7 +306,12 @@ else
 buyTap(e){
   var that=this;
   if(that.data.authorized==true)
-  {wx.navigateTo({
+  {
+    
+    that.setData({
+      loaded:0,
+    })
+    wx.navigateTo({
 
       url:'myBuy/myBuy'
   })
@@ -296,6 +327,9 @@ else
 },
 modifyTap(e){
   var that=this;
+    that.setData({
+      loaded:0,
+    })
   wx.navigateTo({
       url:'modifyUser/modifyUser'
   })
@@ -303,7 +337,11 @@ modifyTap(e){
 mailTap(e){
   var that=this;
   if(that.data.authorized==false)
-  {wx.navigateTo({
+  {
+    that.setData({
+      loaded:0,
+    })
+    wx.navigateTo({
 
       url:'mailCheck/mailCheck'
   })

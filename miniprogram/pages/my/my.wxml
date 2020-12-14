@@ -1,5 +1,12 @@
 
 <!--顶部卡片-->
+<view wx:if="{{loaded == 0}}">
+  <view class="loading-wrap">
+    <image class="img" src="/images/loading2.gif"></image>
+    <view class="text">正在加载...</view>
+  </view>
+</view>
+<view wx:else>
 <view class="container">
   <!--个人信息卡片-->
 	<view class="userinfo">
@@ -73,6 +80,6 @@
   </view>
 </view>
 </view>
-
+</view>
 <!--<button class="btn_quit" bindtap='bindClear'>退出帐号</button>-->
 

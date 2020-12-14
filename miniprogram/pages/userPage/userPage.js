@@ -43,7 +43,7 @@ Page({
         console.log('当前用户名', res.result.data);
         that.setData({
           userName: res.result.data.name,
-          userAvatar: res.result.data.avatarUrl
+          userAvatar: res.result.data.picId
         });
       }
     });

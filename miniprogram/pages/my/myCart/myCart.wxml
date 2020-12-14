@@ -38,7 +38,7 @@
     <view class="text-title-1">失效商品</view>
     <view class="goods-recom">
     <view class="recom-box">
-      <view class="recom-box-item" bindtap="gotoDetails" data-id="{{item._id}}" wx:for="{{invalid}}" wx:key="index">
+      <view class="recom-box-item" bindtap="gotoDetails2" data-id="{{item._id}}" wx:for="{{invalid}}" wx:key="index">
         <view class="recom-box-img">
           <image class="recom-box-item-icon" src="{{item.image}}" mode="widthFix"></image>
         </view>

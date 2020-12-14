@@ -1,8 +1,8 @@
 Page({
   data:{
-    nickName:'',
-    picId:'',
-    profileId:'',
+    nickName:null,
+    picId:null,
+    file:null,
   },
   onLoad(){
     var that = this;
@@ -37,7 +37,6 @@ Page({
   uploadPic(e)
   {
     var that=this;
-    var nickName = that.data.nickName;
     wx.chooseImage({
       count: 1,
       sizeType: ['compressed'],
@@ -50,50 +49,56 @@ Page({
           filePath: res.tempFilePaths[0],
           success: (res) => {
             console.log(res)
-            wx.cloud.callFunction({
-              name: 'updateUserInfo',
-              data: {
-                file: res.data,
-                name: nickName
-              },
-              success: function(res) {
-                //console.log(res.result)
-                if (res.result.statusCode==200)
-                {
-                  console.log(res)
-                  wx.showToast({
-                    icon: 'none',
-                    title: '上传成功',
-                  })
-                  that.onLoad();//刷新头像
-                  console.log('刷新成功')
-                }
-                else
-                {
-                  console.error('[上传文件] 失败')
-                  wx.showToast({
-                    icon: 'none',
-                    title: '上传失败',
-                  })
-                }
-              },
-              fail: console.error,
-              complete: () => {
-                wx.hideLoading()
-              }
+            that.setData({
+              file:res.data,
             })
+            wx.showToast({
+              icon: 'none',
+              title: '上传成功',
+            })
+            console.log('刷新成功')
           }
         })
       },
       fail: console.error
     })
   },
+
   formSubmit(e){
-    wx.showToast({
-      icon: 'none',
-      title: '保存成功',
-      duration:5000
-    })      
-    wx.navigateBack();
+    var that =this;
+    var nickName=that.data.nickName;
+    var file=that.data.file;
+    wx.cloud.callFunction({
+      name: 'updateUserInfo',
+      data: {
+        file: file,
+        name: nickName
+      },
+      success: function(res) {
+        //console.log(res.result)
+        if (res.result.statusCode==200)
+        {
+          console.log(res)
+          that.onLoad();//刷新头像
+          wx.showToast({
+            icon: 'none',
+            title: '保存成功',
+            duration:5000,
+          })
+        }
+        else
+        {
+          console.error('[上传文件] 失败')
+          wx.showToast({
+            icon: 'none',
+            title: '上传失败',
+          })
+        }
+      },
+      fail: console.error,
+      complete: () => {
+        wx.hideLoading()
+      }
+    })  
   }
 })
