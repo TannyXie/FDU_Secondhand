@@ -6,28 +6,29 @@ var utils = require('../../utils/util.js');
 Page({
   data: {
     navList: [{
-        icon: '/images/nav-icon/书.png',
+        icon: '/images/nav-icon/book.png',
         text: '二手书籍'
       },
       {
-        icon: '/images/nav-icon/数码家电.png',
+        icon: '/images/nav-icon/tech.png',
         text: '数码家电'
       },
       {
-        icon: '/images/nav-icon/生活用品.png',
+        icon: '/images/nav-icon/life.png',
         text: '生活用品'
       },
       {
-        icon: '/images/nav-icon/护肤美妆.png',
+        icon: '/images/nav-icon/cos.png',
         text: '护肤美妆'
       },
       {
-        icon: '/images/nav-icon/更多.png',
+        icon: '/images/nav-icon/more.png',
         text: '更多'
       },
     ],
     goodsList: [],
     swiperCurrent: 0,
+    loaded: 0
   },
 
   /**
@@ -50,7 +51,7 @@ Page({
             for (let i = 0; i < glist.length; i++) 
               glist[i].coverMiddle = res.result.data.urlList[i]
             console.log('latest8成功', glist);
-            that.setData({ goodsList: glist });
+            that.setData({ goodsList: glist, loaded: 1 });
           }
         })
       },
