@@ -30,7 +30,7 @@
 
   .cart-list .cart-pro-price{
       display: inline-block;
-      color:red;
+      color:#E5818D;
       float:right;
       height: 105rpx;
       line-height: 50rpx;
@@ -55,7 +55,7 @@
       line-height: 90rpx;
       padding:0 100rpx 0 80rpx;
       box-sizing: border-box;
-      background: black;
+      background: #222429;
       color: #fff;
   }
   .total-select{
@@ -149,7 +149,7 @@
   .goods-price {
     font-size: 32rpx;
     font-weight: bold;
-    color: #ff3456;
+    color: #E5818D;
     float: left;
     margin-bottom: 10rpx;
     margin-left: 10rpx;

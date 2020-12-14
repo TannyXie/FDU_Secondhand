@@ -2,53 +2,62 @@
 <view style="margin-top: 40rpx"></view>
 <search></search>
 
-<view class="text-title">
-  <block>
-    <text>二手分类</text>
-  </block>
+<view wx:if="{{loaded == 0}}">
+  <view class="loading-wrap">
+    <image class="img" src="/images/loading2.gif"></image>
+    <view class="text">正在加载...</view>
+  </view>
 </view>
+<view wx:else>
+  <view class="text-title">
+    <block>
+      <text>二手分类</text>
+    </block>
+  </view>
 
-<!--宫格导航-->
-<view class="shop-nav">
-  <block>
-    <view class="shop-nav-item" bindtap="gotoFenlei" data-text="{{item.text}}" wx:for="{{navList}}" wx:key="index">
-      <!--
+  <!--宫格导航-->
+  <view class="shop-nav">
+    <block>
+      <view class="shop-nav-item" bindtap="gotoFenlei" data-text="{{item.text}}" wx:for="{{navList}}" wx:key="index">
+        <!--
         为了方便，统一使用相同界面
       -->
-      <image class="shop-nav-icon" src="{{item.icon}}" mode="widthFix" lazy-load="false"></image>
-      <text>{{item.text}}</text>
-    </view>
-  </block>
-</view>
+        <image class="shop-nav-icon" src="{{item.icon}}" mode="widthFix" lazy-load="false"></image>
+        <text>{{item.text}}</text>
+      </view>
+    </block>
+  </view>
 
-<view class="text-title-1">
-  <block>
-    <text>二手上新</text>
-  </block>
-</view>
+  <view class="text-title-1">
+    <block>
+      <text>二手上新</text>
+    </block>
+  </view>
 
   <!-- 上新推荐 -->
-<view class="goods-recom">
-  <!-- 这没有没有使用数据绑定，因为是练手而且数据比较少 -->
-  <view class="recom-box">
-    <view class="recom-box-item" bindtap="gotoDetails" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" data-id="{{item._id}}" wx:for="{{goodsList}}" wx:key="{{index}}">
-      <view class="recom-box-img">
-        <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
-      </view>
-      <!--标题-->
-      <view class="recom-box-text">{{item.intro}}</view>
-      <!--价格+收藏数-->
-      <view class="goods-des">
-        <view class="goods-price">¥ {{item.price}}</view>
-        <view class="goods-wants">{{item.nums}}收藏</view>
-      </view>
-      <!--卖家+标签-->
-      <view class="goods-des2">
-        <view class="goods-sell" bindtap="gotoSeller" data-text="{{item.sellerId}}">
-          {{item.name}}
+  <view class="goods-recom">
+    <!-- 这没有没有使用数据绑定，因为是练手而且数据比较少 -->
+    <view class="recom-box">
+      <view class="recom-box-item" bindtap="gotoDetails" data-coverImg="{{item.coverMiddle}}"
+        data-title="{{item.intro}}" data-id="{{item._id}}" wx:for="{{goodsList}}" wx:key="{{index}}">
+        <view class="recom-box-img">
+          <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
         </view>
-        <view class="goods-tag" bindtap="gotoFenlei" data-text="{{item.tag}}">
-          {{item.tag}}
+        <!--标题-->
+        <view class="recom-box-text">{{item.intro}}</view>
+        <!--价格+收藏数-->
+        <view class="goods-des">
+          <view class="goods-price">¥ {{item.price}}</view>
+          <view class="goods-wants">{{item.nums}}收藏</view>
+        </view>
+        <!--卖家+标签-->
+        <view class="goods-des2">
+          <view class="goods-sell" bindtap="gotoSeller" data-text="{{item.sellerId}}">
+            {{item.name}}
+          </view>
+          <view class="goods-tag" bindtap="gotoFenlei" data-text="{{item.tag}}">
+            {{item.tag}}
+          </view>
         </view>
       </view>
     </view>

@@ -241,5 +241,14 @@ Page({
     wx.navigateTo({
       url: '/pages/userPage/userPage?sellerId=' + sellerId
     })
+  },
+
+  gotoFenlei(e) {
+    var text=e.currentTarget.dataset.text;
+    let str = JSON.stringify(text)
+    console.log('goto: '+ str);
+    wx.navigateTo({
+      url: '/pages/category/category?str=' + str,
+    })
   }
 })

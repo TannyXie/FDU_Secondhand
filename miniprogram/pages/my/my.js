@@ -224,9 +224,6 @@ cartTap(e){
   var that=this;
   if(that.data.authorized==true)
   {
-    that.setData({
-      loaded:0,
-    })
     wx.navigateTo({
 
       url:'myCart/myCart'
@@ -245,9 +242,6 @@ addressTap(e){
   var that=this;
   if(that.data.authorized==true)
   {
-    that.setData({
-      loaded:0,
-    })
     wx.navigateTo({
       url:'addressAdmin/addressAdmin'
   })
@@ -265,9 +259,6 @@ postTap(e){
   var that=this;
   if(that.data.authorized==true)
   {
-    that.setData({
-      loaded:0,
-    })
     wx.navigateTo({
 
       url:'myPost/myPost'
@@ -286,9 +277,6 @@ sellTap(e){
   var that=this;
   if(that.data.authorized==true)
   {
-    that.setData({
-      loaded:0,
-    })
     wx.navigateTo({
 
       url:'mySell/mySell'
@@ -307,10 +295,6 @@ buyTap(e){
   var that=this;
   if(that.data.authorized==true)
   {
-    
-    that.setData({
-      loaded:0,
-    })
     wx.navigateTo({
 
       url:'myBuy/myBuy'
@@ -327,9 +311,6 @@ else
 },
 modifyTap(e){
   var that=this;
-    that.setData({
-      loaded:0,
-    })
   wx.navigateTo({
       url:'modifyUser/modifyUser'
   })
@@ -338,9 +319,6 @@ mailTap(e){
   var that=this;
   if(that.data.authorized==false)
   {
-    that.setData({
-      loaded:0,
-    })
     wx.navigateTo({
 
       url:'mailCheck/mailCheck'
