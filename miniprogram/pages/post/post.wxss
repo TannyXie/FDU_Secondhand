@@ -1,3 +1,22 @@
+/* 分隔线--底部 */
+.line{
+  width: 90%;    /* 分隔线的长度 */
+  margin: auto;
+  height: 1px;    /* 分隔线粗细 */
+  text-align: center;
+  font-size: 30rpx;
+  color: #aaa;
+  background: #ccc;
+  margin-top: 5px;
+  margin-bottom: 22px;
+}
+.line span{
+  position: relative;
+  top: -8px;
+  background: #fff;
+  padding: 0px 10px;
+}
+ 
 .text-title{
   width: 90%;
   height: 70rpx;
@@ -21,6 +40,20 @@
   align-items: center;
   align-content: center;
 }
+.picker{
+  width: 88%;
+  overflow: hidden;
+  background: #fff;
+  color: #333;
+  margin: 30rpx;
+  margin-top: 10rpx;
+  border-radius: 30rpx;
+  box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
+  padding-top: 30rpx;
+  padding-bottom: 30rpx;
+  padding-left: 30rpx;
+  font-size: 35rpx;
+}
 
 .left-button{
   left:-250rpx;
@@ -35,6 +68,14 @@
   align-items: center;
   align-content: center;
   justify-content: center;
+}
+.right-button{
+  width:20%;
+  left:250rpx;
+  font-size: 24rpx;
+  background-color: white;
+  color: black;
+  font-weight:lighter;
 }
 
 .center-button{

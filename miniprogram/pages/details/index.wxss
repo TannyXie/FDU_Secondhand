@@ -10,6 +10,7 @@
   display: flex;
   align-items: center;
   align-content: center;
+  color: #222429;
 }
 
 .text-title2{
@@ -20,6 +21,7 @@
   align-items: center;
   align-content: center;
   float: left;
+  color: #222429;
 }
 
 
@@ -34,6 +36,7 @@
   display: flex;
   align-items: center;
   align-content: center;
+  color: #222429
 }
 
 /* 二手上新 */
@@ -123,7 +126,7 @@
 }
 
 .intro-detail-text{
-  font-size: 24rpx;
+  font-size: 30rpx;
   color: #333;
   margin-left: 20rpx;
   margin-right: 20rpx;
@@ -167,7 +170,7 @@
 .goods-price{
   font-size: 35rpx;
   font-weight: bold;
-  color: #ff3456;
+  color: #E5818D;
   float: left;
   margin-bottom: 10rpx;
   margin-top: 10rpx;
@@ -200,7 +203,8 @@
   border-radius: 40rpx;
   font-size: 28rpx;
   color: white;
-  background: linear-gradient(to right, #965d62, #c7956d);
+  font-weight: bold;
+  background: #63CCDA;
   float: right;
   margin-right: 20rpx;
   margin-bottom: 5rpx;
@@ -229,7 +233,7 @@
 }
 
 .small-button{
-  background: #000;
+  background: #63CCDA;
   color: #fff;
   border-radius: 10rpx;
   box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
@@ -252,7 +256,7 @@
   box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
   padding-top: 30rpx;
   padding-left: 30rpx;
-  font-size: 24rpx;
+  font-size: 30rpx;
 }
 
 .no-data{

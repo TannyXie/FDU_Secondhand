@@ -25,13 +25,12 @@
 
 <textarea class="textarea" style="height:5em" placeholder="写下该物品的简介，建议不超过500字" bindinput="descInput" value="{{description}}" />
 
-<view class="text-subtitle">
-  <block>
-    <text>选择种类</text>
-  </block>
-</view>
-
-<textarea class="textarea" style="height:2em" placeholder="输入种类" bindinput="tagInput" value="{{tag}}" />
+<view class="text-subtitle">选择种类</view>
+<picker placeholder="请滑动选择商品种类" bindchange="bindPickerChange" value="{{tagIndex}}" range="{{tagArray}}">
+    <view class="picker">
+      {{tagArray[tagIndex]}}
+    </view>
+  </picker>
 
 <view class="text-subtitle">
   <block>
@@ -41,18 +40,23 @@
 
 <textarea class="textarea" style="height:2em" placeholder="输入你认为合适的定价，单位：人民币" bindinput="priceInput" value="{{price}}"  />
 
-<view class="text-subtitle">
-  <block>
-    <text>问题</text>
-  </block>
+<view class="line">
+  <span>自动回复设置</span>
 </view>
-<textarea class="textarea" style="height:2em" placeholder="输入你想要进行自动回复的问题"  bindinput="questionInput" value="{{question}}"/>
-
-<view class="text-subtitle">
-  <block>
-    <text>预设回复</text>
-  </block>
+<view wx:for="{{qaArray}}" wx:key="id" wx:for-index="idx">
+  <view>
+    <text class="text-subtitle">问题{{idx+1}}</text>
+    <textarea data-index='{{idx}}' class="textarea" style="height:2em" placeholder="输入你想要进行自动回复的问题"  bindinput="questionInput">{{qaArray[idx].question}} </textarea>
+  </view>
+  <view>
+    <text class="text-subtitle">预设回复{{idx+1}}</text>
+  <textarea data-index='{{idx}}' class="textarea" style="height:2em" placeholder="输入你对该问题的预设回复"  bindinput="answerInput">{{qaArray[idx].answer}} </textarea>
+  </view>
 </view>
-<textarea class="textarea" style="height:2em" placeholder="输入你对该问题的预设回复"  bindinput="answerInput" value = "{{answer}}"/>
 
+<view class="line">
+  <span bindtap="moreQA">点击此处继续添加自动回复</span>
+</view>
+<!--button class="center-button" style="width:32vw" bindtap="doPostQA">发布自动回复
+<button class="right-button" style="width:30vw" bindtap="moreQA">继续添加</button></button>-->
 <button class="center-button" style="width:24vw" bindtap="doPost">发布</button>

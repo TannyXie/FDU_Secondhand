@@ -24,15 +24,14 @@
   line-height: 100rpx;
   width: 162rpx;
   height: 100rpx;
-  color: #333;
+  color: #222429;
   font-size: 29rpx;
 }
 
 .catalog .nav .item.active {
-  color: #000;
+  color: #63CCDA;
   font-size: 32rpx;
   font-weight: 500;
-  background: #fff;
 }
 
 .catalog .cate {
@@ -47,7 +46,7 @@
   padding-bottom: 100rpx;
   text-align: center;
   font-size: 26rpx;
-  color: #52a9e2;
+  color: #63CCDA;
 }
 
 .catalog .cate .no-more {
@@ -56,7 +55,7 @@
   padding-bottom: 100rpx;
   text-align: center;
   font-size: 26rpx;
-  color: #666;
+  color: #aaa;
 }
 
 .catalog .cate .loading-wrap {
@@ -75,7 +74,7 @@
 }
 .catalog .cate .loading-wrap .text{
   font-size: 26rpx;
-  color: #999;
+  color: #aaa;
 }
 
 .catalog .cate .banner-container {
@@ -231,7 +230,7 @@
 
 .goods-box .navi-url .goods-info .goods-title {
   font-size: 24rpx;
-  color: #222;
+  color: #333;
   margin-bottom: 6rpx;
   display: -webkit-box;
   word-break: break-all;
@@ -243,7 +242,7 @@
 
 .goods-box .navi-url .goods-info .goods-intro {
   font-size: 16rpx;
-  color: #888;
+  color: #63CCDA;
   margin-bottom: 6rpx;
   /* height: 64rpx; */
   display: -webkit-box;
@@ -278,7 +277,7 @@
 .goods-box .navi-url .goods-info .price-container .l .h {
   font-size: 28rpx;
   font-weight: 500;
-  color: #ff3456;
+  color: #333;
 }
 
 .goods-box .navi-url .goods-info .price-container .l .b {

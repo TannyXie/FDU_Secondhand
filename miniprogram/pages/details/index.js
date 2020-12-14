@@ -48,7 +48,6 @@ Page({
                 wx.cloud.callFunction({
                   name: 'checkFavoriteByUserIdAndGoodId',
                   data: {
-                    userId: 'fakeuserid1',
                     goodId: key
                   },
                   success(newres2) {
@@ -87,17 +86,31 @@ Page({
               .replace('T', ' ').replace(/-/g, '.')
             comments[i].time = new_t
           }
-          that.setData({
-            commentsList: comments,
-            cmLen: l
-          })
+          for (let i = 0; i < l; i++) {
+            const picId = comments[i].userInfo.picId
+            wx.cloud.callFunction({
+              name: 'getUrlsByPicIds',
+              data: {
+                picIdList: [picId]
+              },
+              success(res) {
+                console.log('成功加载评论头像', res.result.data.urlList)
+                comments[i].userInfo.picId = res.result.data.urlList[0]
+              }
+            })
+            if (i == l - 1) {
+              that.setData({
+                commentsList: comments,
+                cmLen: l
+              })
+            }
+          }
         }
       })
     wx.cloud.callFunction({
       name: 'addHistory',
       data: {
         goodId: key,
-        userId: 'fakeuserid1',
       },
       success(res) {
         console.log('成功加入历史记录', res);
@@ -113,7 +126,6 @@ Page({
       name: 'setFavorite',
       data: {
         goodId: id,
-        userId: 'fakeuserid1'
       },
       success(res) {
         console.log('成功收藏', res);
@@ -136,7 +148,6 @@ Page({
       name: 'delFavorite',
       data: {
         goodId: id,
-        userId: 'fakeuserid1'
       },
       success(res) {
         console.log('成功取消收藏', res);
@@ -159,7 +170,6 @@ Page({
       name: 'addCart',
       data: {
         goodId: id,
-        userId: 'fakeuserid1'
       },
       success(res) {
         console.log('成功加购', res);
@@ -179,7 +189,6 @@ Page({
       name: 'addOrder',
       data: {
         goodId: id,
-        userId: "fakeuserid1"
       },
       success(res) {
         console.log('成功结算', res);
@@ -205,7 +214,6 @@ Page({
     wx.cloud.callFunction({
       name: 'addComment',
       data: {
-        userId: 'fakeuserid1',
         goodId: id,
         content: c
       },

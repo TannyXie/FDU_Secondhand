@@ -10,6 +10,7 @@
   display: flex;
   align-items: center;
   align-content: center;
+  color: #222429;
 }
 
 /* 宫格导航 */
@@ -127,7 +128,7 @@
 .goods-price{
   font-size: 35rpx;
   font-weight: bold;
-  color: #ff3456;
+  color: #333;
   float: left;
   margin-bottom: 10rpx;
   margin-left: 10rpx;
@@ -142,7 +143,13 @@
 }
 
 .goods-sell{
+  width: 120rpx;
+  overflow: ellipsis;
   font-size: 30rpx;
+  display:-webkit-box;
+	-webkit-line-clamp:1;
+	-webkit-box-orient:vertical;
+	overflow:hidden;
   float: right;
   color: #aaa;
   margin-bottom: 10rpx;
@@ -157,7 +164,8 @@
   border-radius: 40rpx;
   font-size: 28rpx;
   color: white;
-  background: linear-gradient(to right, #965d62, #c7956d);
+  font-weight: bold;
+  background: #63CCDA;
   float: left;
   margin-left: 10rpx;
   margin-bottom: 5rpx;

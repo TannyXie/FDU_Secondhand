@@ -1,6 +1,6 @@
 /* pages/my/mySetting/mySetting.wxss */
 .wrapper {
-  color: #000;
+  color: #222429;
   width: 100vw;
   height: 100vh;
 }
@@ -41,7 +41,7 @@
 .btn {
   margin-top: 100rpx;
   background-color: white;
-  color: black;
+  color:#222429;
   border-radius: 90rpx;
   box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
 }
@@ -49,7 +49,7 @@
   margin-top: 30rpx;
   width: 270rpx;
   height: 90rpx;
-  background-color: black;
+  background-color: #222429;
   color: white;
   border-radius: 90rpx;
   display: flex;

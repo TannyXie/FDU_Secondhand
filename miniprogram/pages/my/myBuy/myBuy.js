@@ -12,39 +12,53 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
+  
+
   onLoad: function (options) {
     var that = this;
     wx.cloud.callFunction({
       name: 'getOrdersByBuyerId',
       data:{
-        userId: 'fakeuserid1'
       },
       success(res) {
-        console.log(res);
-        console.log('成功');
+        console.log('成功拿到订单', res);
         that.setData({
           totalNum: res.result.data.length,
         });
         let goods = [];
         const names = res.result.data;
-        for (let i = 0; i < names.length; i++) {
-          const id = names[i].goodId;
-          wx.cloud.callFunction({
-            name: 'getGoodById',
-            data: {
-              goodId: id
-            },
-            success(newres) {
-              goods.push(newres.result.data);
-              if (goods.length == names.length) {
-                that.setData({
-                  goodsList: goods,
-                  loaded: 1
-                })
-                console.log(goods)
-              }
-            }
+        if (names.length == 0) {
+          that.setData({
+            loaded: 1
           })
+        } else {
+          for (let i = 0; i < names.length; i++) {
+            const id = names[i].goodId;
+            wx.cloud.callFunction({
+              name: 'getGoodById',
+              data: {
+                goodId: id
+              },
+              success(newres) {
+                const item = newres.result.data
+                item['buyerCheck'] = names[i].buyerCheck
+                item['sellerCheck'] = names[i].sellerCheck
+                item['time'] = names[i].createTime
+                item['orderId'] = names[i]._id
+                goods.push(item);
+                if (goods.length == names.length) {
+                  goods.sort(function(a, b) {
+                    return a.time - b.time
+                  })
+                  that.setData({
+                    goodsList: goods,
+                    loaded: 1
+                  })
+                  console.log('展示数据', goods)
+                }
+              }
+            })
+          }
         }
       },
     })
@@ -109,6 +123,31 @@ Page({
     //})
     wx.navigateTo({
       url: '/pages/details/index?key=' + goodId
+    })
+  },
+
+  buyerCheckout(e) {
+    const orderId = e.currentTarget.dataset.id
+    wx.cloud.callFunction({
+      name: 'checkOrderAsBuyer',
+      data: {
+        orderId: orderId
+      },
+      success(res) {
+        console.log('成功签收', res)
+        wx.showToast({
+          title: '签收成功',
+          duration: 2000,
+          success: function() {
+            setTimeout(function() {
+              wx.redirectTo({
+                url: '/pages/my/myBuy/myBuy'
+              })
+            }, 1000)
+          }
+        })
+
+      }
     })
   }
 })

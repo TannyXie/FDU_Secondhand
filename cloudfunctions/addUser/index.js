@@ -1,35 +1,34 @@
 /**
  * API:
- *   创建新用户
+ *   添加一条用户记录
  * 参数说明：
- *   name 微信昵称
- *   avatarUrl 头像URL
- *   gender 性别 0未知 1男 2女
+ *   name   名字
+ *   picId  头像在云存储中的ID
+ *   gender 性别： 0未知 1男 2女
  */
 
 const cloud = require('wx-server-sdk')
 cloud.init()
-
 const db = cloud.database()
 
 exports.main = async (event, context) => {
   const openid = cloud.getWXContext().OPENID
   const name = event.name
-  const avatarUrl = event.avatarUrl
+  const picId = event.picId || "cloud://dev-7gam9jnrd4ee6910.6465-dev-7gam9jnrd4ee6910-1303912949/profile/default.jpg"
   const gender = event.gender
 
   try {
-    res = await db.collection('user').add({
+    const addUserResult = await db.collection('user').add({
       data: {
         openid: openid,
         name: name,
-        avatarUrl: avatarUrl,
+        picId: picId,
         gender: gender,
         authorized: false,
-        mail: ""
+        mail: null
       }
     })
-    console.log(res)
+    console.log(addUserResult)
     return {
       statusCode: 200,
       statusMsg: 'add user ok'
@@ -41,4 +40,7 @@ exports.main = async (event, context) => {
       statusMsg: 'add user fail'
     }
   }
+    
+  
+
 }

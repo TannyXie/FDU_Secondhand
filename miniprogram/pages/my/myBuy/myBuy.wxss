@@ -75,7 +75,7 @@
 .goods-price {
   font-size: 32rpx;
   font-weight: bold;
-  color: #ff3456;
+  color: #333;
   float: left;
   margin-bottom: 10rpx;
   margin-left: 10rpx;
@@ -106,7 +106,8 @@
   border-radius: 40rpx;
   font-size: 28rpx;
   color: white;
-  background: linear-gradient(to right, #965d62, #c7956d);
+  font-weight: bold;
+  background: #63CCDA;
   float: left;
   margin-left: 10rpx;
   margin-bottom: 5rpx;
@@ -136,4 +137,24 @@
 .loading-wrap .text{
   font-size: 26rpx;
   color: #999;
+}
+
+.small-button{
+  color: #63CCDA;
+  border-radius: 40rpx;
+  width: 150rpx;
+  height: 40rpx;
+  font-size: 28rpx;
+  margin-right: 20rpx;
+  float: right;
+  text-align: center;
+  background-color: white;
+  border: 1px solid #63CCDA;
+}
+
+.checkout {
+  font-size: 28rpx;
+  float: right;
+  margin-right: 20rpx;
+  color: #aaa
 }
