@@ -27,7 +27,7 @@
 
 .toast-title {
   padding-left: 5%;
-  background-color: #2196f3;
+  background-color: #222429;
   color: white;
   padding-top: 2vh;
   padding-bottom: 2vh;
@@ -67,7 +67,7 @@
 .button1 button {
   width: 100%;
   background-color: white;
-  color: red;
+  color: #aaa;
   border-radius: 0px;
   border-bottom-left-radius: 16rpx;
 }
@@ -75,7 +75,7 @@
 .button2 button{
   width: 100%;
   background-color: white;
-  color: black;
+  color: #63CCDA;
   border-radius: 0px;
   border-bottom-right-radius: 16rpx;
 }
