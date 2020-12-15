@@ -16,6 +16,7 @@ const db = cloud.database()
 
 exports.main = async (event, context) => {
     // 若未声明其一用户ID，则默认为当前用户
+    console.log(event)
     var thisUserId = event.thisUserId
     if (thisUserId == null) {
       try {
