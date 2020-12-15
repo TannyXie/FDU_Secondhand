@@ -25,7 +25,8 @@ Page({
       that.setData({
         userInfo: app.globalData.userInfo,
       })
-    } else if (this.data.canIUse){
+    } 
+    if (this.data.canIUse){
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       console.log('授权')
@@ -60,6 +61,7 @@ Page({
           that.setData({
             userInfo: res.userInfo,
           })
+          console.log('在没有 open-type=getUserInfo 版本的兼容处理')
         }
       })
     }
@@ -78,6 +80,17 @@ Page({
   onShow: function() {
     var that = this;
    console.log(that.data)
+   
+   wx.getStorage({  //异步获取缓存值studentId
+    key: 'authorized',
+    success: function (res) {
+      console.log('成功获取用户授权信息',res)
+      that.setData({
+        authorized: res.data
+      })
+
+    }
+  })
     //get缓存值用户名字，并设置
     /*
     try {
@@ -103,6 +116,19 @@ Page({
    //update default value
    console.log(that.data.userInfo)
   */
+wx.getSetting({
+  success:function(res)
+  {
+    if (res.authSetting['scope.userInfo']) 
+    {
+      console.log(res)
+    }
+    else{
+      console.log('not valid')
+    }
+  },
+  fail: console.error,
+})
  //更新用户自定义头像昵称
  wx.cloud.callFunction({
   name: 'getUserById',
@@ -116,10 +142,9 @@ Page({
     that.setData({
       [nickName]: res.result.data.name,
       [picId]: res.result.data.picId,
-      authorized: res.result.data.authorized,
       loaded:1,
     });
-    console.log(that.data.userInfo)
+    //console.log(that.data.userInfo)
   },
   fail: console.error,
 })

@@ -44,7 +44,7 @@ exports.main = async (event, context) => {
     }).then(() => {
       return {
         statusCode: 200,
-        statusMsg: 'ok'
+        statusMsg:'ok',
       }
     }).catch(() => {
       return {
