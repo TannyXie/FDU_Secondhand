@@ -16,12 +16,11 @@ const db = cloud.database()
 const time = require('./util.js')
 
 exports.main = async (event, context) => {
-  const openid = cloud.getWXContext().OPENID
   var userId = event.userId;
   if (userId == null) {
     try {
-      userResult = await db.collection('user').where({
-        openid: db.command.eq(openid)
+      const userResult = await db.collection('user').where({
+        openid: db.command.eq(cloud.getWXContext().OPENID)
       }).get()
       console.log(userResult)
       userId = userResult.data[0]._id
