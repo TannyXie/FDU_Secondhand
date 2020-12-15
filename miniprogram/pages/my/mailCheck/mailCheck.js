@@ -1,6 +1,5 @@
 // miniprogram/pages/my/mySetting/mySetting.js
 const app = getApp()
-var authorized=app.globalData.authorized;
 Page({
 
   /**
@@ -11,7 +10,6 @@ Page({
     button2Loading: false,
     studentId: '',
     passWord:'',
-    authorized:false,
   },
 
   /**
@@ -35,7 +33,6 @@ Page({
     var that = this;
     var studentId = that.data.studentId;
     var passWord = that.data.passWord;
-    console.log(authorized)
     /*
     wx.getStorage({  //异步获取缓存值studentId
       key: 'studentId',
@@ -124,12 +121,13 @@ Page({
     })
     var that = this;
     var studentId = that.data.studentId;
+    console.log(studentId)
     //var passWord = that.data.passWord;
     //调用云函数，去获取后端返回的状态
     wx.cloud.callFunction({
-      name: 'sendmail',
+      name: 'sendMail',
       data:{
-        studentMail:studentId
+        mail:studentId
       },
       success(res) {
         console.log(res);
@@ -138,6 +136,7 @@ Page({
           content: '验证码发送成功',
         })
       },
+      fail:console.error,
     })
     this.setData({
       buttonLoading: false,
@@ -153,11 +152,11 @@ Page({
     var passWord = that.data.passWord;
     //检查验证码是否正确
     wx.cloud.callFunction({
-      name: 'verifycode',
+      name: 'verifyCode',
       data:
       {
-        studentMail: studentId,
-        enteredCode: passWord,
+        mail: studentId,
+        code: passWord,
       },
       success(res) {
         console.log(res);
@@ -181,10 +180,12 @@ Page({
             title: '提示',
             content: '验证成功',
             success: function (res) {
+              /*
               wx.setStorage({
                 key: 'authorized',
                 data: true,
               })
+              */
               console.log('验证成功',res)
               if (res.confirm) {
                 console.log('用户点击确定')

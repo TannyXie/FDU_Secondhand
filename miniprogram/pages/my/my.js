@@ -41,18 +41,7 @@ Page({
           [picId]: tmp.avatarUrl,
         });
       }
-      wx.cloud.callFunction({
-        name: 'addUser',
-        data:{
-          name:that.data.userInfo.nickName,
-          picId:that.data.userInfo.picId,
-          gender:0,
-        },
-        success(res) {
-          console.log('成功添加用户', res);
-        },
-        fail: console.error,
-      })
+  
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
       wx.getUserInfo({
@@ -65,6 +54,19 @@ Page({
         }
       })
     }
+    //调用addUser,只有新用户能成功入user库
+    wx.cloud.callFunction({
+      name: 'addUser',
+      data:{
+        name:that.data.userInfo.nickName,
+        picId:that.data.userInfo.picId,
+        gender:0,
+      },
+      success(res) {
+        console.log('成功添加用户', res);
+      },
+      fail: console.error,
+    })
   },
 
   /**
@@ -80,7 +82,7 @@ Page({
   onShow: function() {
     var that = this;
    console.log(that.data)
-   
+   /*
    wx.getStorage({  //异步获取缓存值studentId
     key: 'authorized',
     success: function (res) {
@@ -90,33 +92,9 @@ Page({
       })
 
     }
-  })
-    //get缓存值用户名字，并设置
-    /*
-    try {
-      var value = wx.getStorageSync('nickName')
-      console.log(value);
-      if (value) {
-        that.setData({
-          [nickName]: value
-        })
-      }
-    } catch (e) {
-      // Do something when catch error
-    }
-   //get缓存值用户头像，并设置
-   wx.getStorage({
-     key: 'picId',
-     success: function(res) {  
-       that.setData({
-        [picId]: res.data
-       })
-     },
-   })
-   //update default value
-   console.log(that.data.userInfo)
-  */
-wx.getSetting({
+  })*/
+  //检查用户是否授权
+/*wx.getSetting({
   success:function(res)
   {
     if (res.authSetting['scope.userInfo']) 
@@ -128,7 +106,7 @@ wx.getSetting({
     }
   },
   fail: console.error,
-})
+})*/
  //更新用户自定义头像昵称
  wx.cloud.callFunction({
   name: 'getUserById',
@@ -143,6 +121,7 @@ wx.getSetting({
       [nickName]: res.result.data.name,
       [picId]: res.result.data.picId,
       loaded:1,
+      authorized:res.result.data.authorized,
     });
     //console.log(that.data.userInfo)
   },
@@ -164,15 +143,23 @@ wx.getSetting({
 
   },
   onPullDownRefresh(){
-    wx.setNavigationBarTitle({
-      title: '我的信息'
-    });
-    wx.showNavigationBarLoading(); //在标题栏中显示加载图标
-    setTimeout(function () {
-      wx.stopPullDownRefresh(); //停止加载
-      wx.hideNavigationBarLoading(); //隐藏加载icon
-    }, 2000)
+
   },
+
+    //授权相关，备用
+/*wx.getSetting({
+  success:function(res)
+  {
+    if (res.authSetting['scope.userInfo']) 
+    {
+      console.log(res)
+    }
+    else{
+      console.log('not valid')
+    }
+  },
+  fail: console.error,
+})
   bindGetUserInfo: function(e) {
     var that = this;
     var nickName = that.data.userInfo.nickName;
@@ -245,6 +232,7 @@ wx.getSetting({
       }
     })
   },
+  */
 cartTap(e){
   var that=this;
   if(that.data.authorized==true)
