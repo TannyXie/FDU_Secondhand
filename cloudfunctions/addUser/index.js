@@ -17,6 +17,17 @@ exports.main = async (event, context) => {
   const picId = event.picId || "cloud://dev-7gam9jnrd4ee6910.6465-dev-7gam9jnrd4ee6910-1303912949/profile/default.jpg"
   const gender = event.gender
 
+  const checkExistResult = await db.collection('user').where({
+    openid: db.command.eq(cloud.getWXContext().OPENID)
+  }).get()
+  console.log(checkExistResult)
+  if (checkExistResult.data.length > 0) {
+    return {
+      statusCode: 400,
+      statusMsg: 'user already exists'
+    }
+  }
+
   try {
     const addUserResult = await db.collection('user').add({
       data: {
