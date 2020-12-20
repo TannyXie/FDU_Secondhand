@@ -37,7 +37,6 @@ exports.main = async (event, context) => {
     }
   }
 
-  // goodId不可为空
   const goodId = event.goodId
   if (goodId == null) {
     return {
@@ -45,46 +44,27 @@ exports.main = async (event, context) => {
       statusMsg: 'good id cannot be null'
     }
   }
-
-  // 不能把自己的商品加入购物车
-  try {
-    const checkResult = await db.collection('second-hand-good').doc(goodId).get()
-    console.log(checkResult)
-    if (checkResult.data.sellerId == userId) 
-    return util.makeResponse(400, 'seller can not be their own buyer')
-  } catch (err) {
-    console.log(err)
-    return util.makeResponse(500, 'check buyer and seller fail')
-  }
-
   try {
     checkResult = await db.collection('cart').where({
       userId: db.command.eq(userId),
       goodId: db.command.eq(goodId)
     }).get()
-    if (checkResult.data.length == 0) {
-      const res = await db.collection('cart').add({
-        data: {
-          userId: userId,
-          goodId: goodId
-        }
-      })
-      console.log(res)
-      return {
-        statusCode: 200,
-        statusMsg: 'ok'
-      }
-    } else {
-      return {
-        statusCode: 300,
-        statusMsg: 'already in cart'
-      }
-    }
+    if (checkResult.data.length > 0) return util.makeResponse(400, 'good already exists in the cart')
   } catch (err) {
     console.log(err)
-    return {
-      statusCode: 400,
-      statusMsg: 'set favorite fail'
-    }
+    return util.makeResponse(500, 'check cart fail')
+  }
+  try {
+    const addResult = await db.collection('cart').add({
+      data: {
+        userId: userId,
+        goodId: goodId
+      }
+    })
+    console.log(addResult)
+    return util.makeResponse(200, 'add cart ok', { cartId: addResult._id })
+  }catch (err) {
+    console.log(err)
+    return util.makeResponse(500, 'add cart fail')
   }
 }
