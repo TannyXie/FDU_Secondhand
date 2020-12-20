@@ -13,6 +13,7 @@ Page({
     },
     authorized:false,
     loaded:0,
+    isHide:false,
   },
  
   /**
@@ -20,6 +21,7 @@ Page({
    */
   onLoad: function () {
     var that=this
+    // 查看是否授权
     if (app.globalData.userInfo) {
       console.log(app.globalData.userInfo)
       that.setData({
@@ -83,17 +85,6 @@ Page({
   onShow: function() {
     var that = this;
    console.log(that.data)
-   /*
-   wx.getStorage({  //异步获取缓存值studentId
-    key: 'authorized',
-    success: function (res) {
-      console.log('成功获取用户授权信息',res)
-      that.setData({
-        authorized: res.data
-      })
-
-    }
-  })*/
   //检查用户是否授权
 /*wx.getSetting({
   success:function(res)

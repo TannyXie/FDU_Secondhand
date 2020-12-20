@@ -41,7 +41,7 @@ Page({
         console.log('成功', res);
         if(res.result.data.length)
         {
-          res.result.data.sort(function(a, b){return a.data.date - b.data.date});
+          res.result.data.sort(function(a, b){return b.time - a.time});
         }
         var arr =new Array();
         var date2idx=new Map();
@@ -50,11 +50,11 @@ Page({
         var keys=new Array()
         for(var i=0;i<res.result.data.length;i++)
         {
-          arr[i]=res.result.data[i].data
+          arr[i]=res.result.data[i].goodInfo
           //get the browse date
           //var date=res.result.data[i].date.split(' ')[0]
           console.log(res.result.data[i])
-          var time=new Date(res.result.data[i].data.date)
+          var time=new Date(res.result.data[i].time)
           var Y=time.getFullYear()+'-';
           var M=(time.getMonth()+1<10?'0'+(time.getMonth()+1):time.getMonth()+1)+'-';
           var D=time.getDate()
