@@ -42,18 +42,30 @@ Page({
                 item['buyerCheck'] = names[i].buyerCheck
                 item['sellerCheck'] = names[i].sellerCheck
                 item['time'] = names[i].createTime
+                item['finishTime'] = names[i].finishTime
                 item['orderId'] = names[i]._id
-                goods.push(item);
-                if (goods.length == names.length) {
-                  goods.sort(function(a, b) {
-                    return b.time - a.time
-                  })
-                  that.setData({
-                    goodsList: goods,
-                    loaded: 1,
-                  })
-                  console.log('展示的数据', goods)
-                }
+                item['buyerId'] = names[i].userId
+                wx.cloud.callFunction({
+                  name: 'getUserById',
+                  data: {
+                    userId: names[i].userId
+                  },
+                  success(res) {
+                    console.log('成功拿到买家信息', res.result.data)
+                    item['buyerName'] = res.result.data.name
+                    goods.push(item);
+                    if (goods.length == names.length) {
+                      goods.sort(function(a, b) {
+                        return b.time - a.time
+                      })
+                      that.setData({
+                        goodsList: goods,
+                        loaded: 1,
+                      })
+                      console.log('展示的数据', goods)
+                    }
+                  }
+                })
               }
             })
           }
@@ -136,6 +148,7 @@ Page({
         wx.showToast({
           title: '收款成功',
           duration: 2000,
+          icon: 'none',
           success: function() {
             setTimeout(function() {
               wx.redirectTo({
@@ -155,6 +168,12 @@ Page({
     console.log('goto: '+ str);
     wx.navigateTo({
       url: '/pages/category/category?str=' + str,
+    })
+  },
+  toUser(e) {
+    var userId = e.currentTarget.dataset.buyerid;
+    wx.navigateTo({
+      url: '/pages/userPage/userPage?sellerId=' + userId
     })
   }
 })

@@ -13,6 +13,7 @@ Page({
     seller: '卖家',
     swiperCurrent: 0,
     star: 0,
+    sold: false,
   },
 
   /**
@@ -44,7 +45,7 @@ Page({
               },
               success(newres1) {
                 console.log('成功加载用户名', newres1)
-                newList.sellerId = newres1.result.data.name
+                newList['sellerName'] = newres1.result.data.name
                 wx.cloud.callFunction({
                   name: 'checkFavoriteByUserIdAndGoodId',
                   data: {
@@ -60,7 +61,8 @@ Page({
                       goodId: key,
                       goodsList: [newList],
                       seller: newres1.result.data.name,
-                      star: starStatus
+                      star: starStatus,
+                      sold: res.result.data.sold
                     });
                   }
                 })
@@ -79,6 +81,9 @@ Page({
           console.log('成功获取留言', res)
           const comments = res.result.data
           const l = comments.length
+          comments.sort(function(a, b) {
+            return b.time - a.time
+          })
           for (let i = 0; i < l; i++) {
             const t = comments[i].time
             const date = new Date(t + 8 * 3600 * 1000)
@@ -128,15 +133,34 @@ Page({
         goodId: id,
       },
       success(res) {
-        console.log('成功收藏', res);
+        if (res.result.statusCode == 400) {
+          console.log('收藏失败')
+          wx.showToast({
+            title: '不能收藏自己的',
+            duration: 2000,
+            icon: 'none'
+          })
+        }
+        else {
+          console.log('成功收藏', res);
+          wx.showToast({
+            title: '收藏成功',
+            duration: 2000,
+            icon: 'none',
+          })
+          that.setData({
+            star: 1
+          })
+        }
+      },
+      fail(res) {
+        console.log('收藏失败', res)
         wx.showToast({
-          title: '收藏成功',
+          title: '不能收藏自己的',
+          icon: 'none',
           duration: 2000,
         })
-        that.setData({
-          star: 1
-        })
-      },
+      }
     })
   },
 
@@ -154,6 +178,7 @@ Page({
         wx.showToast({
           title: '取消收藏成功',
           duration: 2000,
+          icon: 'none',
         })
         that.setData({
           star: 0
@@ -172,12 +197,31 @@ Page({
         goodId: id,
       },
       success(res) {
-        console.log('成功加购', res);
-        wx.showToast({
-          title: '加购成功',
-          duration: 2000,
-        })
+        if (res.result.statusCode == 400) {
+          console.log('加购失败')
+          wx.showToast({
+            title: '不能加购自己的',
+            duration: 2000,
+            icon: 'none',
+          })
+        }
+        else {
+          console.log('成功加购', res);
+          wx.showToast({
+            title: '加购成功',
+            duration: 2000,
+            icon: 'none',
+          })
+        }
       },
+      fail(res) {
+        console.log('加购失败', res)
+        wx.showToast({
+          title: '不能加购自己的',
+          duration: 2000,
+          icon: 'none',
+        })
+      }
     })
   },
 
@@ -191,12 +235,31 @@ Page({
         goodId: id,
       },
       success(res) {
-        console.log('成功结算', res);
-        wx.showToast({
-          title: '结算成功',
-          duration: 2000,
-        })
+        if (res.result.statusCode == 400) {
+          console.log('下单失败')
+          wx.showToast({
+            title: '不能买自己的',
+            duration: 2000,
+            icon: 'none',
+          })
+        }
+        else {
+          console.log('成功下单', res);
+          wx.showToast({
+            title: '下单成功',
+            duration: 2000,
+            icon: 'none',
+          })
+        }
       },
+      fail(res) {
+        console.log('下单失败', res)
+        wx.showToast({
+          title: '不能买自己的',
+          duration: 2000,
+          icon: 'none',
+        })
+      }
     })
   },
 
@@ -222,6 +285,7 @@ Page({
         wx.showToast({
           title: '发布成功',
           duration: 2000,
+          icon: 'none',
           success: function() {
             setTimeout(function() {
               wx.redirectTo({
@@ -235,11 +299,10 @@ Page({
   },
 
   // 跳转个人页
-  jumpTo: function() {
-    const that = this
-    const sellerId = that.data.goodsList[0].sellerId
+  jumpTo: function(e) {
+    const userId = e.currentTarget.dataset.userid
     wx.navigateTo({
-      url: '/pages/userPage/userPage?sellerId=' + sellerId
+      url: '/pages/userPage/userPage?sellerId=' + userId
     })
   },
 

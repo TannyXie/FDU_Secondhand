@@ -30,7 +30,7 @@
 <view class="recom-box">
     <view class="recom-box-item" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{goodsList}}" wx:key="{{index}}">
       <view class="recom-box-img" bindtap="gotoDetails"data-index="{{index}}" >
-        <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
+        <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="aspectFill"></image>
       </view>
         <view class="goods-des">
           <view class="recom-box-text">{{item.intro}}</view>
