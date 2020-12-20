@@ -64,6 +64,7 @@ Page({
       },
       success(res) {
         console.log('成功添加用户', res);
+        that.onShow();
       },
       fail: console.error,
     })

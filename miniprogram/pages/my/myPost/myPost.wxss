@@ -88,8 +88,7 @@
 .goods-price{
   font-size: 35rpx;
   font-weight: bold;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  color: red;
+  color: #E5818D;
   float: left;
   margin-bottom: 10rpx;
   margin-left: 10rpx;
@@ -100,16 +99,20 @@
   float: right;
   color: #aaa;
   margin-right: 10rpx;
-  margin-bottom: 10rpx;
+  margin-top: 10rpx;
 }
 
 .goods-sell{
+  width: 100rpx;
+  overflow: ellipsis;
   font-size: 30rpx;
-  float: left;
+  display:-webkit-box;
+	-webkit-line-clamp:1;
+	-webkit-box-orient:vertical;
+	overflow:hidden;
+  float: right;
   color: #aaa;
   margin-bottom: 10rpx;
-  margin-left: 10rpx;
-  margin-top: 5rpx;
   text-decoration: underline;
 }
 
@@ -120,12 +123,11 @@
   border-radius: 40rpx;
   font-size: 28rpx;
   color: white;
-  background: linear-gradient(to right, #965d62, #c7956d);
+  font-weight: bold;
+  background: #63CCDA;
   float: left;
   margin-left: 10rpx;
   margin-bottom: 5rpx;
-  position: relative;
-  display:inline-block;
 }
 
 .goods-del{

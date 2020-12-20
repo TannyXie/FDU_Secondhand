@@ -100,7 +100,7 @@ Page({
           goodId:goodsList[index]._id,
         },
         success(res) {
-          console.log('成功');
+          console.log('res');
         },
       })
       goodsList.splice(index,1);
