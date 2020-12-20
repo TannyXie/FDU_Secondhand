@@ -13,7 +13,7 @@
     <!--点击头像进入邮箱验证-->
     <image wx:if="{{userInfo && userInfo.picId}}" class="userinfo-avatar" bindtap="uploadPic"  src="{{ userInfo.picId }}" background-size="cover" ></image>
     <text class="userinfo-nickname">{{ userInfo.nickName }}</text>
-    <image class="setting-icon-img" src="/images/my/renzheng.png" mode="widthFix" bindtap="uploadPic"></image>
+    <image wx:if="{{authorized}}"class="setting-icon-img" src="/images/my/renzheng.png" mode="widthFix" bindtap="uploadPic"></image>
   </view>
  <!--小图标-->
  <view class="icon-bar">

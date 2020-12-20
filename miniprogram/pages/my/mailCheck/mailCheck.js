@@ -8,8 +8,8 @@ Page({
   data: {
     buttonLoading: false,
     button2Loading: false,
-    studentId: '',
-    passWord:'',
+    studentId: null,
+    passWord:null,
   },
 
   /**
@@ -30,10 +30,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    /*
     var that = this;
     var studentId = that.data.studentId;
     var passWord = that.data.passWord;
-    /*
+    
     wx.getStorage({  //异步获取缓存值studentId
       key: 'studentId',
       success: function (res) {
@@ -160,32 +161,33 @@ Page({
       },
       success(res) {
         console.log(res);
-        if(res.result.statusMsg=='wrong code')
+        if(res.result.statusMsg=='wrong code for the input mail')
         {
           wx.showModal({
             title: '提示',
             content: '验证码错误',
           })
         }
+        else if(res.result.statusMsg=='mail and code cannot be null')
+        {
+          wx.showModal({
+            title: '提示',
+            content: '验证码邮箱为空',
+          })
+        }
+        else if(res.result.statusMsg=='no verification record for the input mail in 10 minutes')
+        {
+          wx.showModal({
+            title: '提示',
+            content: '验证码过时',
+          })
+        }
         else
         {
-          //成功则保存邮箱信息
-          /*
-          wx.setStorage({
-            key: 'studentId',
-            data: studentId,
-          })
-          */
           wx.showModal({
             title: '提示',
             content: '验证成功',
             success: function (res) {
-              /*
-              wx.setStorage({
-                key: 'authorized',
-                data: true,
-              })
-              */
               console.log('验证成功',res)
               if (res.confirm) {
                 console.log('用户点击确定')

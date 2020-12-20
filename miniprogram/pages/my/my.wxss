@@ -54,19 +54,10 @@ page{
   position: absolute;
   z-index: 100;/*bigger z-index placed aboves*/
   float:right;
-  padding-left: 48px;
-  padding-top:55px;
+  padding-left: 47px;
+  padding-top:57px;
 }
-.setting-icon-img1{
-  width: 50rpx;
-  height: 50rpx;
-  overflow: hidden;
-  position: absolute;
-  z-index: 100;/*bigger z-index placed aboves*/
-  float:right;
-  padding-left: 60px;
-  padding-top:8px;
-}
+
 .setting-icon-img2{
   width: 50rpx;
   height: 50rpx;
