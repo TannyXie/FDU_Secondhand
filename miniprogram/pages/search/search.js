@@ -152,13 +152,12 @@ Page({
 
   // 上新推荐改变事件
   gotoDetails(e) {
-    var url = e.currentTarget.dataset.coverimg;
-    var title = e.currentTarget.dataset.title;
+    var goodid = e.currentTarget.dataset.goodid;
     //wx.navigateTo({
     //  url: '/pages/details/details?url=' + url + '&title=' + title,
     //})
     wx.navigateTo({
-      url: '/pages/details/index?key=' + goodId
+      url: '/pages/details/index?key=' + goodid
     })
   },
   openSortFilter: function (event) {
