@@ -17,6 +17,9 @@ const $ = db.command.aggregate
 exports.main = async (event, context) => {
   // const wxContext = cloud.getWXContext()
   return await db.collection('second-hand-good').aggregate()
+  .match({
+    sold: false
+  })
   .lookup({
     from: "user",
     localField: "sellerId",
