@@ -16,6 +16,9 @@ const db = cloud.database()
 const time = require('./util.js')
 
 exports.main = async (event, context) => {
+  // 打印参数
+  console.log(event)
+
   var userId = event.userId;
   if (userId == null) {
     try {
@@ -35,17 +38,14 @@ exports.main = async (event, context) => {
   }
 
   try {
-    const goodsId = await db.collection('history').where({
+    const historyResult = await db.collection('history').where({
       userId: db.command.eq(userId)
-    })
-    .orderBy('time','desc').get()
-    console.log(goodsId)
+    }).orderBy('time','desc').get()
+    console.log(historyResult)
+
     var goodList = []
-    for (let i = 0; i < goodsId.data.length; i++) {
-      let good = await db.collection('second-hand-good').doc(goodsId.data[i].goodId).get()
-      let _time = time.formatTime(goodsId.data[i].time,'Y/M/D h:m:s')
-      // goodsId.data[i].time=_time
-      good.time=_time
+    for (let record of historyResult.data) {
+      let good = await db.collection('second-hand-good').doc(record.goodId).get()
       goodList = goodList.concat(good)
     }
     console.log(goodList)
