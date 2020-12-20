@@ -37,6 +37,7 @@ exports.main = async (event, context) => {
     }
   }
 
+  // goodId不可为空
   const goodId = event.goodId
   if (goodId == null) {
     return {
@@ -44,6 +45,18 @@ exports.main = async (event, context) => {
       statusMsg: 'good id cannot be null'
     }
   }
+
+  // 不能把自己的商品加入购物车
+  try {
+    const checkResult = await db.collection('second-hand-good').doc(goodId).get()
+    console.log(checkResult)
+    if (checkResult.data.sellerId == userId) 
+    return util.makeResponse(400, 'seller can not be their own buyer')
+  } catch (err) {
+    console.log(err)
+    return util.makeResponse(500, 'check buyer and seller fail')
+  }
+
   try {
     checkResult = await db.collection('cart').where({
       userId: db.command.eq(userId),
