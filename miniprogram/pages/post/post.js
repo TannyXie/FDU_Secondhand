@@ -34,8 +34,9 @@ Page({
     })
   },
   priceInput: function(e){
+    let value = e.detail.value.replace(/\D/g, '')
     this.setData({
-      price: e.detail.value
+      price: value
     })
   },
   questionInput: function(e){
