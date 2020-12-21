@@ -38,7 +38,7 @@
   </block>
 </view>
 
-<textarea class="textarea" style="height:2em" placeholder="输入你认为合适的定价，单位：人民币" bindinput="priceInput" value="{{price}}"  />
+<textarea class="textarea" type="number" style="height:2em" placeholder="输入你认为合适的定价，单位：人民币" bindinput="priceInput" value="{{price}}"  />
 
 <view class="line">
   <span>自动回复设置</span>

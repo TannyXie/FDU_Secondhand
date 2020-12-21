@@ -68,6 +68,7 @@ Page({
     var that =this;
     var nickName=that.data.nickName;
     var file=that.data.file;
+    console.log("用户点击保存")
     wx.cloud.callFunction({
       name: 'updateUserInfo',
       data: {
@@ -79,6 +80,8 @@ Page({
         if (res.result.statusCode==200)
         {
           console.log(res)
+          console.log("保存成功")
+          console.log("重新载入用户信息")
           that.onLoad();//刷新头像
           wx.showToast({
             icon: 'none',

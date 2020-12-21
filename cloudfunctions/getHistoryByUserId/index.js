@@ -13,9 +13,10 @@ const cloud = require('wx-server-sdk')
 cloud.init()
 const db = cloud.database()
 
-const time = require('./util.js')
-
 exports.main = async (event, context) => {
+  // 打印参数
+  console.log(event)
+
   var userId = event.userId;
   if (userId == null) {
     try {
@@ -35,18 +36,24 @@ exports.main = async (event, context) => {
   }
 
   try {
-    const goodsId = await db.collection('history').where({
+    const historyResult = await db.collection('history').where({
       userId: db.command.eq(userId)
-    })
-    .orderBy('time','desc').get()
-    console.log(goodsId)
+    }).orderBy('time','desc').get()
+    console.log(historyResult)
+
     var goodList = []
-    for (let i = 0; i < goodsId.data.length; i++) {
-      let good = await db.collection('second-hand-good').doc(goodsId.data[i].goodId).get()
-      let _time = time.formatTime(goodsId.data[i].time,'Y/M/D h:m:s')
-      // goodsId.data[i].time=_time
-      good.time=_time
-      goodList = goodList.concat(good)
+    for (let record of historyResult.data) {
+      let goodResult = await db.collection('second-hand-good').where({
+        _id: db.command.eq(record.goodId)
+      }).get()
+      console.log(goodResult)
+      if (goodResult.data.length > 0) {
+        goodList = goodList.concat({
+          historyId: record._id,
+          goodInfo: goodResult.data[0],
+          time: record.time
+        })
+      }
     }
     console.log(goodList)
     return {

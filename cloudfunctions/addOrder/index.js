@@ -53,6 +53,17 @@ exports.main = async (event, context) => {
     return util.makeResponse(500, 'check order fail')
   }
   
+  // 买家和卖家不能相同
+  try {
+    const checkResult = await db.collection('second-hand-good').doc(goodId).get()
+    console.log(checkResult)
+    if (checkResult.data.sellerId == userId) 
+    return util.makeResponse(400, 'seller can not be their own buyer')
+  } catch (err) {
+    console.log(err)
+    return util.makeResponse(500, 'check buyer and seller fail')
+  }
+  
   // 添加订单
   try {
     const addResult = await db.collection('order').add({
