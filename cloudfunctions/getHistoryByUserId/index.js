@@ -13,8 +13,6 @@ const cloud = require('wx-server-sdk')
 cloud.init()
 const db = cloud.database()
 
-const time = require('./util.js')
-
 exports.main = async (event, context) => {
   // 打印参数
   console.log(event)
@@ -45,8 +43,17 @@ exports.main = async (event, context) => {
 
     var goodList = []
     for (let record of historyResult.data) {
-      let good = await db.collection('second-hand-good').doc(record.goodId).get()
-      goodList = goodList.concat(good)
+      let goodResult = await db.collection('second-hand-good').where({
+        _id: db.command.eq(record.goodId)
+      }).get()
+      console.log(goodResult)
+      if (goodResult.data.length > 0) {
+        goodList = goodList.concat({
+          historyId: record._id,
+          goodInfo: goodResult.data[0],
+          time: record.time
+        })
+      }
     }
     console.log(goodList)
     return {

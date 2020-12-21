@@ -1,5 +1,5 @@
 <!--miniprogram/pages/my/mySell/mySell.wxml-->
-<view class="text-title-1">已卖出商品</view>
+<view class="text-title-1">卖出商品</view>
 <view wx:if="{{loaded == 0}}">
   <view class="loading-wrap">
     <image class="img" src="/images/loading2.gif"></image>
@@ -7,45 +7,61 @@
   </view>
 </view>
 <view wx:else>
-<view wx:if="{{totalNum}}">
-  <view class="goods-recom">
-    <view class="recom-box">
-      <view class="recom-box-item" bindtap="gotoDetails" data-id="{{item._id}}" wx:for="{{goodsList}}" wx:key="index">
-        <view class="recom-box-img">
-          <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
-        </view>
-        <view class="goods-des">
-          <view class="recom-box-text">{{item.intro}}</view>
-          <view class="goods-tag" bindtap="gotoFenlei" data-text="{{item.tag}}">{{item.tag}}</view>
-          <view wx:if="{{item.sold}}">
-              <view class="checkout">订单已完成</view>
+  <view wx:if="{{totalNum}}">
+    <view class="goods-recom">
+      <view class="recom-box">
+        <view class="recom-box-item" bindtap="gotoDetails" data-id="{{item._id}}" wx:for="{{goodsList}}" wx:key="index">
+          <view class="recom-box-img">
+            <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="aspectFill"></image>
+          </view>
+          <view class="goods-des">
+            <view class="recom-box-text">{{item.intro}}</view>
+            <view class="goods-tag" bindtap="gotoFenlei" data-text="{{item.tag}}">{{item.tag}}</view>
+          </view>
+          <view class="goods-des">
+            <view class="goods-price">￥{{item.price}}</view>
+            <view class="checkout-user" catchtap="toUser" data-buyerId="{{item.buyerId}}">{{item.buyerName}}</view>
+            <view class="checkout-text">买家：</view>
+          </view>
+          <view class="line"></view>
+          <view>
+            <view wx:if="{{item.sold}}">
+              <view wx:if="{{item.finishTime != null}}">
+                <view class="checkout">订单已完成</view>
+              </view>
+              <view wx:else>
+                <view class="checkout">已和其他买家成交</view>
+              </view>
             </view>
-            <view wx:elif="{{item.sellerCheck}}">
-              <view class="checkout">卖家已收款</view>
-            </view>
-            <view wx:elif="{{item.buyerCheck}}">
-              <view class="checkout">买家已签收</view>
+            <view wx:elif="{{!item.buyerCheck}}">
+              <view class="checkout">等待买家确认收货</view>
             </view>
             <view wx:else>
-              <view class="checkout">买家已下单</view>
+              <view class="checkout">买家已收货，等待卖家确认收款</view>
             </view>
-        </view>
-        <view class="goods-des">
-          <view class="goods-price">￥{{item.price}}</view>
-          <view wx:if="{{item.sellerCheck}}">
+            <view wx:if="{{item.sold}}">
+              <view wx:if="{{item.finishTime != null}}">
+                <view class="small-tag">订单完成</view>
+              </view>
+              <view wx:else>
+                <view class="small-tag">订单中止</view>
+              </view>
+            </view>
+            <view wx:elif="{{!item.buyerCheck}}">
+              <view class="small-tag">等买家收货</view>
             </view>
             <view wx:else>
-              <view class="small-button" catchtap="sellerCheckout" data-id="{{item.orderId}}">确认收款</view>
+              <view class="small-button" catchtap="sellerCheckout" data-id="{{item.orderId}}" data-buyerid="{{item.buyerId}}">确认收款</view>
             </view>
+          </view>
         </view>
       </view>
     </view>
   </view>
-</view>
-<view wx:else style="margin-top: -120rpx">
-  <view>
-    <image src='/images/my/box.png' mode='widthFix'></image>
+  <view wx:else style="margin-top: -120rpx">
+    <view>
+      <image src='/images/my/box.png' mode='widthFix'></image>
+    </view>
+    <view class="no-data">您还没有卖出任何商品</view>
   </view>
-  <view class="no-data">您还没有卖出任何商品</view>
-</view>
 </view>
