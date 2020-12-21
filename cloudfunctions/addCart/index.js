@@ -49,29 +49,22 @@ exports.main = async (event, context) => {
       userId: db.command.eq(userId),
       goodId: db.command.eq(goodId)
     }).get()
-    if (checkResult.data.length == 0) {
-      const res = await db.collection('cart').add({
-        data: {
-          userId: userId,
-          goodId: goodId
-        }
-      })
-      console.log(res)
-      return {
-        statusCode: 200,
-        statusMsg: 'ok'
-      }
-    } else {
-      return {
-        statusCode: 300,
-        statusMsg: 'already in cart'
-      }
-    }
+    if (checkResult.data.length > 0) return util.makeResponse(400, 'good already exists in the cart')
   } catch (err) {
     console.log(err)
-    return {
-      statusCode: 400,
-      statusMsg: 'set favorite fail'
-    }
+    return util.makeResponse(500, 'check cart fail')
+  }
+  try {
+    const addResult = await db.collection('cart').add({
+      data: {
+        userId: userId,
+        goodId: goodId
+      }
+    })
+    console.log(addResult)
+    return util.makeResponse(200, 'add cart ok', { cartId: addResult._id })
+  }catch (err) {
+    console.log(err)
+    return util.makeResponse(500, 'add cart fail')
   }
 }

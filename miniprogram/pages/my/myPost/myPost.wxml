@@ -6,8 +6,8 @@
   <view class="release-box">
     <!-- 未卖出的商品 -->
     <view class="release-box-item" data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{unsoldList}}" wx:key="{{index}}">
-      <view class="release-box-img" bindtap="gotoDetails"data-index="{{index}}" >
-        <image class="release-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
+      <view class="release-box-img" bindtap="gotoDetails"data-index="{{index}}">
+        <image class="release-box-item-icon" src="{{item.coverMiddle}}" mode="aspectFill"></image>
       </view>
       <!--标题-->
       <view class="release-box-text">{{item.intro}}</view>

@@ -34,6 +34,7 @@ Page({
       data:{
       },
       success(res) {
+        console.log(res)
         console.log('成功获得未卖出', res.result.data.unsold.list);
         console.log('成功获得已卖出', res.result.data.sold.list);
         that.setData({
