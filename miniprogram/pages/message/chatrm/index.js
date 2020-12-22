@@ -12,30 +12,57 @@ Page({
     Mess : [],
     timer : '',
     messages: '',
-    speakee: '',
+    sellerId: '',
     setInter: '',
     touchStart: 0,
     touchEnd: 0,
     ifshow: false,
-    delId: ''
+    delId: '',
+    key: '',
+    thisnickName: '',
+    thatnickName: '',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      speakee: options.sellerId
-    })
     var that = this;
+    this.setData({
+      sellerId: options.sellerId
+    })
+    console.log('成功获取卖家Id',options.sellerId);
+    wx.cloud.callFunction({
+      name: 'getUserById',
+      data:{},
+      success(res){
+        console.log('成功获取当前用户昵称',res)
+        that.setData({
+          thisnickName: res.result.data.name,
+        })
+      },
+      fail: console.error
+    })
+    wx.cloud.callFunction({
+      name: 'getUserById',
+      data: {
+        userId : that.data.sellerId
+      },
+      success(res){
+        console.log('成功获取对话方的昵称',res)
+        that.setData({
+          thatnickName: res.result.data.name
+        })
+      },
+      fail: console.error
+    })
     that.data.setInter = setInterval(
       function() {
         var result = '';
         wx.cloud.callFunction({
           name: 'getMessages',
           data: {
-            thisUserId: 'fakeuser1',
-            anotherUserId: 'fakeuser2'
+            anotherUserId: that.data.sellerId
           },
           success(res) {
             if(res.result.statusMsg=='wrong code')
@@ -46,9 +73,17 @@ Page({
               })
             }
             else{
-              console.log(res);
+              console.log('成功更新信息',res);
+              var messages = res.result.data
+              var i = 0
+              for(;i<messages.length;++i){
+                if(messages[i].senderId === that.data.sellerId)
+                  messages[i].senderId = that.data.thatnickName
+                else
+                  messages[i].senderId = that.data.thisnickName
+              }
               that.setData({
-                messages: res.result.data
+                messages: messages
               })
             }
           },
@@ -70,8 +105,8 @@ Page({
     wx.cloud.callFunction({
       name: 'getMessages',
       data: {
-        thisUserId: 'fakeuser1',
-        anotherUserId: 'fakeuser2'
+//        thisUserId: 'fakeuser1',
+        anotherUserId: that.data.sellerId
       },
       success(res) {
         if(res.result.statusMsg=='wrong code')
@@ -82,9 +117,10 @@ Page({
           })
         }
         else{
+          console.log('成功更新信息',res);
           that.setData({
             messages: res.result.data,
-            ifshow: false,
+//            ifshow: false,
           })
         }
       },
@@ -176,22 +212,27 @@ Page({
   },
 
   inputRenew(e){
+    /* 
+      清空聊天框，更新数据库添加发送的信息
+    */
+   var that = this;
     var history = this.data.histMess;
     history.push({
       message: this.data.inputMessage,
       response: 'this is a response'
     });
     var i = this.data.i;
-    console.log('the inputMessage is '+this.data.inputMessage);
+    console.log('the inputMessage is '+that.data.inputMessage);
     wx.cloud.callFunction({
       name: 'addMessage',
       data: {
-        senderId: 'fakeuser1',
-        receiverId: 'fakeuser2',
-        content: this.data.inputMessage
+//        senderId: 'fakeuserid1',
+        receiverId: that.data.sellerId,
+//        receiverId: 'fakeuserid3',
+        content: that.data.inputMessage
       },
       success(res) {
-        console.log(res);
+        console.log('成功添加新信息',res);
         if(res.result.statusMsg=='wrong code')
         {
           wx.showModal({
@@ -200,6 +241,7 @@ Page({
           })
         }
       },
+      fail: console.error
     })
     this.setData({
       inputMessage : '',
@@ -208,12 +250,3 @@ Page({
     });
   },
 })
-
-
-/*
-
-    <view class="input-box2">
-      {{item.content}}
-    </view>
-
-*/

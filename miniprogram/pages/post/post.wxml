@@ -7,6 +7,7 @@
 </view>
 
 <button class="left-button" style="width:24vw" bindtap="doUpload">照片</button>
+<!--image class="cover-img" src="{{picId}}" mode="aspectFill"></image--->
 
 <view class="text-subtitle">
   <block>
@@ -40,7 +41,7 @@
 
 <textarea class="textarea" type="number" style="height:2em" placeholder="输入你认为合适的定价，单位：人民币" bindinput="priceInput" value="{{price}}"  />
 
-<view class="line">
+<!--view class="line">
   <span>自动回复设置</span>
 </view>
 <view wx:for="{{qaArray}}" wx:key="id" wx:for-index="idx">
@@ -57,6 +58,6 @@
 <view class="line">
   <span bindtap="moreQA">点击此处继续添加自动回复</span>
 </view>
-<!--button class="center-button" style="width:32vw" bindtap="doPostQA">发布自动回复
+<button class="center-button" style="width:32vw" bindtap="doPostQA">发布自动回复
 <button class="right-button" style="width:30vw" bindtap="moreQA">继续添加</button></button>-->
 <button class="center-button" style="width:24vw" bindtap="doPost">发布</button>

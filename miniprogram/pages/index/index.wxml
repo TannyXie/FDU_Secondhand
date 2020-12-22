@@ -38,13 +38,13 @@
   <view class="goods-recom">
     <!-- 这没有没有使用数据绑定，因为是练手而且数据比较少 -->
     <view class="recom-box">
-      <view class="recom-box-item" bindtap="gotoDetails" data-coverImg="{{item.coverMiddle}}"
-        data-title="{{item.intro}}" data-id="{{item._id}}" wx:for="{{goodsList}}" wx:key="{{index}}">
-        <view class="recom-box-img">
+      <view class="recom-box-item" data-coverImg="{{item.coverMiddle}}"
+        data-title="{{item.intro}}" wx:for="{{goodsList}}" wx:key="{{index}}">
+        <view class="recom-box-img" bindtap="gotoDetails" data-id="{{item._id}}">
           <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="aspectFill"></image>
         </view>
         <!--标题-->
-        <view class="recom-box-text">{{item.intro}}</view>
+        <view class="recom-box-text" bindtap="gotoDetails" data-id="{{item._id}}">{{item.intro}}</view>
         <!--价格+收藏数-->
         <view class="goods-des">
           <view class="goods-price">¥ {{item.price}}</view>
