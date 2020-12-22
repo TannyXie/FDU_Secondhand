@@ -10,8 +10,8 @@ Page({
     description:"",
     tag:"",
     price:"",
-    qaArray: [{id: 0, question: '', answer: ''}],
-    numQA: 1,
+    // qaArray: [{id: 0, question: '', answer: ''}],
+    // numQA: 1,
     picId:""
   },
   bindPickerChange: function (e) {
@@ -20,7 +20,7 @@ Page({
       tagIndex: e.detail.value,
       tag: curtag
     })
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    console.log('tag picker发送选择改变，携带值为', e.detail.value)
   },
  
   nameInput: function(e){
@@ -39,6 +39,7 @@ Page({
       price: value
     })
   },
+  /*
   questionInput: function(e){
     console.log(e)
     var curQue = e.detail.value;
@@ -63,7 +64,7 @@ Page({
       qaArray: this.data.qaArray
     })
     console.log('moreqa: qaArray length: '+this.data.qaArray.length)
-  },
+  },*/
    // 上传图片
    doUpload: function () {
      var that = this;
@@ -119,6 +120,7 @@ Page({
       
     })
   },
+  /*
   // 发布自动回复
   doPostQA: function () {
     console.log('post qa: qaArray length: '+this.data.qaArray.length)
@@ -173,7 +175,7 @@ Page({
         })
       }
    
- },
+ },*/
    // 发布商品
    doPost: function () {
      var that=this;
@@ -186,9 +188,7 @@ Page({
       })
     }
       else
-      {
-        //发布自动回复
-        this.doPostQA();
+      {       
         wx.cloud.callFunction({
           // 云函数名称
           name: 'addGood',
