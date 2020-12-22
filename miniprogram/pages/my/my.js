@@ -13,6 +13,7 @@ Page({
     },
     authorized:false,
     loaded:0,
+    isHide:false,
   },
  
   /**
@@ -20,49 +21,20 @@ Page({
    */
   onLoad: function () {
     var that=this
-    if (app.globalData.userInfo) {
-      console.log(app.globalData.userInfo)
-      that.setData({
-        userInfo: app.globalData.userInfo,
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      console.log('授权')
-      app.userInfoReadyCallback = res => {
+    wx.cloud.callFunction({
+      name: 'getUserById',
+      data:{
+      },
+      success: function(res) {
         console.log(res)
-        var tmp=res.userInfo
-        console.log(tmp)
-        var nickName = 'userInfo.nickName';
-        var picId='userInfo.picId';
-        that.setData({
-          [nickName]: tmp.nickName,
-          [picId]: tmp.avatarUrl,
-        });
+          if (res.result.statusMsg=='can not get userid') {
+            console.log('用户没有授权')
+            that.setData({
+              isHide: true
+          });
+          } 
       }
-      wx.cloud.callFunction({
-        name: 'addUser',
-        data:{
-          name:that.data.userInfo.nickName,
-          picId:that.data.userInfo.picId,
-          gender:0,
-        },
-        success(res) {
-          console.log('成功添加用户', res);
-        },
-        fail: console.error,
-      })
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfos
-          that.setData({
-            userInfo: res.userInfo,
-          })
-        }
-      })
-    }
+  });
   },
 
   /**
@@ -76,54 +48,29 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    var that = this;
-   console.log(that.data)
-    //get缓存值用户名字，并设置
-    /*
-    try {
-      var value = wx.getStorageSync('nickName')
-      console.log(value);
-      if (value) {
+    var that=this;
+    wx.cloud.callFunction({
+      name: 'getUserById',
+      data:{
+      },
+      success(res) {
+        if(res.result.data){
+        console.log('成功获取用户信息', res.result.data);
+        var nickName = 'userInfo.nickName';
+        var picId='userInfo.picId';
         that.setData({
-          [nickName]: value
-        })
-      }
-    } catch (e) {
-      // Do something when catch error
-    }
-   //get缓存值用户头像，并设置
-   wx.getStorage({
-     key: 'picId',
-     success: function(res) {  
-       that.setData({
-        [picId]: res.data
-       })
-     },
-   })
-   //update default value
-   console.log(that.data.userInfo)
-  */
- //更新用户自定义头像昵称
- wx.cloud.callFunction({
-  name: 'getUserById',
-  data:{
-    // userId:"fakeuserid1",
-  },
-  success(res) {
-    console.log('成功获取用户信息', res.result.data);
-    var nickName = 'userInfo.nickName';
-    var picId='userInfo.picId';
-    that.setData({
-      [nickName]: res.result.data.name,
-      [picId]: res.result.data.picId,
-      authorized: res.result.data.authorized,
-      loaded:1,
-    });
-    console.log(that.data.userInfo)
-  },
-  fail: console.error,
-})
-  },
+          [nickName]: res.result.data.name,
+          [picId]: res.result.data.picId,
+          loaded:1,
+          authorized:res.result.data.authorized,
+        });
+        }
+        //console.log(that.data.userInfo)
+      },
+      fail: console.error,
+    })
+  }
+  ,
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -139,87 +86,82 @@ Page({
 
   },
   onPullDownRefresh(){
-    wx.setNavigationBarTitle({
-      title: '我的信息'
-    });
-    wx.showNavigationBarLoading(); //在标题栏中显示加载图标
-    setTimeout(function () {
-      wx.stopPullDownRefresh(); //停止加载
-      wx.hideNavigationBarLoading(); //隐藏加载icon
-    }, 2000)
+
   },
-  bindGetUserInfo: function(e) {
-    var that = this;
-    var nickName = that.data.userInfo.nickName;
-    var picId = that.data.userInfo.picId;
-    
-    if (e.detail.userInfo) {
-       //用户按了允许授权按钮
-       var userInfo = e.detail.userInfo;
-      that.setData({
-        nickName: userInfo.nickName
-      })
-      that.setData({
-        picId : userInfo.picId
-      })
-      try {//同步设置nickName
-        wx.setStorageSync('nickName', userInfo.nickName)
-      } catch (e) {
-      }
-      
-      wx.setStorage({
-        key: 'picId',
-        data: userInfo.picId,
-      })
-    } else {
-      //用户按了拒绝按钮
-      wx.showModal({
-        title: '提示',
-        content: '请授权登录',
-        success: function (res) {
-          if (res.confirm) {
-            console.log('用户点击确定')
-            wx.navigateBack({
-              delta: 1
-            })
-          } else {
-            console.log('用户点击取消')
-            wx.navigateBack({
-              delta: 1
-            })
-          }
-          
+
+ bindGetUserInfo: function(e) {
+  if (e.detail.userInfo) {
+      //用户按了允许授权按钮
+      var that = this;
+      // 获取到用户的信息了，打印到控制台上看下
+      console.log("用户的信息如下：");
+      console.log(e.detail.userInfo);
+      //授权成功后,通过改变 isHide 的值，让实现页面显示出来，把授权页面隐藏起来
+      //调用addUser,只有新用户能成功入user库
+      if (app.globalData.userInfo) {
+        that.setData({
+          userInfo: app.globalData.userInfo,
+        })
+      } 
+      if (that.data.canIUse){
+        // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+        // 所以此处加入 callback 以防止这种情况
+        app.userInfoReadyCallback = res => {
+          console.log(res)
+          var tmp=res.userInfo
+          console.log(tmp)
+          var nickName = 'userInfo.nickName';
+          var picId='userInfo.picId';
+          that.setData({
+            [nickName]: tmp.nickName,
+            [picId]: tmp.avatarUrl,
+          });
         }
-      })
-    }
-  },
-  bindClear: function (e) {
-    var that = this;
-    var nickName = 'userInfo.nickName';
-    var picId = 'userInfo.picId';
-   
-    try {//同步设置nickName
-      wx.setStorageSync('nickName', '')
-    } catch (e) {
-    }
-    wx.setStorage({
-      key: 'picId',
-      data: '',
-    })
-    that.setData({
-      [nickName]: '个人信息',
-      [picId]: ''
-    })
-    wx.showModal({
-      title: '提示',
-      content: '退出账号成功',
-      success: function(){
-        wx.switchTab({
-          url: '/pages/index/index',
+    
+      } else {
+        // 在没有 open-type=getUserInfo 版本的兼容处理
+        wx.getUserInfo({
+          success: res => {
+            app.globalData.userInfo = res.userInfos
+            that.setData({
+              userInfo: res.userInfo,
+            })
+            console.log('在没有 open-type=getUserInfo 版本的兼容处理')
+          }
         })
       }
-    })
-  },
+      wx.cloud.callFunction({
+        name: 'addUser',
+        data:{
+          name:that.data.userInfo.nickName,
+          picId:that.data.userInfo.picId,
+          gender:0,
+        },
+        success(res) {
+          console.log('成功添加用户', res);
+          that.onShow();
+        },
+        fail: console.error,
+      })
+      that.setData({
+          isHide: false
+      });
+  } else {
+      //用户按了拒绝按钮
+      wx.showModal({
+          title: '警告',
+          content: '您点击了拒绝授权，将无法进入小程序，请授权之后再进入!!!',
+          showCancel: false,
+          confirmText: '返回授权',
+          success: function(res) {
+              // 用户没有授权成功，不需要改变 isHide 的值
+              if (res.confirm) {
+                  console.log('用户点击了“返回授权”');
+              }
+          }
+      });
+  }
+},
 cartTap(e){
   var that=this;
   if(that.data.authorized==true)

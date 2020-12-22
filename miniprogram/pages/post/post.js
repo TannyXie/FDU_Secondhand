@@ -34,8 +34,9 @@ Page({
     })
   },
   priceInput: function(e){
+    let value = e.detail.value.replace(/\D/g, '')
     this.setData({
-      price: e.detail.value
+      price: value
     })
   },
   questionInput: function(e){
@@ -84,6 +85,7 @@ Page({
               data: {
                 file: res.data,
                 name: "imagePost",
+                dir:'pic/'
               },
               success: function(res) {
                 console.log(res.result)
@@ -93,7 +95,7 @@ Page({
                   that.setData({ picId: res.result.data.picId })
                   wx.showToast({
                     icon: 'none',
-                    title: '上传成功'+ that.data.picId,
+                    title: '上传成功', //+ that.data.picId,
                   })
                 }
                 else

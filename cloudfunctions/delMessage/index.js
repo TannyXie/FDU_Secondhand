@@ -13,6 +13,7 @@ cloud.init()
 const db = cloud.database()
 
 exports.main = async (event, context) => {
+  console.log(event)
   try {
     const res = await db.collection('message').doc(event.messageId).remove()
     console.log(res)

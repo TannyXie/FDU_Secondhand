@@ -1,5 +1,5 @@
 <!--miniprogram/pages/my/myBuy/myBuy.wxml-->
-<view class="text-title-1">已买入商品</view>
+<view class="text-title-1">买入商品</view>
 <view wx:if="{{loaded == 0}}">
   <view class="loading-wrap">
     <image class="img" src="/images/loading2.gif"></image>
@@ -12,33 +12,47 @@
       <view class="recom-box">
         <view class="recom-box-item" bindtap="gotoDetails" data-id="{{item._id}}" wx:for="{{goodsList}}" wx:key="index">
           <view class="recom-box-img">
-            <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="widthFix"></image>
+            <image class="recom-box-item-icon" src="{{item.coverMiddle}}" mode="aspectFill"></image>
           </view>
           <view class="goods-des">
             <view class="recom-box-text">{{item.intro}}</view>
-            <view class="goods-tag"  bindtap="gotoFenlei" data-text="{{item.tag}}">{{item.tag}}</view>
-            <!--sold为true表明完成订单-->
-            <view wx:if="{{item.sold}}">
-              <view class="checkout">订单已完成</view>
-            </view>
-            <!--sold为false，且买家已签收，等待卖家收款-->
-            <view wx:elif="{{item.buyerCheck}}">
-              <view class="checkout">买家已签收</view>
-            </view>
-            <!--sold为false，且卖家已收款，等待买家签收-->
-            <view wx:elif="{{item.sellerCheck}}">
-              <view class="checkout">卖家已收款</view>
-            </view>
-            <view wx:else>
-              <view class="checkout">买家已下单</view>
-            </view>
+            <view class="goods-tag" bindtap="gotoFenlei" data-text="{{item.tag}}">{{item.tag}}</view>
           </view>
           <view class="goods-des">
             <view class="goods-price">￥{{item.price}}</view>
-            <view wx:if="{{item.buyerCheck}}">
+            <view class="checkout-user" catchtap="toUser" data-sellerId="{{item.sellerId}}">{{item.sellerName}}</view>
+            <view class="checkout-text">卖家：</view>
+          </view>
+          <view class="line"></view>
+          <view>
+            <view wx:if="{{item.sold}}">
+              <view wx:if="{{item.finishTime != null}}">
+                <view class="checkout">订单已完成</view>
+              </view>
+              <view wx:else>
+                <view class="checkout">已有其他买家买到了</view>
+              </view>
+            </view>
+            <view wx:elif="{{!item.buyerCheck}}">
+              <view class="checkout">等待买家收货</view>
             </view>
             <view wx:else>
-              <view class="small-button" catchtap="buyerCheckout" data-id="{{item.orderId}}">确认签收</view>
+              <view class="checkout">买家已收货，等待卖家确认收款</view>
+            </view>
+            <view wx:if="{{item.sold}}">
+              <view wx:if="{{item.finishTime != null}}">
+                <view class="small-tag">订单完成</view>
+              </view>
+              <view wx:else>
+                <view class="small-tag">订单中止</view>
+              </view>
+            </view>
+            <view wx:elif="{{!item.buyerCheck}}">
+              <view class="small-button" catchtap="buyerCheckout" data-id="{{item.orderId}}"
+                data-sellerid="{{item.sellerId}}">确认收货</view>
+            </view>
+            <view wx:else>
+              <view class="small-tag">等卖家收款</view>
             </view>
           </view>
         </view>

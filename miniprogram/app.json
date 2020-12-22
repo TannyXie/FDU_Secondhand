@@ -25,6 +25,7 @@
     "pages/my/myFavourite/myFavourite",
     "pages/my/myOrder/myOrder",
     "pages/my/addressAdmin/addressAdmin",
+    "pages/my/browseHistory/browseHistory",
     "pages/my/myCart/myCart",
     "pages/search/search",
     "pages/category/category",

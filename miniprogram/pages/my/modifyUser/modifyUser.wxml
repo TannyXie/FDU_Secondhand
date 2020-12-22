@@ -15,5 +15,5 @@
     <view class='profile'>头像</view>
     <input value="{{picId}}" name="profile" bindinput="profileInput"bindtap="uploadPic"placeholder="选择文件"/>
     </view>
-    <button class='btn' disabled="{{studentId == ''||buttonLoading ? true : false}}" loading="{{buttonLoading}}" bindtap="bindSubmit" form-type="submit">保存</button>
+    <button class='btn' disabled="{{studentId == ''||buttonLoading ? true : false}}" loading="{{buttonLoading}}" bindtap="formSubmit" form-type="submit">保存</button>
 </form>

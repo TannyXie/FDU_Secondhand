@@ -12,12 +12,13 @@ Page({
     Mess : [],
     timer : '',
     messages: '',
-    speakee: '',
+    sellerId: '',
     setInter: '',
     touchStart: 0,
     touchEnd: 0,
     ifshow: false,
-    delId: ''
+    delId: '',
+    key: '',
   },
 
   /**
@@ -25,8 +26,9 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      speakee: options.sellerId
+      sellerId: options.sellerId
     })
+    console.log('成功获取卖家Id',options.sellerId);
     var that = this;
     that.data.setInter = setInterval(
       function() {
@@ -34,8 +36,7 @@ Page({
         wx.cloud.callFunction({
           name: 'getMessages',
           data: {
-            thisUserId: 'fakeuser1',
-            anotherUserId: 'fakeuser2'
+            anotherUserId: that.data.sellerId
           },
           success(res) {
             if(res.result.statusMsg=='wrong code')
@@ -70,8 +71,8 @@ Page({
     wx.cloud.callFunction({
       name: 'getMessages',
       data: {
-        thisUserId: 'fakeuser1',
-        anotherUserId: 'fakeuser2'
+//        thisUserId: 'fakeuser1',
+        anotherUserId: that.data.sellerId
       },
       success(res) {
         if(res.result.statusMsg=='wrong code')
@@ -176,22 +177,27 @@ Page({
   },
 
   inputRenew(e){
+    /* 
+      清空聊天框，更新数据库添加发送的信息
+    */
+   var that = this;
     var history = this.data.histMess;
     history.push({
       message: this.data.inputMessage,
       response: 'this is a response'
     });
     var i = this.data.i;
-    console.log('the inputMessage is '+this.data.inputMessage);
+    console.log('the inputMessage is '+that.data.inputMessage);
     wx.cloud.callFunction({
       name: 'addMessage',
       data: {
-        senderId: 'fakeuser1',
-        receiverId: 'fakeuser2',
-        content: this.data.inputMessage
+//        senderId: 'fakeuser1',
+        receiverId: that.data.sellerId,
+//        receiverId: 'fakeuserid3',
+        content: that.data.inputMessage
       },
       success(res) {
-        console.log(res);
+        console.log('成功添加新信息',res);
         if(res.result.statusMsg=='wrong code')
         {
           wx.showModal({
@@ -200,6 +206,7 @@ Page({
           })
         }
       },
+      fail: console.error
     })
     this.setData({
       inputMessage : '',
@@ -208,12 +215,3 @@ Page({
     });
   },
 })
-
-
-/*
-
-    <view class="input-box2">
-      {{item.content}}
-    </view>
-
-*/

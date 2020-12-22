@@ -85,8 +85,7 @@
 .mess-box-img{
   width: 100rpx;
   height: 100rpx;
-  border-top-left-radius: 30rpx;
-  border-top-right-radius: 30rpx;
+  border-radius: 30rpx;
   position: relative;
   margin-top: 25rpx;
   margin-left: 25rpx;

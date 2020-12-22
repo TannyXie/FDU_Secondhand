@@ -13,17 +13,20 @@
   </view>
 
   <view class="goods-recom">
-      <view data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}"
-        wx:for="{{goodsList}}" wx:key="{{index}}">
-          <image class="recom-box-img" src="{{item.coverMiddle}}" mode="widthFix"></image>
-      </view>
+    <view data-coverImg="{{item.coverMiddle}}" data-title="{{item.intro}}" wx:for="{{goodsList}}" wx:key="{{index}}">
+      <image class="recom-box-img" src="{{item.coverMiddle}}" mode="widthFix"></image>
+    </view>
   </view>
   <view class="title-box">
     <view class="text-title2">物品介绍</view>
     <!--<view class="small-button" bindtap="setFavor">收藏</view>-->
-
+    <view wx:if="{{sold}}">
+      <view class="small-tag">已售出</view>
+    </view>
+    <view wx:else>
     <view class="small-button" bindtap="addCart">加购</view>
-    <view class="small-button" bindtap="addOrder">结算</view>
+    <view class="small-button" bindtap="addOrder">下单</view>
+    </view>
   </view>
   <view class="goods-recom">
     <view class="recom-box">
@@ -40,7 +43,7 @@
         </view>
         <view class="goods-des2">
           <view class="goods-wants">{{item.nums}}收藏</view>
-          <view class="goods-sell" bindtap="jumpTo">{{seller}}</view>
+          <view class="goods-sell" bindtap="jumpTo" data-userid="{{item.sellerId}}">{{seller}}</view>
           <view class="goods-price">￥{{item.price}}</view>
         </view>
         <view class="intro-box-text2">商品介绍</view>
@@ -64,7 +67,7 @@
 <view wx:if="{{cmLen}}">
   <view class="cm-box-item" wx:for="{{commentsList}}" wx:key="index">
     <view wx:if="{{item.userInfo.picId != 'someurl'}}">
-    <image class="profile-img" src="{{item.userInfo.picId}}" mode="widthFix"></image>
+    <image class="profile-img" src="{{item.userInfo.picId}}" mode="widthFix" bindtap="jumpTo" data-userid="{{item.userInfo._id}}"></image>
     </view>
     <view wx:else>
       <image class="profile-img" src="./user-unlogin.png" mode="widthFix"></image>

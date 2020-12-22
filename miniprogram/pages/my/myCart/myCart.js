@@ -14,7 +14,7 @@ Page({
     wx.cloud.callFunction({
       name: 'getCartByUserId',
       data:{
-        userId:"fakeuserid1",
+        //userId:"fakeuserid1",
       },
       success(res) {
         console.log('成功获取购物车',res.result.data)
