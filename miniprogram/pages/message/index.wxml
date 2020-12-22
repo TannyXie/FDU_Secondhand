@@ -11,12 +11,12 @@
 <!--消息列表-->
 <view class="mess">
   <view class="mess-box">
-    <view class="mess-box-item" bindtap="gotoDialogue" data-coverImg="{{item.profile}}" data-title="{{item.name}}" data-summery="{{item.message}}" wx:for="{{messageList}}" wx:key="{{index}}">
+    <view class="mess-box-item" bindtap="gotoDialogue" data-coverImg="{{item.profile}}" data-title="{{item.UserId}}" data-summery="{{item.message}}" wx:for="{{output}}" wx:key="{{index}}" data-index="{{index}}">
       <view>
         <!--图片-->
         <image class="mess-box-img" src="{{item.profile}}" ></image>
         <!--名字-->
-        <view class="mess-name">{{item.name}}</view>
+        <view class="mess-name">{{item.nickName}}</view>
         <view class="mess-cont">{{item.message}}</view>
       </view>
       <!--消息-->
