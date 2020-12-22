@@ -30,7 +30,6 @@ Page({
     var that = this;
 
     //获取聊天列表
-    var receivedId = ['fakeuserid1'];
 
     wx.cloud.callFunction({
       name: 'getFriends',
@@ -133,6 +132,9 @@ Page({
       }
     });
     console.log(this.data.messageList);
+  },
+  onShow(){
+    var that = this;
   },
   goToBangDan: function() {
     wx.navigateTo({

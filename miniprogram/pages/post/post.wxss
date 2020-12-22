@@ -96,6 +96,11 @@
   justify-content: center;
 }
 
+.cover-img{
+  width: 256rpx;
+  height: 336rpx;
+}
+
 /*.textarea {
   text-align:center;
   left:17px;
