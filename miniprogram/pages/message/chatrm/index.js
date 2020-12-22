@@ -19,17 +19,43 @@ Page({
     ifshow: false,
     delId: '',
     key: '',
+    thisnickName: '',
+    thatnickName: '',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this;
     this.setData({
       sellerId: options.sellerId
     })
     console.log('成功获取卖家Id',options.sellerId);
-    var that = this;
+    wx.cloud.callFunction({
+      name: 'getUserById',
+      data:{},
+      success(res){
+        console.log('成功获取当前用户昵称',res)
+        that.setData({
+          thisnickName: res.result.data.name,
+        })
+      },
+      fail: console.error
+    })
+    wx.cloud.callFunction({
+      name: 'getUserById',
+      data: {
+        userId : that.data.sellerId
+      },
+      success(res){
+        console.log('成功获取对话方的昵称',res)
+        that.setData({
+          thatnickName: res.result.data.name
+        })
+      },
+      fail: console.error
+    })
     that.data.setInter = setInterval(
       function() {
         var result = '';
@@ -47,9 +73,17 @@ Page({
               })
             }
             else{
-              console.log(res);
+              console.log('成功更新信息',res);
+              var messages = res.result.data
+              var i = 0
+              for(;i<messages.length;++i){
+                if(messages[i].senderId === that.data.sellerId)
+                  messages[i].senderId = that.data.thatnickName
+                else
+                  messages[i].senderId = that.data.thisnickName
+              }
               that.setData({
-                messages: res.result.data
+                messages: messages
               })
             }
           },
@@ -83,9 +117,10 @@ Page({
           })
         }
         else{
+          console.log('成功更新信息',res);
           that.setData({
             messages: res.result.data,
-            ifshow: false,
+//            ifshow: false,
           })
         }
       },
@@ -191,7 +226,7 @@ Page({
     wx.cloud.callFunction({
       name: 'addMessage',
       data: {
-//        senderId: 'fakeuser1',
+//        senderId: 'fakeuserid1',
         receiverId: that.data.sellerId,
 //        receiverId: 'fakeuserid3',
         content: that.data.inputMessage
