@@ -198,7 +198,23 @@ Page({
       },
       success(res) {
         if (res.result.statusCode == 400) {
-          console.log('加购失败')
+          console.log('加购失败：参数为空')
+          wx.showToast({
+            title: '参数为空',
+            duration: 2000,
+            icon: 'none',
+          })
+        }
+        else if (res.result.statusCode == 401) {
+          console.log('加购失败：重复加购')
+          wx.showToast({
+            title: '不能重复加购',
+            duration: 2000,
+            icon: 'none',
+          })
+        }
+        else if (res.result.statusCode == 402) {
+          console.log('加购失败：加购自己的')
           wx.showToast({
             title: '不能加购自己的',
             duration: 2000,
