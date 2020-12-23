@@ -15,7 +15,8 @@ Page({
     star: 0,
     sold: false,
     ifshow: true,
-    delId: ''
+    delId: '',
+    delUser: ''
   },
 
   /**
@@ -398,7 +399,8 @@ Page({
     var that = this
     that.setData({
       ifshow: false,
-      delId: id
+      delId: id,
+      delUser: item.userInfo._id
     })
   },
 
@@ -406,61 +408,80 @@ Page({
     const that = this
     const cid = that.data.delId
     const id = that.data.goodId
+    const uid = that.data.delUser
     that.setData({
       ifshow: true
     })
     wx.cloud.callFunction({
-      name: 'delComment',
+      name: 'getUserById',
       data: {
-        commentId: cid
+
       },
       success(res) {
-        console.log('成功删除留言', res)
-        wx.showToast({
-          title: '成功删除此留言',
-          icon: 'none',
-          duration: 2000
-        })
-        wx.cloud.callFunction({
-          name: 'getCommentsByGoodId',
-          data: {
-            goodId: id,
-          },
-          success(res) {
-            console.log('成功获取留言', res)
-            const comments = res.result.data
-            const l = comments.length
-            comments.sort(function (a, b) {
-              return b.time - a.time
-            })
-            for (let i = 0; i < l; i++) {
-              const t = comments[i].time
-              const date = new Date(t + 8 * 3600 * 1000)
-              const new_t = date.toJSON().substr(0, 19)
-                .replace('T', ' ').replace(/-/g, '.')
-              comments[i].time = new_t
-            }
-            for (let i = 0; i < l; i++) {
-              const picId = comments[i].userInfo.picId
+        const userId = res.result.data._id
+        if (userId == uid) {
+          wx.cloud.callFunction({
+            name: 'delComment',
+            data: {
+              commentId: cid
+            },
+            success(res) {
+              console.log('成功删除留言', res)
+              wx.showToast({
+                title: '成功删除此留言',
+                icon: 'none',
+                duration: 2000
+              })
               wx.cloud.callFunction({
-                name: 'getUrlsByPicIds',
+                name: 'getCommentsByGoodId',
                 data: {
-                  picIdList: [picId]
+                  goodId: id,
                 },
                 success(res) {
-                  console.log('成功加载评论头像', res.result.data.urlList)
-                  comments[i].userInfo.picId = res.result.data.urlList[0]
+                  console.log('成功获取留言', res)
+                  const comments = res.result.data
+                  const l = comments.length
+                  comments.sort(function (a, b) {
+                    return b.time - a.time
+                  })
+                  for (let i = 0; i < l; i++) {
+                    const t = comments[i].time
+                    const date = new Date(t + 8 * 3600 * 1000)
+                    const new_t = date.toJSON().substr(0, 19)
+                      .replace('T', ' ').replace(/-/g, '.')
+                    comments[i].time = new_t
+                  }
+                  for (let i = 0; i < l; i++) {
+                    const picId = comments[i].userInfo.picId
+                    wx.cloud.callFunction({
+                      name: 'getUrlsByPicIds',
+                      data: {
+                        picIdList: [picId]
+                      },
+                      success(res) {
+                        console.log('成功加载评论头像', res.result.data.urlList)
+                        comments[i].userInfo.picId = res.result.data.urlList[0]
+                      }
+                    })
+                    if (i == l - 1) {
+                      that.setData({
+                        commentsList: comments,
+                        cmLen: l,
+                      })
+                    }
+                  }
                 }
               })
-              if (i == l - 1) {
-                that.setData({
-                  commentsList: comments,
-                  cmLen: l,
-                })
-              }
             }
-          }
-        })
+          })
+        }
+        else {
+          wx.showToast({
+            title: '不能删除别人的',
+            icon: 'none',
+            duration: 2000
+          })
+        }
       }
     })
   },
