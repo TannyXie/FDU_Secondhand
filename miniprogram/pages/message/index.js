@@ -25,7 +25,7 @@ Page({
   /**
    * 生命周期函数 —— 监听页面加载
    */
-  onLoad: function (options) {
+  onShow: function (options) {
     
     var that = this;
 
@@ -133,8 +133,8 @@ Page({
     });
     console.log(this.data.messageList);
   },
-  onShow(){
-    var that = this;
+  onLoad(){
+    
   },
   goToBangDan: function() {
     wx.navigateTo({
