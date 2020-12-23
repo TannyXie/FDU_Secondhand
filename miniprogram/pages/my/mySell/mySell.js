@@ -138,6 +138,7 @@ Page({
 
   sellerCheckout(e) {
     const orderId = e.currentTarget.dataset.id
+    const index = e.currentTarget.dataset.index
     wx.cloud.callFunction({
       name: 'checkOrderAsSeller',
       data: {
@@ -149,15 +150,12 @@ Page({
           title: '收款成功',
           duration: 2000,
           icon: 'none',
-          success: function() {
-            setTimeout(function() {
-              wx.redirectTo({
-                url: '/pages/my/mySell/mySell'
-              })
-            }, 1000)
-          }
         })
-
+        let newList = that.data.goodsList
+        newList[index].sellerCheck = true
+        that.setData({
+          goodsList: newList
+        })
       }
     })
   },
