@@ -233,7 +233,7 @@ Page({
       fail(res) {
         console.log('加购失败', res)
         wx.showToast({
-          title: '不能加购自己的',
+          title: '加购失败',
           duration: 2000,
           icon: 'none',
         })
@@ -252,9 +252,25 @@ Page({
       },
       success(res) {
         if (res.result.statusCode == 400) {
-          console.log('下单失败')
+          console.log('下单失败：参数为空')
           wx.showToast({
-            title: '不能买自己的',
+            title: '参数为空',
+            duration: 2000,
+            icon: 'none',
+          })
+        }
+        else if (res.result.statusCode == 401) {
+          console.log('下单失败：重复下单')
+          wx.showToast({
+            title: '不能重复下单',
+            duration: 2000,
+            icon: 'none',
+          })
+        }
+        else if (res.result.statusCode == 402) {
+          console.log('下单失败：下单自己的')
+          wx.showToast({
+            title: '不能下单自己的',
             duration: 2000,
             icon: 'none',
           })
@@ -271,7 +287,7 @@ Page({
       fail(res) {
         console.log('下单失败', res)
         wx.showToast({
-          title: '不能买自己的',
+          title: '下单失败',
           duration: 2000,
           icon: 'none',
         })
