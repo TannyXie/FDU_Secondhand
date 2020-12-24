@@ -8,7 +8,7 @@ Page({
     tagIndex: 0,
     name:"",
     description:"",
-    tag:"",
+    tag:"二手书籍",
     price:"",
     // qaArray: [{id: 0, question: '', answer: ''}],
     // numQA: 1,
@@ -74,51 +74,61 @@ Page({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
+        let fPathOrg = res.tempFilePaths[0]
+        let fPathPressed = fPathOrg
         wx.showLoading({
           title: '上传中',
         })
-        wx.getFileSystemManager().readFile({
-          filePath: res.tempFilePaths[0],
+        wx.compressImage({
+          src: fPathOrg, // 图片路径
+          quality: 20, // 压缩质量
           success: (res) => {
-            console.log(res)
-            wx.cloud.callFunction({
-              name: 'uploadPicture',
-              data: {
-                file: res.data,
-                name: "imagePost",
-                dir:'pic/'
-              },
-              success: function(res) {
-                console.log(res.result)
-                if (res.result.statusCode==200)
-                {
-                  console.log('[上传文件] 成功：', res)
-                  that.setData({ picId: res.result.data.picId })
-                  wx.showToast({
-                    icon: 'none',
-                    title: '上传成功', //+ that.data.picId,
-                  })
-                }
-                else
-                {
-                  console.error('[上传文件] 失败')
-                  wx.showToast({
-                    icon: 'none',
-                    title: '上传失败',
-                  })
-                }
-              },
-              fail: console.error,
-              complete: () => {
-                wx.hideLoading()
+            fPathPressed = res.tempFilePath
+            console.log('压缩成功'+fPathPressed)
+            wx.getFileSystemManager().readFile({
+              filePath: fPathPressed,
+              success: (res) => {
+                console.log(res)
+                wx.cloud.callFunction({
+                  name: 'uploadPicture',
+                  data: {
+                    file: res.data,
+                    name: "imagePost",
+                    dir:'pic/'
+                  },
+                  success: function(res) {
+                    console.log(res.result)
+                    if (res.result.statusCode==200)
+                    {
+                      console.log('[上传文件] 成功：', res)
+                      that.setData({ picId: res.result.data.picId })
+                      wx.showToast({
+                        icon: 'none',
+                        title: '上传成功', //+ that.data.picId,
+                      })
+                    }
+                    else
+                    {
+                      console.error('[上传文件] 失败')
+                      wx.showToast({
+                        icon: 'none',
+                        title: '上传失败',
+                      })
+                    }
+                  },
+                  fail: console.error,
+                  complete: () => {
+                    wx.hideLoading()
+                  }
+                })
               }
             })
-          }
+          },
+          fail: console.error
         })
-      },
-      fail: console.error
-      
-    })
+
+      }
+      })
   },
   /*
   // 发布自动回复
@@ -205,8 +215,18 @@ Page({
             {
               console.log('[发布商品] 成功：', res)
               wx.showToast({
-                icon: 'none',
+                duration: 2000,
                 title: '['+that.data.name+']'+'发布成功',
+                icon: 'none',
+              })
+              that.setData({
+                tagIndex: 0,
+                name:"",
+                description:"",
+                tag:"",
+                price:"",
+                tag:"二手书籍",
+                picId:""
               })
             }
             else
