@@ -51,7 +51,7 @@
               <view class="small-tag">等买家收货</view>
             </view>
             <view wx:else>
-              <view class="small-button" catchtap="sellerCheckout" data-id="{{item.orderId}}" data-buyerid="{{item.buyerId}}">确认收款</view>
+              <view class="small-button" catchtap="sellerCheckout" data-id="{{item.orderId}}" data-buyerid="{{item.buyerId}}" data-index="{{index}}">确认收款</view>
             </view>
           </view>
         </view>

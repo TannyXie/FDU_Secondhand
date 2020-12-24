@@ -58,14 +58,14 @@
   </view>
 
   <textarea class="textarea" style="height: 5em" placeholder="写下给卖家的留言，然后点击发布按钮" bindinput="descInput"
-    value="{{description}}" />
+    value="{{comment}}" />
 
   <view class="title-box">
   <view class="text-title2">留言区</view>
 </view>
 
 <view wx:if="{{cmLen}}">
-  <view class="cm-box-item" wx:for="{{commentsList}}" wx:key="index">
+  <view class="cm-box-item" wx:for="{{commentsList}}" wx:key="index" bindlongpress="longProgress" data-item="{{item}}">
     <view wx:if="{{item.userInfo.picId != 'someurl'}}">
     <image class="profile-img" src="{{item.userInfo.picId}}" mode="widthFix" bindtap="jumpTo" data-userid="{{item.userInfo._id}}"></image>
     </view>
@@ -86,3 +86,6 @@
   <view class="no-data">此商品暂无留言</view>
 </view>
 </view>
+<modal confirm-text="确认" cancel-text="取消" hidden="{{ifshow}}" bindconfirm="modalConfirm" bindcancel="modalCancel">
+  确认删除此留言吗
+</modal>

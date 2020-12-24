@@ -18,15 +18,16 @@ Page({
     picUrlcount: 0,
     swiperCurrent: 0,
     gotouserId: [],
-    output: '',
+    output: [],
+    loaded: 0,
 
   },
 
   /**
    * 生命周期函数 —— 监听页面加载
    */
-  onLoad: function (options) {
-    
+  onShow: function (options) {
+
     var that = this;
 
     //获取聊天列表
@@ -35,93 +36,61 @@ Page({
       name: 'getFriends',
       data: {},
       success(res) {
-        console.log('成功获取朋友',res);
-        var receivedId = res.result.data.userIdList;
-        var i = 0;
-        var tempList = [];
-        for(;i<receivedId.length;++i){
-          tempList.push({'userId': receivedId[i]});
-        }
-        that.setData({
-          messageList: tempList
-        });
-        i = 0;
-        for (;i<receivedId.length; ++i){
-          var person = receivedId[i];
+        console.log('成功获取朋友', res);
+        const receivedId = res.result.data.userIdList;
+        let tempList = [];
+        let j = 0;
+        for (; j < receivedId.length; ++j) {
+          const i = j;
+          tempList.push({ 'userId': receivedId[i] });
+          let person = receivedId[i];
           wx.cloud.callFunction({
             name: 'getUserById',
-            data:{
+            data: {
               userId: person
             },
             success(res) {
               console.log('成功获取用户信息', res.result.data);
-              var count = that.data.nickNamecount;
-              var personInfo = that.data.messageList[count];
-              var messageList = that.data.messageList;
-              personInfo['nickName'] = res.result.data.name;
-              personInfo['picId'] = res.result.data.picId;
-              messageList[count] = personInfo;
-              count++;
-              that.setData({
-                nickNamecount: count,
-                messageList: messageList,
-              })
-              console.log(that.data);
+              tempList[i]['nickName'] = res.result.data.name
               wx.cloud.callFunction({
                 name: 'getUrlsByPicIds',
                 data: {
-                  picIdList: [that.data.messageList[that.data.nickNamecount-1].picId]
+                  picIdList: [res.result.data.picId]
                 },
                 success(res) {
-                  console.log('成功加载评论头像',res);
-                  var count = that.data.picUrlcount;
-                  var personInfo = that.data.messageList[count];
-                  messageList = that.data.messageList;
-                  personInfo['profile'] = res.result.data.urlList[0];
-                  messageList[count] = personInfo;
-                  
-                  count ++;
-                  that.setData({
-                    picUrlcount: count,
-                    messageList: messageList
-                  })
-                  console.log(that.data);
-                  //console.log('person is ',receivedId[urllen]);
+                  console.log('成功加载评论头像', res);
+                  tempList[i]['profile'] = res.result.data.urlList[0];
                   wx.cloud.callFunction({
                     name: 'getMessages',
                     data: {
-                      anotherUserId: messageList[count-1].userId
+                      anotherUserId: tempList[i].userId
                     },
                     success(res) {
-                      console.log('成功加载对话消息',res);
-                      if(res.result.statusMsg=='wrong code')
-                      {
-                        wx.showModal({
-                          title: '消息提示', 
-                          content: '添加消息失败',
+                      console.log('加载对话消息', res);
+                      if (res.result.statusMsg == 'wrong code') {
+                        wx.showToast({
+                          title: '消息加载失败',
+                          duration: 2000,
+                          icon: 'none'
                         })
-                        return;
                       }
-                      var count = that.data.messagecount;
-                      var personInfo = that.data.messageList[count];
-                      messageList = that.data.messageList;
                       var len = res.result.data.length;
-                      messageList[count]['message'] = res.result.data[len-1].content;
-                      count++;
-                      that.setData({
-                        messageList: messageList,
-                        messagecount: count
-                      })
-                      console.log(that.data);
-                      if(that.data.messagecount==receivedId.length){
-                        that.setData({
-                          output: that.data.messageList
+                      tempList[i]['message'] = res.result.data[len - 1].content;
+                      tempList[i]['time'] = res.result.data[len - 1].time
+                      if (tempList.length == receivedId.length && tempList[receivedId.length - 1].hasOwnProperty('message') && tempList[receivedId.length - 1]['message'] != '') {
+                        tempList.sort(function (a, b) {
+                          return b.time - a.time
                         })
+                        that.setData({
+                          output: tempList,
+                          loaded: 1
+                        })
+                        console.log("展示的数据", that.data.output)
                       }
                     },
                     fail: console.error,
                   })
-                  
+
                 },
                 fail: console.error,
               })
@@ -131,19 +100,16 @@ Page({
         }
       }
     });
-    console.log(this.data.messageList);
   },
-  onShow(){
-    var that = this;
-  },
-  goToBangDan: function() {
+  goToBangDan: function () {
     wx.navigateTo({
       url: '/pages/classification/classification',
     })
   },
 
   gotoDialogue(e) {
-    var gotouserId = this.data.messageList[e.currentTarget.dataset.index].userId;
+    var gotouserId = e.currentTarget.dataset.id
+    console.log(gotouserId)
     wx.navigateTo({
       url: '/pages/message/chatrm/index?sellerId=' + gotouserId,
     })

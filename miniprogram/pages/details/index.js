@@ -14,6 +14,9 @@ Page({
     swiperCurrent: 0,
     star: 0,
     sold: false,
+    ifshow: true,
+    delId: '',
+    delUser: ''
   },
 
   /**
@@ -81,7 +84,7 @@ Page({
           console.log('成功获取留言', res)
           const comments = res.result.data
           const l = comments.length
-          comments.sort(function(a, b) {
+          comments.sort(function (a, b) {
             return b.time - a.time
           })
           for (let i = 0; i < l; i++) {
@@ -233,7 +236,7 @@ Page({
       fail(res) {
         console.log('加购失败', res)
         wx.showToast({
-          title: '不能加购自己的',
+          title: '加购失败',
           duration: 2000,
           icon: 'none',
         })
@@ -252,9 +255,25 @@ Page({
       },
       success(res) {
         if (res.result.statusCode == 400) {
-          console.log('下单失败')
+          console.log('下单失败：参数为空')
           wx.showToast({
-            title: '不能买自己的',
+            title: '参数为空',
+            duration: 2000,
+            icon: 'none',
+          })
+        }
+        else if (res.result.statusCode == 401) {
+          console.log('下单失败：重复下单')
+          wx.showToast({
+            title: '不能重复下单',
+            duration: 2000,
+            icon: 'none',
+          })
+        }
+        else if (res.result.statusCode == 402) {
+          console.log('下单失败：下单自己的')
+          wx.showToast({
+            title: '不能下单自己的',
             duration: 2000,
             icon: 'none',
           })
@@ -271,7 +290,7 @@ Page({
       fail(res) {
         console.log('下单失败', res)
         wx.showToast({
-          title: '不能买自己的',
+          title: '下单失败',
           duration: 2000,
           icon: 'none',
         })
@@ -290,32 +309,75 @@ Page({
     var that = this;
     const id = that.data.goodId
     const c = that.data.comment
-    wx.cloud.callFunction({
-      name: 'addComment',
-      data: {
-        goodId: id,
-        content: c
-      },
-      success: function (res) {
-        console.log('成功发布留言：', res)
-        wx.showToast({
-          title: '发布成功',
-          duration: 2000,
-          icon: 'none',
-          success: function() {
-            setTimeout(function() {
-              wx.redirectTo({
-                url: '/pages/details/index?key=' + id
+    if (c == '') {
+      wx.showToast({
+        title: '不能发布空消息',
+        icon: 'none',
+        duration: 2000,
+      })
+    }
+    else {
+      wx.cloud.callFunction({
+        name: 'addComment',
+        data: {
+          goodId: id,
+          content: c
+        },
+        success: function (res) {
+          console.log('成功发布留言：', res)
+          wx.showToast({
+            title: '发布成功',
+            duration: 2000,
+            icon: 'none',
+          });
+          wx.cloud.callFunction({
+            name: 'getCommentsByGoodId',
+            data: {
+              goodId: id,
+            },
+            success(res) {
+              console.log('成功获取留言', res)
+              const comments = res.result.data
+              const l = comments.length
+              comments.sort(function (a, b) {
+                return b.time - a.time
               })
-            }, 1000)
-          }
-        });
-      },
-    })
+              for (let i = 0; i < l; i++) {
+                const t = comments[i].time
+                const date = new Date(t + 8 * 3600 * 1000)
+                const new_t = date.toJSON().substr(0, 19)
+                  .replace('T', ' ').replace(/-/g, '.')
+                comments[i].time = new_t
+              }
+              for (let i = 0; i < l; i++) {
+                const picId = comments[i].userInfo.picId
+                wx.cloud.callFunction({
+                  name: 'getUrlsByPicIds',
+                  data: {
+                    picIdList: [picId]
+                  },
+                  success(res) {
+                    console.log('成功加载评论头像', res.result.data.urlList)
+                    comments[i].userInfo.picId = res.result.data.urlList[0]
+                  }
+                })
+                if (i == l - 1) {
+                  that.setData({
+                    commentsList: comments,
+                    cmLen: l,
+                    comment: ''
+                  })
+                }
+              }
+            }
+          })
+        },
+      })
+    }
   },
 
   // 跳转个人页
-  jumpTo: function(e) {
+  jumpTo: function (e) {
     const userId = e.currentTarget.dataset.userid
     wx.navigateTo({
       url: '/pages/userPage/userPage?sellerId=' + userId
@@ -323,11 +385,110 @@ Page({
   },
 
   gotoFenlei(e) {
-    var text=e.currentTarget.dataset.text;
+    var text = e.currentTarget.dataset.text;
     let str = JSON.stringify(text)
-    console.log('goto: '+ str);
+    console.log('goto: ' + str);
     wx.navigateTo({
       url: '/pages/category/category?str=' + str,
+    })
+  },
+
+  longProgress(e) {
+    const item = e.currentTarget.dataset.item
+    const id = item.commentId
+    var that = this
+    that.setData({
+      ifshow: false,
+      delId: id,
+      delUser: item.userInfo._id
+    })
+  },
+
+  modalConfirm(e) {
+    const that = this
+    const cid = that.data.delId
+    const id = that.data.goodId
+    const uid = that.data.delUser
+    that.setData({
+      ifshow: true
+    })
+    wx.cloud.callFunction({
+      name: 'getUserById',
+      data: {
+
+      },
+      success(res) {
+        const userId = res.result.data._id
+        if (userId == uid) {
+          wx.cloud.callFunction({
+            name: 'delComment',
+            data: {
+              commentId: cid
+            },
+            success(res) {
+              console.log('成功删除留言', res)
+              wx.showToast({
+                title: '成功删除此留言',
+                icon: 'none',
+                duration: 2000
+              })
+              wx.cloud.callFunction({
+                name: 'getCommentsByGoodId',
+                data: {
+                  goodId: id,
+                },
+                success(res) {
+                  console.log('成功获取留言', res)
+                  const comments = res.result.data
+                  const l = comments.length
+                  comments.sort(function (a, b) {
+                    return b.time - a.time
+                  })
+                  for (let i = 0; i < l; i++) {
+                    const t = comments[i].time
+                    const date = new Date(t + 8 * 3600 * 1000)
+                    const new_t = date.toJSON().substr(0, 19)
+                      .replace('T', ' ').replace(/-/g, '.')
+                    comments[i].time = new_t
+                  }
+                  for (let i = 0; i < l; i++) {
+                    const picId = comments[i].userInfo.picId
+                    wx.cloud.callFunction({
+                      name: 'getUrlsByPicIds',
+                      data: {
+                        picIdList: [picId]
+                      },
+                      success(res) {
+                        console.log('成功加载评论头像', res.result.data.urlList)
+                        comments[i].userInfo.picId = res.result.data.urlList[0]
+                      }
+                    })
+                    if (i == l - 1) {
+                      that.setData({
+                        commentsList: comments,
+                        cmLen: l,
+                      })
+                    }
+                  }
+                }
+              })
+            }
+          })
+        }
+        else {
+          wx.showToast({
+            title: '不能删除别人的',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      }
+    })
+  },
+
+  modalCancel(e) {
+    this.setData({
+      ifshow: true
     })
   }
 })
