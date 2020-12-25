@@ -124,7 +124,7 @@ Page({
                       wx.showToast({
                         icon: 'none',
                         duration: 2000,
-                        title: '上传失败，文件过大'
+                        title: '上传失败，文件尺寸过大'
                       })
                     console.error(res)
                   },
