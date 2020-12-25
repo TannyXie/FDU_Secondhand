@@ -31,7 +31,6 @@ Page({
     var that = this;
 
     //获取聊天列表
-
     wx.cloud.callFunction({
       name: 'getFriends',
       data: {},

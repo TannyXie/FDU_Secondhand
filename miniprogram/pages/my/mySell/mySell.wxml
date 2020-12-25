@@ -1,6 +1,9 @@
 <!--miniprogram/pages/my/mySell/mySell.wxml-->
 <view class="text-title-1">卖出商品</view>
-<view wx:if="{{loaded == 0}}">
+<view wx:if="{{!isauth}}">
+  
+</view>
+<view wx:elif="{{loaded == 0}}">
   <view class="loading-wrap">
     <image class="img" src="/images/loading2.gif"></image>
     <view class="text">正在加载...</view>

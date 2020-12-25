@@ -16,7 +16,8 @@ Page({
     sold: false,
     ifshow: true,
     delId: '',
-    delUser: ''
+    delUser: '',
+    isauth: true
   },
 
   /**
@@ -50,23 +51,47 @@ Page({
                 console.log('成功加载用户名', newres1)
                 newList['sellerName'] = newres1.result.data.name
                 wx.cloud.callFunction({
-                  name: 'checkFavoriteByUserIdAndGoodId',
+                  name: 'getUserById',
                   data: {
-                    goodId: key
+
                   },
-                  success(newres2) {
-                    console.log('成功加载收藏状态', newres2)
-                    const flag = newres2.result.data.flag
-                    let starStatus = 0
-                    if (flag)
-                      starStatus = 1
-                    that.setData({
-                      goodId: key,
-                      goodsList: [newList],
-                      seller: newres1.result.data.name,
-                      star: starStatus,
-                      sold: res.result.data.sold
-                    });
+                  success(res) {
+                    if (res.result.statusMsg == 'can not get userid') {
+                      console.log('用户没登录')
+                      that.setData({
+                        isauth: false
+                      })
+                      return;
+                    }
+                    wx.cloud.callFunction({
+                      name: 'checkFavoriteByUserIdAndGoodId',
+                      data: {
+                        goodId: key
+                      },
+                      success(newres2) {
+                        console.log('成功加载收藏状态', newres2)
+                        const flag = newres2.result.data.flag
+                        let starStatus = 0
+                        if (flag)
+                          starStatus = 1
+                        that.setData({
+                          goodId: key,
+                          goodsList: [newList],
+                          seller: newres1.result.data.name,
+                          star: starStatus,
+                          sold: res.result.data.sold
+                        });
+                      }
+                    })
+                    wx.cloud.callFunction({
+                      name: 'addHistory',
+                      data: {
+                        goodId: key,
+                      },
+                      success(res) {
+                        console.log('成功加入历史记录', res);
+                      },
+                    })
                   }
                 })
               }
@@ -115,15 +140,6 @@ Page({
           }
         }
       })
-    wx.cloud.callFunction({
-      name: 'addHistory',
-      data: {
-        goodId: key,
-      },
-      success(res) {
-        console.log('成功加入历史记录', res);
-      },
-    })
   },
 
   // 收藏

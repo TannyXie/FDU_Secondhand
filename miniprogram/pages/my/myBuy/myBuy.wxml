@@ -1,5 +1,8 @@
 <!--miniprogram/pages/my/myBuy/myBuy.wxml-->
 <view class="text-title-1">买入商品</view>
+<view wx:if="{{!isauth}}">
+  
+</view>
 <view wx:if="{{loaded == 0}}">
   <view class="loading-wrap">
     <image class="img" src="/images/loading2.gif"></image>
