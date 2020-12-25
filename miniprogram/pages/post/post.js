@@ -12,9 +12,55 @@ Page({
     price:"",
     // qaArray: [{id: 0, question: '', answer: ''}],
     // numQA: 1,
-    picId:""
+    picId:"",
+    authorized:true,
+    logged:true
+  },
+ /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    var that=this
+    wx.cloud.callFunction({
+      name: 'getUserById',
+      data:{
+      },
+      success: function(res) {
+        console.log(res)
+          if (res.result.statusMsg=='can not get userid') {
+            console.log('用户没有授权')
+            that.setData({logged: false});
+          }
+          if(res.result.data){
+            console.log('成功获取用户信息', res.result.data);
+            that.setData({
+              authorized:res.result.data.authorized,
+            });
+            console.log('认证情况'+that.data.authorized);
+            } 
+      }
+    });
+    if(this.data.logged==false)
+    {
+      wx.showToast({
+        title: '授权登录后才能发布商品',
+        icon:'none',
+        duration: 3000,
+      })
+      return;
+    }
+    if(this.data.authorized==false)
+    {
+      wx.showToast({
+        title: '认证学邮后才能发布商品',
+        icon:'none',
+        duration: 3000,
+      })
+    }
   },
   bindPickerChange: function (e) {
+    if(this.data.authorized==false || this.data.logged==false)
+      return;
     var curtag = this.data.tagArray[e.detail.value];
     this.setData({
       tagIndex: e.detail.value,
@@ -24,16 +70,22 @@ Page({
   },
  
   nameInput: function(e){
+    if(this.data.authorized==false || this.data.logged==false)
+      return;
     this.setData({
       name: e.detail.value
     })
   },
   descInput: function(e){
+    if(this.data.authorized==false || this.data.logged==false)
+      return;
     this.setData({
       description: e.detail.value
     })
   },
   priceInput: function(e){
+    if(this.data.authorized==false || this.data.logged==false)
+      return;
     let value = e.detail.value.replace(/\D/g, '')
     this.setData({
       price: value
@@ -67,6 +119,15 @@ Page({
   },*/
    // 上传图片
    doUpload: function () {
+    if(this.data.authorized==false || this.data.logged==false)
+    {
+      wx.showToast({
+        title: '认证学邮、授权登录后才能发布商品',
+        icon:'none',
+        duration: 3000,
+      })
+      return;
+    }
      var that = this;
     // 选择图片
     wx.chooseImage({
@@ -124,7 +185,7 @@ Page({
                       wx.showToast({
                         icon: 'none',
                         duration: 2000,
-                        title: '上传失败，文件尺寸过大'
+                        title: '上传失败，文件过大'
                       })
                     console.error(res)
                   },
@@ -195,6 +256,15 @@ Page({
  },*/
    // 发布商品
    doPost: function () {
+    if(this.data.authorized==false || this.data.logged==false)
+    {
+      wx.showToast({
+        title: '认证学邮、授权登录后才能发布商品',
+        icon:'none',
+        duration: 3000,
+      })
+      return;
+    }
      var that=this;
      if(that.data.picId =="" | that.data.description ==""| that.data.name ==""| that.data.price ==""| that.data.tag =="") 
      {
