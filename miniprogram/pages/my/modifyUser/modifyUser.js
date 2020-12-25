@@ -45,19 +45,29 @@ Page({
         wx.showLoading({
           title: '上传中',
         })
-        wx.getFileSystemManager().readFile({
-          filePath: res.tempFilePaths[0],
+        let fPathOrg = res.tempFilePaths[0]
+        let fPathPressed = fPathOrg
+        wx.compressImage({
+          src: fPathOrg, // 图片路径
+          quality: 20, // 压缩质量
           success: (res) => {
-            console.log(res)
-            that.setData({
-              file:res.data,
+            fPathPressed = res.tempFilePath
+            console.log('压缩成功'+fPathPressed)
+            wx.getFileSystemManager().readFile({
+              filePath: fPathPressed,
+              success: (res) => {
+                console.log(res)
+                that.setData({
+                  file:res.data,
+                })
+                wx.showToast({
+                  icon: 'none',
+                  title: '上传成功',
+                })
+              }
             })
-            wx.showToast({
-              icon: 'none',
-              title: '上传成功',
-            })
-            console.log('刷新成功')
-          }
+          },
+          fail: console.error
         })
       },
       fail: console.error
