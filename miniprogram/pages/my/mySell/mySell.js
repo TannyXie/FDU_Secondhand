@@ -8,6 +8,7 @@ Page({
     goodsList: [],
     totalNum: 0,
     loaded: 0,
+    isauth: true,
   },
   /**
    * 生命周期函数--监听页面加载
@@ -15,62 +16,88 @@ Page({
   onLoad: function (options) {
     var that = this;
     wx.cloud.callFunction({
-      name: 'getOrdersBySellerId',
-      data:{
+      name: 'getUserById',
+      data: {
+
       },
       success(res) {
-        console.log('成功拿到订单', res);
-        that.setData({
-          totalNum: res.result.data.length,
-        });
-        let goods = [];
-        const names = res.result.data;
-        if (names.length == 0) {
+        if (res.result.statusMsg == 'can not get userid') {
+          console.log('用户没有授权')
           that.setData({
-            loaded: 1,
-          })
-        } else {
-          for (let i = 0; i < names.length; i++) {
-            const id = names[i].goodId;
-            wx.cloud.callFunction({
-              name: 'getGoodById',
-              data: {
-                goodId: id
-              },
-              success(newres) {
-                const item = newres.result.data
-                item['buyerCheck'] = names[i].buyerCheck
-                item['sellerCheck'] = names[i].sellerCheck
-                item['time'] = names[i].createTime
-                item['finishTime'] = names[i].finishTime
-                item['orderId'] = names[i]._id
-                item['buyerId'] = names[i].userId
+            isauth: false
+          });
+          return;
+        }
+        wx.cloud.callFunction({
+          name: 'getOrdersBySellerId',
+          data: {
+          },
+          success(res) {
+            console.log('成功拿到订单', res);
+            that.setData({
+              totalNum: res.result.data.length,
+            });
+            let goods = [];
+            const names = res.result.data;
+            if (names.length == 0) {
+              that.setData({
+                loaded: 1,
+              })
+            } else {
+              for (let j = 0; j < names.length; j++) {
+                const i = j
+                const id = names[i].goodId;
                 wx.cloud.callFunction({
-                  name: 'getUserById',
+                  name: 'getGoodById',
                   data: {
-                    userId: names[i].userId
+                    goodId: id
                   },
-                  success(res) {
-                    console.log('成功拿到买家信息', res.result.data)
-                    item['buyerName'] = res.result.data.name
-                    goods.push(item);
-                    if (goods.length == names.length) {
-                      goods.sort(function(a, b) {
-                        return b.time - a.time
+                  success(newres) {
+                    if (newres.result.statusCode != 200) {
+                      console.log("商品拿不到", newres)
+                    }
+                    else {
+                      const item = newres.result.data
+                      item['buyerCheck'] = names[i].buyerCheck
+                      item['sellerCheck'] = names[i].sellerCheck
+                      item['time'] = names[i].createTime
+                      item['finishTime'] = names[i].finishTime
+                      item['orderId'] = names[i]._id
+                      item['buyerId'] = names[i].userId
+                      wx.cloud.callFunction({
+                        name: 'getUserById',
+                        data: {
+                          userId: names[i].userId
+                        },
+                        success(res) {
+                          if (res.result.statusCode != 200) {
+                            console.log('拿不到买家信息', res)
+                            item['buyerName'] = '未知'
+                          }
+                          else {
+                            console.log('成功拿到买家信息', res.result.data)
+                            item['buyerName'] = res.result.data.name
+                          }
+                          goods.push(item);
+                          goods.sort(function (a, b) {
+                            return b.time - a.time
+                          })
+                          that.setData({
+                            goodsList: goods,
+                            loaded: 1,
+                          })
+                          console.log('展示的数据', goods)
+
+                        }
                       })
-                      that.setData({
-                        goodsList: goods,
-                        loaded: 1,
-                      })
-                      console.log('展示的数据', goods)
                     }
                   }
                 })
               }
-            })
-          }
-        }
-      },
+            }
+          },
+        })
+      }
     })
   },
 
@@ -161,9 +188,9 @@ Page({
   },
 
   gotoFenlei(e) {
-    var text=e.currentTarget.dataset.text;
+    var text = e.currentTarget.dataset.text;
     let str = JSON.stringify(text)
-    console.log('goto: '+ str);
+    console.log('goto: ' + str);
     wx.navigateTo({
       url: '/pages/category/category?str=' + str,
     })

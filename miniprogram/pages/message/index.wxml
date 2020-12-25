@@ -1,26 +1,39 @@
 <!--index.wxml-->
 <!--搜索-->
 <view style="margin-top: 40rpx"></view>
-
 <view class="text-title">
   <block>
     <text>我的消息</text>
   </block>
 </view>
-<view wx:if="{{loaded}}">
+<view wx:if="{{!isauth}}">
+  <view>
+    <image src='/images/my/box.png' mode='widthFix'></image>
+  </view>
+  <view class="no-data">您还没有任何消息</view>
+</view>
+<view wx:elif="{{loaded}}">
+  <view wx:if="{{output.length == 0}}">
+    <view>
+      <image src='/images/my/box.png' mode='widthFix'></image>
+    </view>
+    <view class="no-data">您还没有任何消息</view>
+  </view>
   <!--消息列表-->
-  <view class="mess">
-    <view class="mess-box">
-      <view class="mess-box-item" bindtap="gotoDialogue" data-id="{{item.userId}}" wx:for="{{output}}"
-        wx:key="{{index}}">
-        <view>
-          <!--图片-->
-          <image class="mess-box-img" src="{{item.profile}}"></image>
-          <!--名字-->
-          <view class="mess-name">{{item.nickName}}</view>
-          <view class="mess-cont">{{item.message}}</view>
+  <view wx:else>
+    <view class="mess">
+      <view class="mess-box">
+        <view class="mess-box-item" bindtap="gotoDialogue" data-id="{{item.userId}}" wx:for="{{output}}"
+          wx:key="{{index}}">
+          <view>
+            <!--图片-->
+            <image class="mess-box-img" src="{{item.profile}}"></image>
+            <!--名字-->
+            <view class="mess-name">{{item.nickName}}</view>
+            <view class="mess-cont">{{item.message}}</view>
+          </view>
+          <!--消息-->
         </view>
-        <!--消息-->
       </view>
     </view>
   </view>

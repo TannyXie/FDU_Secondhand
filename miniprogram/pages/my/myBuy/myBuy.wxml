@@ -1,5 +1,11 @@
 <!--miniprogram/pages/my/myBuy/myBuy.wxml-->
 <view class="text-title-1">买入商品</view>
+<view wx:if="{{!isauth}}">
+  <view>
+      <image src='/images/my/box.png' mode='widthFix'></image>
+    </view>
+    <view class="no-data">您还没有任何买入订单</view>
+</view>
 <view wx:if="{{loaded == 0}}">
   <view class="loading-wrap">
     <image class="img" src="/images/loading2.gif"></image>

@@ -23,9 +23,11 @@
     <view wx:if="{{sold}}">
       <view class="small-tag">已售出</view>
     </view>
+    <view wx:elif="{{!isauth}}">
+    </view>
     <view wx:else>
-    <view class="small-button" bindtap="addCart">加购</view>
-    <view class="small-button" bindtap="addOrder">下单</view>
+      <view class="small-button" bindtap="addCart">加购</view>
+      <view class="small-button" bindtap="addOrder">下单</view>
     </view>
   </view>
   <view class="goods-recom">
@@ -33,7 +35,9 @@
       <view class="des-box-item" data-title="{{item.intro}}" wx:for="{{goodsList}}" wx:key="{{index}}">
         <view class="goods-des">
           <view class="recom-box-text">{{item.intro}}</view>
-          <view wx:if="{{star == 0}}">
+          <view wx:if="{{!isauth}}">
+          </view>
+          <view wx:elif="{{star == 0}}">
             <image class="star-icon" src="/images/star.png" mode="widthFix" bindtap="setFavor"></image>
           </view>
           <view wx:else>
