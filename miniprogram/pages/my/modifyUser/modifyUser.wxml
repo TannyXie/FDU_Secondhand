@@ -1,7 +1,13 @@
 <!--miniprogram/pages/addressAdmin/addressAdmin.wxml-->
 <!--个人信息卡片-->
+<view wx:if="{{loaded == 0}}">
+  <view class="loading-wrap">
+    <image class="img" src="/images/loading2.gif"></image>
+    <view class="text">正在加载...</view>
+  </view>
+</view>
+<view wx:else>
 <view class="userinfo">
-    <!--点击头像进入邮箱验证-->
     <image class="userinfo-avatar" src="{{picId}}" background-size="cover" ></image>
     <text class="userinfo-nickname">{{nickName}}</text>
 </view>
@@ -15,5 +21,6 @@
     <view class='profile'>头像</view>
     <input value="{{picId}}" name="profile" bindinput="profileInput"bindtap="uploadPic"placeholder="选择文件"/>
     </view>
-    <button class='btn' disabled="{{studentId == ''||buttonLoading ? true : false}}" loading="{{buttonLoading}}" bindtap="formSubmit" form-type="submit">保存</button>
+    <button class='btn' loading="{{buttonLoading}}" bindtap="formSubmit" form-type="submit">保存</button>
 </form>
+</view>
