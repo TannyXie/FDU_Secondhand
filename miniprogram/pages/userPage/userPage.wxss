@@ -242,7 +242,7 @@ page{
 .goods-price{
   font-size: 35rpx;
   font-weight: bold;
-  color: orangered;
+  color: #E5818D;
   float: left;
   margin-bottom: 10rpx;
   margin-left: 10rpx;
@@ -257,11 +257,16 @@ page{
 }
 
 .goods-sell{
+  width: 100rpx;
+  overflow: ellipsis;
   font-size: 30rpx;
+  display:-webkit-box;
+	-webkit-line-clamp:1;
+	-webkit-box-orient:vertical;
+	overflow:hidden;
   float: right;
   color: #aaa;
   margin-bottom: 10rpx;
-  margin-right: 10rpx;
   text-decoration: underline;
 }
 
