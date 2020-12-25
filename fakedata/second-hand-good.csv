@@ -1,6 +1,0 @@
-_id, intro, desc, tag, price, nums, coverMiddle, sellerId, sold, date
-fakegoodid1, 数字设计, 一些基本描述, 二手书籍, 15, 3, /images/goods/01.jpg, fakeuserid1, false, 1570067471773
-fakegoodid2, 蓝牙耳机, 一些描述, 数码家电, 360, 8, /images/goods/02.jpg, fakeuserid2, true, 1570067353425
-fakegoodid3, 美宝莲卸妆水, 一些描述, 护肤美妆, 69, 0, /images/goods/03.jpg, fakeuserid3, true, 1570067553425
-fakegoodid4, 美宝莲口红, 一些描述, 护肤美妆, 80, 4, /images/goods/04.jpg, fakeuserid3, false, 1579967353425
-fakegoodid5, 农夫山泉12瓶, 很好喝的水, 日常用品, 24, 2, /images/goods/05.jpg, fakeuserid5, false, 1600067253425

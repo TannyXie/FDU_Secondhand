@@ -28,8 +28,8 @@ exports.main = async (event, context) => {
         openid: db.command.eq(cloud.getWXContext().OPENID)
       }).get()
       console.log(userResult)
-      if (userId == null) throw 'openid may not exist'
       userId = userResult.data[0]._id
+      if (userId == null) throw 'openid may not exist'
     } catch (err) {
       console.log(err)
       return util.makeResponse(500, 'can not get userid')
@@ -47,7 +47,7 @@ exports.main = async (event, context) => {
       goodId: db.command.eq(goodId),
     }).get()
     console.log(checkResult)
-    if (checkResult.data.length > 0) return util.makeResponse(400, 'order already exists')
+    if (checkResult.data.length > 0) return util.makeResponse(401, 'order already exists')
   } catch (err) {
     console.log(err)
     return util.makeResponse(500, 'check order fail')
@@ -61,9 +61,9 @@ exports.main = async (event, context) => {
       _id: db.command.eq(goodId),
     }).get()
     console.log(checkResult.data)
-    if (checkResult.data.length == 0) return util.makeResponse(400, 'good does not exit')
-    if (checkResult.data[0].sold==true) return util.makeResponse(400, 'good is already sold')
-    if(checkResult.data[0].sellerId==userId) return util.makeResponse(400,'can not buy your good')
+    if (checkResult.data.length == 0) return util.makeResponse(404, 'good does not exist')
+    if (checkResult.data[0].sold==true) return util.makeResponse(403, 'good is already sold')
+    if (checkResult.data[0].sellerId==userId) return util.makeResponse(402,'can not buy your good')
   } catch (err) {
     console.log(err)
     return util.makeResponse(500, 'check goods fail')

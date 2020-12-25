@@ -1,6 +1,0 @@
-_id, userId, goodId, createTime, finishTime
-fakeorderid1, fakeuserid1, fakegoodid2, 1606557471773, 1606517471773
-fakeorderid2, fakeuserid1, fakegoodid3, 1606557471773, 1606567471700
-fakeorderid3, fakeuserid2, fakegoodid1, 1606557471773,
-fakeorderid4, fakeuserid3, fakegoodid4, 1606557471773,
-fakeorderid5, fakeuserid4, fakegoodid5, 1606557471773,
