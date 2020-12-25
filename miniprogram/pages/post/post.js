@@ -12,9 +12,55 @@ Page({
     price:"",
     // qaArray: [{id: 0, question: '', answer: ''}],
     // numQA: 1,
-    picId:""
+    picId:"",
+    authorized:true,
+    logged:true
+  },
+ /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    var that=this
+    wx.cloud.callFunction({
+      name: 'getUserById',
+      data:{
+      },
+      success: function(res) {
+        console.log(res)
+          if (res.result.statusMsg=='can not get userid') {
+            console.log('用户没有授权')
+            that.setData({logged: false});
+          }
+          if(res.result.data){
+            console.log('成功获取用户信息', res.result.data);
+            that.setData({
+              authorized:res.result.data.authorized,
+            });
+            console.log('认证情况'+that.data.authorized);
+            } 
+      }
+    });
+    if(this.data.logged==false)
+    {
+      wx.showToast({
+        title: '授权登录后才能发布商品',
+        icon:'none',
+        duration: 3000,
+      })
+      return;
+    }
+    if(this.data.authorized==false)
+    {
+      wx.showToast({
+        title: '认证学邮后才能发布商品',
+        icon:'none',
+        duration: 3000,
+      })
+    }
   },
   bindPickerChange: function (e) {
+    if(this.data.authorized==false || this.data.logged==false)
+      return;
     var curtag = this.data.tagArray[e.detail.value];
     this.setData({
       tagIndex: e.detail.value,
@@ -24,16 +70,22 @@ Page({
   },
  
   nameInput: function(e){
+    if(this.data.authorized==false || this.data.logged==false)
+      return;
     this.setData({
       name: e.detail.value
     })
   },
   descInput: function(e){
+    if(this.data.authorized==false || this.data.logged==false)
+      return;
     this.setData({
       description: e.detail.value
     })
   },
   priceInput: function(e){
+    if(this.data.authorized==false || this.data.logged==false)
+      return;
     let value = e.detail.value.replace(/\D/g, '')
     this.setData({
       price: value
@@ -67,6 +119,15 @@ Page({
   },*/
    // 上传图片
    doUpload: function () {
+    if(this.data.authorized==false || this.data.logged==false)
+    {
+      wx.showToast({
+        title: '认证学邮、授权登录后才能发布商品',
+        icon:'none',
+        duration: 3000,
+      })
+      return;
+    }
      var that = this;
     // 选择图片
     wx.chooseImage({
@@ -74,19 +135,18 @@ Page({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
-        let fPathOrg = res.tempFilePaths[0]
-        let fPathPressed = fPathOrg
+        let fPath = res.tempFilePaths[0]
         wx.showLoading({
           title: '上传中',
         })
         wx.compressImage({
-          src: fPathOrg, // 图片路径
+          src: fPath, // 图片路径
           quality: 20, // 压缩质量
           success: (res) => {
-            fPathPressed = res.tempFilePath
-            console.log('压缩成功'+fPathPressed)
+            fPath = res.tempFilePath
+            console.log('压缩成功'+fPath)
             wx.getFileSystemManager().readFile({
-              filePath: fPathPressed,
+              filePath: fPath,
               success: (res) => {
                 console.log(res)
                 wx.cloud.callFunction({
@@ -100,6 +160,7 @@ Page({
                     console.log(res.result)
                     if (res.result.statusCode==200)
                     {
+                      wx.hideLoading()
                       console.log('[上传文件] 成功：', res)
                       that.setData({ picId: res.result.data.picId })
                       wx.showToast({
@@ -107,28 +168,32 @@ Page({
                         title: '上传成功', //+ that.data.picId,
                       })
                     }
-                    else
+                    else 
                     {
-                      console.error('[上传文件] 失败')
+                      wx.hideLoading()
                       wx.showToast({
                         icon: 'none',
-                        title: '上传失败',
+                        title: '上传失败'
                       })
+                      console.log('[上传文件] 失败', res)
                     }
                   },
-                  fail: console.error,
-                  complete: () => {
+                  fail: (res) => {
                     wx.hideLoading()
-                  }
+                      wx.showToast({
+                        icon: 'none',
+                        title: '上传失败，文件过大'
+                      })
+                    console.error(res)
+                  },
                 })
               }
             })
           },
           fail: console.error
         })
-
       }
-      })
+    })
   },
   /*
   // 发布自动回复
@@ -188,6 +253,15 @@ Page({
  },*/
    // 发布商品
    doPost: function () {
+    if(this.data.authorized==false || this.data.logged==false)
+    {
+      wx.showToast({
+        title: '认证学邮、授权登录后才能发布商品',
+        icon:'none',
+        duration: 2000,
+      })
+      return;
+    }
      var that=this;
      if(that.data.picId =="" | that.data.description ==""| that.data.name ==""| that.data.price ==""| that.data.tag =="") 
      {
@@ -215,7 +289,6 @@ Page({
             {
               console.log('[发布商品] 成功：', res)
               wx.showToast({
-                duration: 2000,
                 title: '['+that.data.name+']'+'发布成功',
                 icon: 'none',
               })
