@@ -12,7 +12,7 @@
 const cloud = require('wx-server-sdk')
 cloud.init()
 const db = cloud.database()
-
+const util = require('./util.js')
 
 exports.main = async (event, context) => {
   // const openid = "oFqwP5Ik4q0dt81_AJX8AWkMWHiI"
@@ -44,16 +44,28 @@ exports.main = async (event, context) => {
       statusMsg: 'good id cannot be null'
     }
   }
+
   try {
-    checkResult = await db.collection('cart').where({
+    const checkResult = await db.collection('cart').where({
       userId: db.command.eq(userId),
       goodId: db.command.eq(goodId)
     }).get()
-    if (checkResult.data.length > 0) return util.makeResponse(400, 'good already exists in the cart')
+    if (checkResult.data.length > 0) return util.makeResponse(401, 'good already exists in the cart')
   } catch (err) {
     console.log(err)
     return util.makeResponse(500, 'check cart fail')
   }
+
+  try {
+    const checkResult = await db.collection('second-hand-good').doc(goodId).get()
+    console.log(checkResult)
+    if (checkResult.data.sellerId == userId) 
+    return util.makeResponse(402, 'seller can not be their own buyer')
+  } catch (err) {
+    console.log(err)
+    return util.makeResponse(500, 'check buyer and seller fail')
+  }
+
   try {
     const addResult = await db.collection('cart').add({
       data: {

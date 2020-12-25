@@ -13,6 +13,8 @@ const cloud = require('wx-server-sdk')
 cloud.init()
 
 exports.main = async (event, context) => {
+  console.log(event)
+
   try {
     const res = await cloud.getTempFileURL({
       fileList: event.picIdList
