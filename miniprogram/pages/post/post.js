@@ -74,19 +74,18 @@ Page({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
-        let fPathOrg = res.tempFilePaths[0]
-        let fPathPressed = fPathOrg
+        let fPath = res.tempFilePaths[0]
         wx.showLoading({
           title: '上传中',
         })
         wx.compressImage({
-          src: fPathOrg, // 图片路径
+          src: fPath, // 图片路径
           quality: 20, // 压缩质量
           success: (res) => {
-            fPathPressed = res.tempFilePath
-            console.log('压缩成功'+fPathPressed)
+            fPath = res.tempFilePath
+            console.log('压缩成功'+fPath)
             wx.getFileSystemManager().readFile({
-              filePath: fPathPressed,
+              filePath: fPath,
               success: (res) => {
                 console.log(res)
                 wx.cloud.callFunction({
@@ -100,35 +99,43 @@ Page({
                     console.log(res.result)
                     if (res.result.statusCode==200)
                     {
+                      wx.hideLoading()
                       console.log('[上传文件] 成功：', res)
                       that.setData({ picId: res.result.data.picId })
                       wx.showToast({
                         icon: 'none',
+                        duration: 2000,
                         title: '上传成功', //+ that.data.picId,
                       })
                     }
-                    else
+                    else 
                     {
-                      console.error('[上传文件] 失败')
+                      wx.hideLoading()
                       wx.showToast({
                         icon: 'none',
-                        title: '上传失败',
+                        duration: 2000,
+                        title: '上传失败'
                       })
+                      console.log('[上传文件] 失败', res)
                     }
                   },
-                  fail: console.error,
-                  complete: () => {
+                  fail: (res) => {
                     wx.hideLoading()
-                  }
+                      wx.showToast({
+                        icon: 'none',
+                        duration: 2000,
+                        title: '上传失败，文件过大'
+                      })
+                    console.error(res)
+                  },
                 })
               }
             })
           },
           fail: console.error
         })
-
       }
-      })
+    })
   },
   /*
   // 发布自动回复
