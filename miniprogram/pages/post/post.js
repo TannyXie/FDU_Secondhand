@@ -165,7 +165,6 @@ Page({
                       that.setData({ picId: res.result.data.picId })
                       wx.showToast({
                         icon: 'none',
-                        duration: 2000,
                         title: '上传成功', //+ that.data.picId,
                       })
                     }
@@ -174,7 +173,6 @@ Page({
                       wx.hideLoading()
                       wx.showToast({
                         icon: 'none',
-                        duration: 2000,
                         title: '上传失败'
                       })
                       console.log('[上传文件] 失败', res)
@@ -184,7 +182,6 @@ Page({
                     wx.hideLoading()
                       wx.showToast({
                         icon: 'none',
-                        duration: 2000,
                         title: '上传失败，文件过大'
                       })
                     console.error(res)
@@ -261,7 +258,7 @@ Page({
       wx.showToast({
         title: '认证学邮、授权登录后才能发布商品',
         icon:'none',
-        duration: 3000,
+        duration: 2000,
       })
       return;
     }
@@ -292,7 +289,6 @@ Page({
             {
               console.log('[发布商品] 成功：', res)
               wx.showToast({
-                duration: 2000,
                 title: '['+that.data.name+']'+'发布成功',
                 icon: 'none',
               })
