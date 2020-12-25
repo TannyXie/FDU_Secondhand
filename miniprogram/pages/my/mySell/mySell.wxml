@@ -1,7 +1,10 @@
 <!--miniprogram/pages/my/mySell/mySell.wxml-->
 <view class="text-title-1">卖出商品</view>
 <view wx:if="{{!isauth}}">
-  
+  <view>
+      <image src='/images/my/box.png' mode='widthFix'></image>
+    </view>
+    <view class="no-data">您还没有任何卖出订单</view>
 </view>
 <view wx:elif="{{loaded == 0}}">
   <view class="loading-wrap">
