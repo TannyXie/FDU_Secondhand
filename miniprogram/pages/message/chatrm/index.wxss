@@ -1,11 +1,12 @@
 /* miniprogram/pages/message/chatrm/chatrm.wxss */
 .mess-area{
-  height: 720rpx;
+  height: calc(65vh);
   overflow: scroll;
 }
 .content{
   width: 90%;
   left: 38rpx;
+  height: calc(25vh);
   bottom: 0rpx;
   margin-bottom: 100rpx;
   position: absolute;
@@ -15,7 +16,7 @@
   box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2);
   border-radius: 5px;
   width: auto;
-  height: 180rpx;
+  height: 60%;
   padding-top: 20rpx;
   padding-left: 20rpx;
   margin-bottom: 50rpx;

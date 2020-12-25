@@ -26,10 +26,10 @@
 }
 
 .btn {
-  margin-top: 120rpx;
+  margin-top: 30rpx;
   width: 270rpx;
   height: 90rpx;
-  background-color:#222429;
+  background-color: #222429;
   color: white;
   border-radius: 90rpx;
   display: flex;
@@ -93,4 +93,24 @@ input {
   background-color: #222429;
   color:white;
   font-size:30rpx;
+}
+.loading-wrap {
+  width: 100%;
+  height: 500rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 150rpx;
+}
+
+.loading-wrap .img {
+  width: 100rpx;
+  height: 100rpx;
+  margin-bottom: 50rpx;
+}
+
+.loading-wrap .text {
+  font-size: 26rpx;
+  color: #999;
 }

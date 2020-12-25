@@ -287,43 +287,55 @@ uploadPic(e)
       wx.showLoading({
         title: '上传中',
       })
-      wx.getFileSystemManager().readFile({
-        filePath: res.tempFilePaths[0],
+      let fPathOrg = res.tempFilePaths[0]
+      let fPathPressed = fPathOrg
+      wx.compressImage({
+        src: fPathOrg, // 图片路径
+        quality: 20, // 压缩质量
         success: (res) => {
-          console.log(res)
-          wx.cloud.callFunction({
-            name: 'updateUserInfo',
-            data: {
-              file: res.data,
-              name: nickName
-            },
-            success: function(res) {
-              //console.log(res.result)
-              if (res.result.statusCode==200)
-              {
-                console.log(res)
-                wx.showToast({
-                  icon: 'none',
-                  title: '上传成功',
-                })
-                that.onShow();//刷新头像
-                console.log('刷新成功')
-              }
-              else
-              {
-                console.error('[上传文件] 失败')
-                wx.showToast({
-                  icon: 'none',
-                  title: '上传失败',
-                })
-              }
-            },
-            fail: console.error,
-            complete: () => {
-              wx.hideLoading()
+          
+          fPathPressed = res.tempFilePath
+          console.log('压缩成功'+fPathPressed)
+          wx.getFileSystemManager().readFile({
+            filePath: fPathPressed,
+            success: (res) => {
+              console.log(res)
+              wx.cloud.callFunction({
+                name: 'updateUserInfo',
+                data: {
+                  file: res.data,
+                  name: nickName
+                },
+                success: function(res) {
+                  //console.log(res.result)
+                  if (res.result.statusCode==200)
+                  {
+                    console.log(res)
+                    wx.showToast({
+                      icon: 'none',
+                      title: '上传成功',
+                    })
+                    that.onShow();//刷新头像
+                    console.log('刷新成功')
+                  }
+                  else
+                  {
+                    console.error('[上传文件] 失败')
+                    wx.showToast({
+                      icon: 'none',
+                      title: '上传失败',
+                    })
+                  }
+                },
+                fail: console.error,
+                complete: () => {
+                  wx.hideLoading()
+                }
+              })
             }
           })
-        }
+        },
+        fail: console.error
       })
     },
     fail: console.error
