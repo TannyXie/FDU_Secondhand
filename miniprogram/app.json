@@ -17,7 +17,6 @@
     "pages/message/index",
     "pages/details/index",
     "pages/post/post",
-    "pages/post/index",
     "pages/my/my",
     "pages/my/myPost/myPost",
     "pages/my/mySell/mySell",

@@ -48,7 +48,7 @@
               </view>
             </view>
             <view wx:elif="{{!item.buyerCheck}}">
-              <view class="small-button" catchtap="buyerCheckout" data-id="{{item.orderId}}"
+              <view class="small-button" catchtap="buyerCheckout" data-id="{{item.orderId}}" data-index="{{index}}"
                 data-sellerid="{{item.sellerId}}">确认收货</view>
             </view>
             <view wx:else>

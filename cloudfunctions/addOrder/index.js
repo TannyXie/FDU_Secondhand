@@ -28,8 +28,8 @@ exports.main = async (event, context) => {
         openid: db.command.eq(cloud.getWXContext().OPENID)
       }).get()
       console.log(userResult)
-      userId = userResult.data[0]._id
       if (userId == null) throw 'openid may not exist'
+      userId = userResult.data[0]._id
     } catch (err) {
       console.log(err)
       return util.makeResponse(500, 'can not get userid')
@@ -52,18 +52,23 @@ exports.main = async (event, context) => {
     console.log(err)
     return util.makeResponse(500, 'check order fail')
   }
-  
-  // 买家和卖家不能相同
+
+  //验证goodId存在，不可购买不存在的商品
+  //验证goodId的sold为false，不能买已经出售的商品
+  //验证goodId的sellerId不为userId，不可购买自己的商品
   try {
-    const checkResult = await db.collection('second-hand-good').doc(goodId).get()
-    console.log(checkResult)
-    if (checkResult.data.sellerId == userId) 
-    return util.makeResponse(400, 'seller can not be their own buyer')
+    const checkResult = await db.collection('second-hand-good').where({
+      _id: db.command.eq(goodId),
+    }).get()
+    console.log(checkResult.data)
+    if (checkResult.data.length == 0) return util.makeResponse(400, 'good does not exit')
+    if (checkResult.data[0].sold==true) return util.makeResponse(400, 'good is already sold')
+    if(checkResult.data[0].sellerId==userId) return util.makeResponse(400,'can not buy your good')
   } catch (err) {
     console.log(err)
-    return util.makeResponse(500, 'check buyer and seller fail')
+    return util.makeResponse(500, 'check goods fail')
   }
-  
+
   // 添加订单
   try {
     const addResult = await db.collection('order').add({

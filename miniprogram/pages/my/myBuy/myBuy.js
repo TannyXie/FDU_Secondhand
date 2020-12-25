@@ -138,7 +138,9 @@ Page({
   },
 
   buyerCheckout(e) {
+    let that = this
     const orderId = e.currentTarget.dataset.id
+    const index = e.currentTarget.dataset.index
     wx.cloud.callFunction({
       name: 'checkOrderAsBuyer',
       data: {
@@ -150,13 +152,11 @@ Page({
           title: '签收成功',
           duration: 2000,
           icon: 'none',
-          success: function() {
-            setTimeout(function() {
-              wx.redirectTo({
-                url: '/pages/my/myBuy/myBuy'
-              })
-            }, 1000)
-          }
+        })
+        let newList = that.data.goodsList
+        newList[index].buyerCheck = true
+        that.setData({
+          goodsList: newList
         })
 
       }

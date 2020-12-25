@@ -17,7 +17,7 @@ Page({
         //userId:"fakeuserid1",
       },
       success(res) {
-        console.log('成功获取购物车',res.result.data)
+        console.log('成功获取购物车',res)
         if(res.result.data){
         var carts=[]
         var invalid=[]

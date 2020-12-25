@@ -90,33 +90,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    var that = this;
-    var studentId = that.data.name;
-    console.log(studentId)
-    var nickName = 'userInfo.nickName';
-    var avatarUrl = 'userInfo.avatarUrl';
-    //get缓存值用户名字，并设置
-    try {
-      var value = wx.getStorageSync('nickName')
-      console.log(value);
-      if (value) {
-        that.setData({
-          [nickName]: value
-        })
-      }
-    } catch (e) {
-      // Do something when catch error
-    }
-
-   //get缓存值用户头像，并设置
-   wx.getStorage({
-     key: 'avatarUrl',
-     success: function(res) {  
-       that.setData({
-        [avatarUrl]: res.data
-       })
-     },
-   })
+    
   },
 
   /**
