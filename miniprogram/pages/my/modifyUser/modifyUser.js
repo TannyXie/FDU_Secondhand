@@ -3,6 +3,8 @@ Page({
     nickName:null,
     picId:null,
     file:null,
+    loaded:0,
+    buttonLoading: false,
   },
   onLoad(){
     var that = this;
@@ -15,6 +17,7 @@ Page({
         that.setData({
           nickName: res.result.data.name,
           picId: res.result.data.picId,
+          loaded:1,
         });
       },
       fail: console.error,
@@ -45,19 +48,29 @@ Page({
         wx.showLoading({
           title: '上传中',
         })
-        wx.getFileSystemManager().readFile({
-          filePath: res.tempFilePaths[0],
+        let fPathOrg = res.tempFilePaths[0]
+        let fPathPressed = fPathOrg
+        wx.compressImage({
+          src: fPathOrg, // 图片路径
+          quality: 20, // 压缩质量
           success: (res) => {
-            console.log(res)
-            that.setData({
-              file:res.data,
+            fPathPressed = res.tempFilePath
+            console.log('压缩成功'+fPathPressed)
+            wx.getFileSystemManager().readFile({
+              filePath: fPathPressed,
+              success: (res) => {
+                console.log(res)
+                that.setData({
+                  file:res.data,
+                })
+                wx.showToast({
+                  icon: 'none',
+                  title: '上传成功',
+                })
+              }
             })
-            wx.showToast({
-              icon: 'none',
-              title: '上传成功',
-            })
-            console.log('刷新成功')
-          }
+          },
+          fail: console.error
         })
       },
       fail: console.error
@@ -68,6 +81,9 @@ Page({
     var that =this;
     var nickName=that.data.nickName;
     var file=that.data.file;
+    that.setData({
+      buttonLoading: true
+    })
     console.log("用户点击保存")
     wx.cloud.callFunction({
       name: 'updateUserInfo',
@@ -83,6 +99,9 @@ Page({
           console.log("保存成功")
           console.log("重新载入用户信息")
           that.onLoad();//刷新头像
+          that.setData({
+            buttonLoading: false,
+          })
           wx.showToast({
             icon: 'none',
             title: '保存成功',
